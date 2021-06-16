@@ -4,6 +4,7 @@ import Identification from "../../components/identification";
 import EducationData from '../../components/educationalData'
 import Health from '../../components/health'
 import Benefits from '../../components/benefits'
+import SocialFamilyCondition from '../../components/socialFamilyCondition';
 import { onlyNumbers } from '../../helpers/onlyNumbers'
 import { useCandidate } from "../../domain/models/candidate";
 import { cpfMask, cepMask, birthMask, phoneMask } from '../../helpers/masks'
@@ -14,7 +15,18 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import schemaValidation from '../../helpers/validations/registerCandidate'
 
 const RegisterCandidate = () => {
-  const defaultValues = useCandidate({ isStudent: false, benefits: [{ course: '', shift: '', hour: '' }], hasControlledMedication: 'n', hasAllergy: 'n' });
+  const defaultValues = useCandidate({
+    isStudent: false,
+    benefits: [{ course: '', shift: '', hour: '' }],
+    hasControlledMedication: 'n',
+    hasAllergy: 'n',
+    hasFamilyMedicaltreatment: 'n',
+    hasFamilyMedicineUse: 'n',
+    hasFamilyDeficiency: 'n',
+    hasFamilyChemicalDependency: 'n',
+    hasFamilySocialAccompaniment: 'n',
+    hasFamilySocialBenefit: 'n',
+  });
 
   const methods = useForm({ defaultValues, resolver: yupResolver(schemaValidation) });
   const { handleSubmit, control, setValue } = methods
@@ -95,6 +107,7 @@ const RegisterCandidate = () => {
             {step === 1 && <EducationData control={control} />}
             {step === 2 && <Benefits control={control} />}
             {step === 3 && <Health control={control} />}
+            {step === 4 && <SocialFamilyCondition control={control} />}
             <Grid container spacing={2} justify="flex-end">
               <Grid item>
                 <Button variant="contained" color="secondary" fullWidth>
