@@ -13,10 +13,22 @@ const fields = [
   "emergencyContact",
   "emergencyContactPrimaryPhone",
   "emergencyContactSecondaryPhone",
+  "familyDeficiency",
+  "familyChemicalDependency",
+  "familyMedicaltreatment",
+  "familyMedicineUse",
+  "familySocialAccompaniment",
+  "familySocialBenefit",
   "fatherCpf",
   "fatherName",
   "hasAllergy",
   "hasControlledMedication",
+  "hasFamilyMedicaltreatment",
+  "hasFamilyMedicineUse",
+  "hasFamilyDeficiency",
+  "hasFamilyChemicalDependency",
+  "hasFamilySocialAccompaniment",
+  "hasFamilySocialBenefit",
   "houseNumber",
   "homePhone",
   "isStudent",
@@ -39,7 +51,7 @@ const fields = [
 export const useCandidate = (data = {}) => {
   let values = {}
   for (const field of fields) {
-    values[field] =  data[field] ?? ''
+    values[field] = data[field] ?? ''
   }
   return values
 }
