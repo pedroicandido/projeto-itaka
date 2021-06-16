@@ -1,0 +1,1 @@
+export const onlyNumbers = value => value.replace(/\D/g, '')
