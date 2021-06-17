@@ -7,8 +7,7 @@ import Benefits from '../../components/benefits'
 import SocialFamilyCondition from '../../components/socialFamilyCondition';
 import FamilyComposition from '../../components/familyComposition';
 import OtherInformations from '../../components/otherInformations';
-import { onlyNumbers } from '../../helpers/onlyNumbers'
-import { useCandidate } from "../../domain/models/candidate";
+import { makeDefaultValues } from "../../domain/models/candidate";
 import { cpfMask, cepMask, birthMask, phoneMask } from '../../helpers/masks'
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -17,7 +16,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import schemaValidation from '../../helpers/validations/registerCandidate'
 
 const RegisterCandidate = () => {
-  const defaultValues = useCandidate({
+  const defaultValues = makeDefaultValues({
     isStudent: false,
     benefits: [{ course: '', shift: '', hour: '' }],
     hasControlledMedication: 'n',

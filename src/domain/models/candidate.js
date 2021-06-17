@@ -61,7 +61,7 @@ const fields = [
 
 ];
 
-export const useCandidate = (data = {}) => {
+export const makeDefaultValues = (data = {}) => {
   let values = {}
   for (const field of fields) {
     values[field] = data[field] ?? ''
