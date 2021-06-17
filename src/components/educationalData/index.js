@@ -28,31 +28,31 @@ const EducationData = ({ control }) => {
       {isStudent &&
         <Grid container spacing={2}>
           <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-            <Input control={control} name="" fullWidth label="Nome da Escola/Instituição de Ensino" variant="outlined" helperText="" error="" />
+            <Input control={control} name="" fullWidth label="Nome da Escola/Instituição de Ensino" variant="outlined" helperText=""  />
           </Grid>
           <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
             <Select control={control} name="" variant="outlined" options={[{ value: 'PB', label: 'Pública' }, { value: 'PR', label: 'Privado' }]} placeholder="Instituição" />
           </Grid>
           <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-            <Input control={control} name="" fullWidth label="Endereço da Instituição de Ensino" variant="outlined" helperText="" error="" />
+            <Input control={control} name="" fullWidth label="Endereço da Instituição de Ensino" variant="outlined" helperText=""  />
           </Grid>
           <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-            <Input control={control} name="" fullWidth label="Bairro" variant="outlined" helperText="" error="" />
+            <Input control={control} name="" fullWidth label="Bairro" variant="outlined" helperText=""  />
           </Grid>
           <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-            <Input control={control} name="" fullWidth label="Serie Atual  serie/ano" variant="outlined" helperText="" error="" />
+            <Input control={control} name="" fullWidth label="Serie Atual  serie/ano" variant="outlined" helperText=""  />
           </Grid>
           <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-            <Input control={control} name="" fullWidth label="Turma" variant="outlined" helperText="" error="" />
+            <Input control={control} name="" fullWidth label="Turma" variant="outlined" helperText=""  />
           </Grid>
           <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
             <Select control={control} name="" variant="outlined" options={[{ value: 1, label: 'Manhã' }, { value: 2, label: 'Tarde' }, { value: 3, label: 'Noite' }]} placeholder="Turno" />
           </Grid>
           <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-            <Input control={control} name="" fullWidth label="Escolaridade" variant="outlined" helperText="" error="" />
+            <Input control={control} name="" fullWidth label="Escolaridade" variant="outlined" helperText=""  />
           </Grid>
           <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-            <Input control={control} name="" fullWidth label="Outros cursos já realizados" variant="outlined" helperText="" error="" multiline rows={4} />
+            <Input control={control} name="" fullWidth label="Outros cursos já realizados" variant="outlined" helperText=""  multiline rows={4} />
           </Grid>
         </Grid>}
     </Paper>

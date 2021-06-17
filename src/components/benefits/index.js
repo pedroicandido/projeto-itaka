@@ -27,7 +27,7 @@ const Benefits = ({ control }) => {
           <Divider />
         </Grid>
         {fields.map((item, index) => (
-          <Aux>
+          <Aux key={item.id}>
             <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
               <Select control={control} name={`benefits.${index}.course`} variant="outlined" options={cursos} placeholder="Curso" />
             </Grid>

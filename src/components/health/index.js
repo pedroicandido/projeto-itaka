@@ -37,13 +37,13 @@ const Health = () => {
           <Divider />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
-          <Input control={control} name="emergencyContact" fullWidth label="Nome do contato em caso de emergência médica" variant="outlined" helperText="" error="" />
+          <Input control={control} name="emergencyContact" fullWidth label="Nome do contato em caso de emergência médica" variant="outlined" helperText=""  />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
-          <Input control={control} name="emergencyContactPrimaryPhone" fullWidth label="Telefone de emergência 1" variant="outlined" helperText="" error="" />
+          <Input control={control} name="emergencyContactPrimaryPhone" fullWidth label="Telefone de emergência 1" variant="outlined" helperText=""  />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
-          <Input control={control} name="emergencyContactSecondaryPhone" fullWidth label="Telefone de emergência 2" variant="outlined" helperText="" error="" />
+          <Input control={control} name="emergencyContactSecondaryPhone" fullWidth label="Telefone de emergência 2" variant="outlined" helperText=""  />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
           <Grid container>

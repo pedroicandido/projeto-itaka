@@ -29,7 +29,7 @@ const MainListMenu = (props) => {
     if (item.options) {
       return (
         <Aux key={index}>
-          <StyledMenuItem onClick={() => toggleCandidateMenu({type: item.type})} component={Link} to={item.path} selected={item.path === pathname}>
+          <StyledMenuItem onClick={() => toggleCandidateMenu({type: item.type})} component={Link} to={item.path ?? ''} selected={item.path === pathname}>
             <ListItemIcon>
               <item.Icon />
             </ListItemIcon>
@@ -55,7 +55,7 @@ const MainListMenu = (props) => {
 
     return (
       <Aux key={index}>
-        <StyledMenuItem component={Link} to={item.path}>
+        <StyledMenuItem component={Link} to={item.path ?? null}>
           <ListItemIcon>
             <item.Icon />
           </ListItemIcon>
