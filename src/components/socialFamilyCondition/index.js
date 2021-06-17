@@ -21,7 +21,9 @@ const SocialFamilyCondition = () => {
   const hasFamilySocialAccompaniment = useWatch({ control, name: "hasFamilySocialAccompaniment" });
   const hasFamilySocialBenefit = useWatch({ control, name: "hasFamilySocialBenefit" });
 
-
+  useEffect(()=>{
+    console.log(errors)
+  },[errors])
   return (
     <Paper className={classes.paper} elevation={2}>
       <Grid container spacing={2}>
@@ -82,8 +84,8 @@ const SocialFamilyCondition = () => {
                   fullWidth
                   label="Qual?"
                   variant="outlined"
-                  helperText={errors.allergyMedications?.message}
-                  error={errors.allergyMedications && true}
+                  helperText={errors.familyMedicineUse?.message}
+                  error={errors.familyMedicineUse && true}
                 />
               </Grid>
             )}
@@ -111,8 +113,8 @@ const SocialFamilyCondition = () => {
                   fullWidth
                   label="Qual?"
                   variant="outlined"
-                  helperText={errors.specialMedicalCondition?.message}
-                  error={errors.specialMedicalCondition && true}
+                  helperText={errors.familyDeficiency?.message}
+                  error={errors.familyDeficiency && true}
                 />
               </Grid>
             )}
@@ -140,8 +142,8 @@ const SocialFamilyCondition = () => {
                   fullWidth
                   label="Qual?"
                   variant="outlined"
-                  helperText={errors.specialMedicalCondition?.message}
-                  error={errors.specialMedicalCondition && true}
+                  helperText={errors.familyChemicalDependency?.message}
+                  error={errors.familyChemicalDependency && true}
                 />
               </Grid>
             )}
@@ -169,8 +171,8 @@ const SocialFamilyCondition = () => {
                   fullWidth
                   label="Qual?"
                   variant="outlined"
-                  helperText={errors.specialMedicalCondition?.message}
-                  error={errors.specialMedicalCondition && true}
+                  helperText={errors.familySocialAccompaniment?.message}
+                  error={errors.familySocialAccompaniment && true}
                 />
               </Grid>
             )}
@@ -198,8 +200,8 @@ const SocialFamilyCondition = () => {
                   fullWidth
                   label="Qual?"
                   variant="outlined"
-                  helperText={errors.specialMedicalCondition?.message}
-                  error={errors.specialMedicalCondition && true}
+                  helperText={errors.familySocialBenefit?.message}
+                  error={errors.familySocialBenefit && true}
                 />
               </Grid>
             )}
