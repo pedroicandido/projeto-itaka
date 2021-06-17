@@ -27,10 +27,7 @@ const RegisterCandidate = () => {
     hasFamilyChemicalDependency: 'n',
     hasFamilySocialAccompaniment: 'n',
     hasFamilySocialBenefit: 'n',
-    familyComposition: [{
-      name: "",
-      t2: { value: 'a', label: "b" }
-    }]
+    familyComposition: []
   });
 
   const methods = useForm({ defaultValues, resolver: yupResolver(schemaValidation) });

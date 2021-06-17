@@ -13,15 +13,53 @@ import Typography from "@material-ui/core/Typography";
 import Select from "../select";
 import maritalStatusOptions from "../../domain/fields/maritalStatus";
 import { Button } from "@material-ui/core";
+import uuid from 'react-uuid'
 
 const FamilyComposition = () => {
   const classes = useStyles();
-  const { control } = useFormContext();
+  const { control, trigger, setValue } = useFormContext();
   const { errors } = useFormState({ control });
+  const familyComposition = useWatch({control, name:"familyComposition"})
+  const familyCompositionFinance = useWatch({control, name:"familyCompositionFinance"})
+  const familyCompositionMaritalStatus = useWatch({control, name:"familyCompositionMaritalStatus"})
+  const familyCompositionName = useWatch({control, name:"familyCompositionName"})
+  const familyCompositionOccupation = useWatch({control, name:"familyCompositionOccupation"})
+  const familyCompositionRelationship = useWatch({control, name:"familyCompositionRelationship"})
+  const familyCompositionScholarity = useWatch({control, name:"familyCompositionScholarity"})
 
   useEffect(()=>{
-    console.log(errors)
-  },[errors])
+    console.log(familyComposition)
+  },[familyComposition])
+
+  const hasAnyError = async () => {
+    const result = await trigger(["familyCompositionAge",
+    "familyCompositionFinance",
+    "familyCompositionMaritalStatus",
+    "familyCompositionName",
+    "familyCompositionOccupation",
+    "familyCompositionRelationship",
+    "familyCompositionScholarity"])
+    return result
+  }
+  const addFamilyComposite = () => {
+    const newFamilyComposite = {
+      id: uuid(),
+      familyCompositionFinance,
+      familyCompositionMaritalStatus,
+      familyCompositionName,
+      familyCompositionOccupation,
+      familyCompositionRelationship,
+      familyCompositionScholarity
+    }
+    setValue('familyComposition', [...familyComposition, newFamilyComposite])
+  }
+
+  const onAddHandler = () => {
+    const result = hasAnyError()
+    if(result){
+      addFamilyComposite()
+    }
+  }
 
   return (
     <Paper className={classes.paper} elevation={2}>
@@ -83,11 +121,11 @@ const FamilyComposition = () => {
                   fullWidth
                   label="Renda (R$)"
                   variant="outlined"
-                  helperText={errors.familySocialBenefit?.message}
-                  error={errors.familySocialBenefit && true} />
+                  helperText={errors.familyCompositionFinance?.message}
+                  error={errors.familyCompositionFinance && true} />
               </Grid>
             <Grid item xl={4} lg={4}>
-              <Button variant="contained" color="primary" fullWidth>Adicionar</Button>
+              <Button variant="contained" color="primary" fullWidth onClick={onAddHandler}>Adicionar</Button>
             </Grid>
           </Grid>
         </Grid>
