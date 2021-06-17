@@ -10,7 +10,7 @@ const Input = ({ name, control, ...rest }) => {
     control: control ?? controlContext
   });
 
-  return <TextField {...inputProps} inputRef={ref} {...rest} />;
+  return <TextField  {...inputProps} inputRef={ref} {...rest} />;
 }
 
 export default Input
