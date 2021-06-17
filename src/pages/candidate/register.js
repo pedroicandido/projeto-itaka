@@ -6,6 +6,7 @@ import Health from '../../components/health'
 import Benefits from '../../components/benefits'
 import SocialFamilyCondition from '../../components/socialFamilyCondition';
 import FamilyComposition from '../../components/familyComposition';
+import OtherInformations from '../../components/otherInformations';
 import { onlyNumbers } from '../../helpers/onlyNumbers'
 import { useCandidate } from "../../domain/models/candidate";
 import { cpfMask, cepMask, birthMask, phoneMask } from '../../helpers/masks'
@@ -20,6 +21,7 @@ const RegisterCandidate = () => {
     isStudent: false,
     benefits: [{ course: '', shift: '', hour: '' }],
     hasControlledMedication: 'n',
+    hasAgreed: false,
     hasAllergy: 'n',
     hasFamilyMedicaltreatment: 'n',
     hasFamilyMedicineUse: 'n',
@@ -113,6 +115,7 @@ const RegisterCandidate = () => {
             {step === 3 && <Health control={control} />}
             {step === 4 && <SocialFamilyCondition control={control} />}
             {step === 5 && <FamilyComposition />}
+            {step === 6 && <OtherInformations />}
             <Grid container spacing={2} justify="flex-end">
               <Grid item>
                 <Button variant="contained" color="secondary" fullWidth>

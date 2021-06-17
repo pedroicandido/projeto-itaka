@@ -117,8 +117,6 @@ const FamilyComposition = () => {
                     error={errors.familySocialBenefit && true} />
                 </Grid>
 
-
-
                 <Grid item xl={3} lg={3}>
                   <Input control={control}
                     name="familyCompositionOccupation"
@@ -128,9 +126,6 @@ const FamilyComposition = () => {
                     helperText={errors.familyCompositionOccupation?.message}
                     error={errors.familyCompositionOccupation && true} />
                 </Grid>
-
-
-
                 <Grid item xl={3} lg={3}>
                   <Input control={control}
                     name="familyCompositionFinance"

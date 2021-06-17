@@ -17,8 +17,8 @@ export default yup.object().shape({
   }),
   familyCompositionName: yup.string().required('Campo obrigatório'),
   familyCompositionAge: yup.string().required('Campo obrigatório'),
-  familyCompositionFinance:yup.string().required('Campo obrigatório'),
-  familyCompositionOccupation:yup.string().required('Campo obrigatório'),
+  familyCompositionFinance: yup.string().required('Campo obrigatório'),
+  familyCompositionOccupation: yup.string().required('Campo obrigatório'),
   familyCompositionMaritalStatus: yup.object({
     value: yup.number(),
     label: yup.string()
@@ -56,6 +56,7 @@ export default yup.object().shape({
     then: yup.string().required('Campo obrigatório'),
     otherwise: yup.string(),
   }),
+  hasAgreed: yup.bool().oneOf([true], 'Você precisa aceitar os termos antes de cadastrar um cadidato.').required(),
   hasFamilyChemicalDependency: yup.string().required('Selecione uma opção'),
   hasFamilyDeficiency: yup.string().required('Selecione uma opção'),
   hasFamilyMedicaltreatment: yup.string().required('Selecione uma opção'),
