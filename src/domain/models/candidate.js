@@ -14,6 +14,7 @@ const fields = [
   "emergencyContactPrimaryPhone",
   "emergencyContactSecondaryPhone",
   "familyChemicalDependency",
+  "familyComposition",
   "familyDeficiency",
   "familyMedicaltreatment",
   "familyMedicineUse",
