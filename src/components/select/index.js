@@ -1,10 +1,11 @@
 import Select from 'react-select'
-import { useController } from "react-hook-form";
+import { useController, useFormContext } from "react-hook-form";
 
 const CustomSelectInput = ({ control, name, ...rest }) => {
+  const { control: controlContext } = useFormContext()
   const { field } = useController({
     name,
-    control
+    control: control ?? controlContext
   });
 
   return <Select {...field} {...rest} styles={{
