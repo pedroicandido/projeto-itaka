@@ -16,7 +16,7 @@ export default yup.object().shape({
     otherwise: yup.string(),
   }),
   familyCompositionName: yup.string().required('Campo obrigatório'),
-  familyCompositionAge: yup.string().max(3, 'Máximo de caracteres excedido').required('Campo obrigatório'),
+  familyCompositionAge: yup.string().required('Campo obrigatório'),
   familyCompositionFinance:yup.string().required('Campo obrigatório'),
   familyCompositionOccupation:yup.string().required('Campo obrigatório'),
   familyCompositionMaritalStatus: yup.object({

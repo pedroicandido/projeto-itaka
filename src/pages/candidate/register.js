@@ -30,7 +30,7 @@ const RegisterCandidate = () => {
     familyComposition: []
   });
 
-  const methods = useForm({ defaultValues, resolver: yupResolver(schemaValidation) });
+  const methods = useForm({ defaultValues, resolver: yupResolver(schemaValidation), mode: "onChange" });
   const { handleSubmit, control, setValue } = methods
 
   const [step, setStep] = useState(0);
@@ -47,7 +47,9 @@ const RegisterCandidate = () => {
   const getStep = step => setStep(step)
 
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    console.log('to AQUI')
+  };
 
 
   useEffect(() => {

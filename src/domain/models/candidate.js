@@ -50,6 +50,7 @@ const fields = [
   "responsible",
   "rg",
   "skinColor",
+  "specialMedicalCondition",
   "street",
   "uf",
   "zipCode",
