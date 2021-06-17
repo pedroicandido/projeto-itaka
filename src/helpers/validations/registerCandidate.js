@@ -15,6 +15,22 @@ export default yup.object().shape({
     then: yup.string().required('Campo obrigatório'),
     otherwise: yup.string(),
   }),
+  familyCompositionName: yup.string().required('Campo obrigatório'),
+  familyCompositionAge: yup.string().max(3, 'Máximo de caracteres excedido').required('Campo obrigatório'),
+  familyCompositionFinance:yup.string().required('Campo obrigatório'),
+  familyCompositionOccupation:yup.string().required('Campo obrigatório'),
+  familyCompositionMaritalStatus: yup.object({
+    value: yup.number(),
+    label: yup.string()
+  }).required('Campo obrigatório').nullable(),
+  familyCompositionRelationship: yup.object({
+    value: yup.number(),
+    label: yup.string()
+  }).required('Campo obrigatório').nullable(),
+  familyCompositionScholarity: yup.object({
+    value: yup.number(),
+    label: yup.string()
+  }).required('Campo obrigatório').nullable(),
   familyDeficiency: yup.string().when('hasFamilyDeficiency', {
     is: val => val === 's',
     then: yup.string().required('Campo obrigatório'),
