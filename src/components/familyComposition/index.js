@@ -12,7 +12,7 @@ import {
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import Select from "../select";
-import maritalStatusOptions from "../../domain/fields/maritalStatus";
+import maritalStatusOptions from "../../domain/selectsOptions/maritalStatus";
 import { Button } from "@material-ui/core";
 import FamilyCompositionList from "./components/familyCompositionList";
 import { v4 as uuidv4 } from 'uuid';

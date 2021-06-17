@@ -1,5 +1,5 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
-import CandidateRegister from './pages/candidate/register'
+import AddCandidate from './pages/candidate/addCandidate'
 import UserRegister from './pages/addUser'
 import SignIn from './pages/signin'
 import Dashboard from './pages/dashboard'
@@ -14,7 +14,7 @@ const Routes = () => (
     <Route path="/auth/login" component={SignIn} />
     <Route path="/" exact render={() => <Redirect to="/dashboard" />} />
     <Route path="/dashboard" component={Dashboard} />
-    <Route path="/candidate/register" component={CandidateRegister} />
+    <Route path="/candidate/register" component={AddCandidate} />
     <Route exact path="/user" component={UserInitialPage} />
     <Route path="/user/register" component={UserRegister} />
     <Route exact path="/course" component={WorkshopInitialPage} />

@@ -5,7 +5,7 @@ import Backdrop from '../../components/backdrop'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Input from '../../components/input'
-import makeDefaultValues from '../../domain/models/user'
+import makeDefaultValues from '../../domain/initialValues/user'
 import schemaValidation from '../../helpers/validations/addUser'
 import { Button } from '@material-ui/core';
 import { yupResolver } from '@hookform/resolvers/yup';

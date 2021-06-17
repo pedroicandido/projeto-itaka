@@ -1,21 +1,21 @@
 import { useEffect, useState } from 'react'
-import Stepper from '../../components/stepProgress'
-import Identification from "../../components/identification";
-import EducationData from '../../components/educationalData'
-import Health from '../../components/health'
-import Benefits from '../../components/benefits'
-import SocialFamilyCondition from '../../components/socialFamilyCondition';
-import FamilyComposition from '../../components/familyComposition';
-import OtherInformations from '../../components/otherInformations';
-import { makeDefaultValues } from "../../domain/models/candidate";
-import { cpfMask, cepMask, birthMask, phoneMask } from '../../helpers/masks'
+import Stepper from '../../../components/stepProgress'
+import Identification from "../../../components/identification";
+import EducationData from '../../../components/educationalData'
+import Health from '../../../components/health'
+import Benefits from '../../../components/benefits'
+import SocialFamilyCondition from '../../../components/socialFamilyCondition';
+import FamilyComposition from '../../../components/familyComposition';
+import OtherInformations from '../../../components/otherInformations';
+import { makeDefaultValues } from "../../../domain/initialValues/candidate";
+import { cpfMask, cepMask, birthMask, phoneMask } from '../../../helpers/masks'
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { useForm, useWatch, FormProvider } from "react-hook-form";
 import { yupResolver } from '@hookform/resolvers/yup';
-import schemaValidation from '../../helpers/validations/registerCandidate'
+import schemaValidation from '../../../helpers/validations/registerCandidate'
 
-const RegisterCandidate = () => {
+const AddCandidate = () => {
   const defaultValues = makeDefaultValues({
     isStudent: false,
     benefits: [{ course: '', shift: '', hour: '' }],
@@ -134,4 +134,4 @@ const RegisterCandidate = () => {
   );
 };
 
-export default RegisterCandidate
+export default AddCandidate

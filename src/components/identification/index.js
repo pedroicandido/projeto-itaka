@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { onlyNumbers } from '../../helpers/onlyNumbers'
-import matiralStatusOptions from '../../domain/fields/maritalStatus'
+import matiralStatusOptions from '../../domain/selectsOptions/maritalStatus'
 import { useFormState, useWatch, useFormContext } from 'react-hook-form'
 import api from '../../services/api'
 import useStyles from './styles'

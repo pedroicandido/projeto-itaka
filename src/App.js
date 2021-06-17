@@ -1,5 +1,5 @@
 import Layout from './hoc/layout'
-import RegisterCandidate from './pages/candidate/register'
+import RegisterCandidate from './pages/candidate/addCandidate'
 import Routes from './routes'
 import { Route } from 'react-router-dom'
 import SignIn from './pages/signin'
