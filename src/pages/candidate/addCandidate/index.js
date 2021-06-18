@@ -6,6 +6,7 @@ import Health from '../../../components/health'
 import Benefits from '../../../components/benefits'
 import SocialFamilyCondition from '../../../components/socialFamilyCondition';
 import FamilyComposition from '../../../components/familyComposition';
+import Expenses from '../../../components/expenses';
 import OtherInformations from '../../../components/otherInformations';
 import { makeDefaultValues } from "../../../domain/initialValues/candidate";
 import { cpfMask, cepMask, birthMask, phoneMask } from '../../../helpers/masks'
@@ -108,13 +109,14 @@ const AddCandidate = () => {
         <form onSubmit={handleSubmit(onSubmit)}>
 
           <FormProvider {...methods}>
-            {step === 0 && <Identification control={control} />}
-            {step === 1 && <EducationData control={control} />}
-            {step === 2 && <Benefits control={control} />}
-            {step === 3 && <Health control={control} />}
-            {step === 4 && <SocialFamilyCondition control={control} />}
+            {step === 0 && <Identification />}
+            {step === 1 && <EducationData />}
+            {step === 2 && <Benefits />}
+            {step === 3 && <Health />}
+            {step === 4 && <SocialFamilyCondition />}
             {step === 5 && <FamilyComposition />}
-            {step === 6 && <OtherInformations />}
+            {step === 6 && <Expenses />}
+            {step === 7 && <OtherInformations />}
             <Grid container spacing={2} justify="flex-end">
               <Grid item>
                 <Button variant="contained" color="secondary" fullWidth>
