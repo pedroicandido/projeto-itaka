@@ -66,7 +66,31 @@ export default yup.object().shape({
   hasFamilySocialAccompaniment: yup.string().required('Selecione uma opção'),
   hasFamilySocialBenefit: yup.string().required('Selecione uma opção'),
   hasControlledMedication: yup.string().required('Selecione uma opção'),
+  isStudent: yup.bool(),
+  schoolStreet: yup.string().when('isStudent', {
+    is: val => val === true,
+    then: yup.string().required('Campo obrigatório'),
+    otherwise: yup.string(),
+  }),
+  schoolDistrict: yup.string().when('isStudent', {
+    is: val => val === true,
+    then: yup.string().required('Campo obrigatório'),
+    otherwise: yup.string(),
+  }),
+  schoolName: yup.string().when('isStudent', {
+    is: val => val === true,
+    then: yup.string().required('Campo obrigatório'),
+    otherwise: yup.string(),
+  }),
+  schoolType: yup.object().when('isStudent', {
+    is: val => val === true,
+    then: yup.object({
+      value: yup.number(),
+      label: yup.string()
+    }).required('Campo obrigatório').nullable(),
+    otherwise: yup.object(),
+  }),
   rg: yup.string().required('Campo obrigatório'),
   name: yup.string().required('Campo obrigatório'),
-
+  outherCourses: yup.string().notRequired(),
 })
