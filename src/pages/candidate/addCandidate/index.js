@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Aux from "../../../hoc/auxiliar";
 import Stepper from "../../../components/stepProgress";
 import Identification from "../../../components/identification";
 import EducationData from "../../../components/educationalData";
@@ -9,7 +8,10 @@ import SocialFamilyCondition from "../../../components/socialFamilyCondition";
 import FamilyComposition from "../../../components/familyComposition";
 import Expenses from "../../../components/expenses";
 import OtherInformations from "../../../components/otherInformations";
-import { makeDefaultValues } from "../../../domain/initialValues/candidate";
+import {
+  makeDefaultValues,
+  candidateFields,
+} from "../../../domain/initialValues/candidate";
 import { cpfMask, cepMask, birthMask, phoneMask } from "../../../helpers/masks";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
@@ -35,9 +37,11 @@ const AddCandidate = () => {
   const totalSteps = 7;
   const methods = useForm({
     defaultValues,
-    resolver: yupResolver(schemaValidation)
+    resolver: yupResolver(schemaValidation),
+    mode: "onChange",
+    reValidateMode:"onChange"
   });
-  const { handleSubmit, control, setValue } = methods;
+  const { handleSubmit, control, setValue, trigger } = methods;
 
   const [step, setStep] = useState(0);
   const birthDate = useWatch({ control, name: "birthDate" });
@@ -49,8 +53,28 @@ const AddCandidate = () => {
   const motherCpf = useWatch({ control, name: "motherCpf" });
   const zipCode = useWatch({ control, name: "zipCode" });
 
-  const handleNext = () => {
-    setStep((prevActiveStep) => prevActiveStep + 1);
+  const fetchFieldsToValidate = (step) => {
+    let fields = [];
+    switch (step) {
+      case 0:
+        fields = [...candidateFields]
+        return fields
+      default:
+      return null
+    }
+  };
+
+  const handleNext = async (step) => {
+    const fields = fetchFieldsToValidate(step)
+    //retirar isso.
+    if(!fields){
+      setStep((prevActiveStep) => prevActiveStep + 1);
+      return;
+    }
+    const result = await trigger(fields);
+    if (result) {
+      setStep((prevActiveStep) => prevActiveStep + 1);
+    }
   };
 
   const handleBack = () => {
@@ -116,7 +140,7 @@ const AddCandidate = () => {
           variant="contained"
           color="primary"
           fullWidth
-          onClick={handleNext}
+          onClick={handleNext.bind(null, step)}
           type="button"
         >
           Próximo

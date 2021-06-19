@@ -57,9 +57,10 @@ const fields = [
   "specialMedicalCondition",
   "street",
   "uf",
-  "zipCode",
-
+  "zipCode"
 ];
+
+export const candidateFields = ["cpf", "name","rg", "birthDate", "email"]
 
 export const makeDefaultValues = (data = {}) => {
   let values = {}
