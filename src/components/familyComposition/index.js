@@ -87,7 +87,7 @@ const FamilyComposition = () => {
               <Grid container spacing={2}>
                 <Grid item xl={4} lg={4}>
                   <Input
-                    control={control}
+
                     name="familyCompositionName"
                     fullWidth
                     label="Nome"
@@ -96,19 +96,19 @@ const FamilyComposition = () => {
                 </Grid>
 
                 <Grid item xl={4} lg={4}>
-                  <Select control={control} name="familyCompositionRelationship" variant="outlined" options={[{ value: 1, label: 'Mae' }]} placeholder="Parentesco" />
+                  <Select name="familyCompositionRelationship" variant="outlined" options={[{ value: 1, label: 'Mae' }]} placeholder="Parentesco" />
                 </Grid>
 
                 <Grid item xl={4} lg={4}>
-                  <Select control={control} name="familyCompositionMaritalStatus" variant="outlined" options={maritalStatusOptions} placeholder="ESTADO CIVIL" />
+                  <Select name="familyCompositionMaritalStatus" variant="outlined" options={maritalStatusOptions} placeholder="ESTADO CIVIL" />
                 </Grid>
 
                 <Grid item xl={3} lg={3}>
-                  <Select control={control} name="familyCompositionScholarity" variant="outlined" options={[{ value: 1, label: 'Superior' }]} placeholder="Escolaridade" />
+                  <Select name="familyCompositionScholarity" variant="outlined" options={[{ value: 1, label: 'Superior' }]} placeholder="Escolaridade" />
                 </Grid>
 
                 <Grid item xl={3} lg={3}>
-                  <Input control={control}
+                  <Input
                     name="familyCompositionAge"
                     fullWidth
                     label="Idade"
@@ -118,7 +118,7 @@ const FamilyComposition = () => {
                 </Grid>
 
                 <Grid item xl={3} lg={3}>
-                  <Input control={control}
+                  <Input
                     name="familyCompositionOccupation"
                     fullWidth
                     label="Profissão"
@@ -127,7 +127,7 @@ const FamilyComposition = () => {
                     error={errors.familyCompositionOccupation && true} />
                 </Grid>
                 <Grid item xl={3} lg={3}>
-                  <Input control={control}
+                  <Input
                     name="familyCompositionFinance"
                     type="number"
                     fullWidth
