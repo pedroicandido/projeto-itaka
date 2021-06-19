@@ -9,6 +9,8 @@ export default yup.object().shape({
     then: yup.string().required('Campo obrigatório'),
     otherwise: yup.string(),
   }),
+  cellPhone: yup.string().required('Campo obrigatório'),
+  complement: yup.string(),
   email: yup.string().email('Email inválido').required('Campo obrigatório'),
   familyChemicalDependency: yup.string().when('hasFamilyChemicalDependency', {
     is: val => val === 's',
