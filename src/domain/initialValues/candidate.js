@@ -1,3 +1,5 @@
+import generateValues from "../helpers/makeDefaultValues";
+
 const fields = [
   "allergyMedications",
   "benefits",
@@ -57,16 +59,38 @@ const fields = [
   "specialMedicalCondition",
   "street",
   "uf",
+  "zipCode",
+];
+
+export const candidateFields = [
+  "birthDate",
+  "birthplace",
+  "complement",
+  "cellPhone",
+  "city",
+  "cpf",
+  "district",
+  "email",
+  "fatherCpf",
+  "fatherName",
+  "homePhone",
+  "houseNumber",
+  "laborSituation",
+  "maritalStatus",
+  "messagePhone",
+  "motherCpf",
+  "motherName",
+  "name",
+  "parentsMaritalStatus",
+  "responsible",
+  "rg",
+  "skinColor",
+  "street",
+  "uf",
   "zipCode"
 ];
 
-export const candidateFields = ["cpf", "name","rg", "birthDate", "email"]
-
 export const makeDefaultValues = (data = {}) => {
-  let values = {}
-  for (const field of fields) {
-    values[field] = data[field] ?? ''
-  }
-  return values
-}
-
+  const defaultValues = generateValues(fields, data)
+  return defaultValues;
+};
