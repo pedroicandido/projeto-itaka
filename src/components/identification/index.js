@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { onlyNumbers } from '../../helpers/onlyNumbers'
 import matiralStatusOptions from '../../domain/selectsOptions/maritalStatus'
+import skinColorOptions from '../../domain/selectsOptions/skinColor'
 import { useFormState, useWatch, useFormContext } from 'react-hook-form'
 import api from '../../services/api'
 import useStyles from './styles'
@@ -78,7 +79,7 @@ export default function Identification() {
           <Input  name="birthplace" fullWidth label="Naturalidade" variant="outlined" helperText={errors.birthplace?.message} error={errors.birthplace && true} />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="skinColor" fullWidth label="Cor" variant="outlined" />
+          <Select  name="skinColor" fullWidth placeholder="Cor" options={skinColorOptions} variant="outlined" />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
           <Input  name="laborSituation" fullWidth label="Situação Trabalhista" variant="outlined" />
