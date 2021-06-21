@@ -11,11 +11,12 @@ import OtherInformations from "../../../components/otherInformations";
 import {
   makeDefaultValues,
   candidateFields,
+  educationFields
 } from "../../../domain/initialValues/candidate";
 import { cpfMask, cepMask, birthMask, phoneMask } from "../../../helpers/masks";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import { useForm, useWatch, FormProvider } from "react-hook-form";
+import { useForm, useWatch, FormProvider, useFormState } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schemaValidation from "../../../helpers/validations/registerCandidate";
 
@@ -39,11 +40,11 @@ const AddCandidate = () => {
     defaultValues,
     resolver: yupResolver(schemaValidation),
     mode: "onChange",
-    reValidateMode:"onChange"
+    reValidateMode: "onChange"
   });
   const { handleSubmit, control, setValue, trigger } = methods;
-
-  const [step, setStep] = useState(0);
+  const { errors } = useFormState({ control })
+  const [step, setStep] = useState(1);
   const birthDate = useWatch({ control, name: "birthDate" });
   const cellPhone = useWatch({ control, name: "cellPhone" });
   const cpf = useWatch({ control, name: "cpf" });
@@ -59,18 +60,19 @@ const AddCandidate = () => {
       case 0:
         fields = [...candidateFields]
         return fields
+      case 1:
+        fields = [...educationFields]
+        return fields
       default:
-      return null
+        return null
     }
   };
 
   const handleNext = async (step) => {
     const fields = fetchFieldsToValidate(step)
     //retirar isso.
-    if(!fields){
-      setStep((prevActiveStep) => prevActiveStep + 1);
-      return;
-    }
+
+
     const result = await trigger(fields);
     if (result) {
       setStep((prevActiveStep) => prevActiveStep + 1);
@@ -84,6 +86,11 @@ const AddCandidate = () => {
   const onSubmit = (data) => {
     console.log("to AQUI");
   };
+
+  useEffect(() => {
+    console.log(errors)
+  }, [errors]);
+
 
   useEffect(() => {
     const formatedBirthDate = birthMask(birthDate);

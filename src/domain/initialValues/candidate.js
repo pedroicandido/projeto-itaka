@@ -90,7 +90,12 @@ export const candidateFields = [
   "zipCode"
 ];
 
+
+export const educationFields = ["isStudent", "schooling", "schoolClass", "schoolDistrict", "schoolName", "schoolShift", "schoolStreet", "schoolType", "outherCourses"]
+//NAO DEIXAR ASSIM
+const test = [...fields, ...candidateFields, ...educationFields]
+
 export const makeDefaultValues = (data = {}) => {
-  const defaultValues = generateValues(fields, data)
+  const defaultValues = generateValues(test, data)
   return defaultValues;
 };
