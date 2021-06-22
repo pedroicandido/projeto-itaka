@@ -92,8 +92,10 @@ export const candidateFields = [
 
 
 export const educationFields = ["isStudent", "schooling", "schoolClass", "schoolDistrict", "schoolName", "schoolShift", "schoolStreet", "schoolType", "outherCourses"]
+
+export const benefitsFields = ["benefits"]
 //NAO DEIXAR ASSIM
-const test = [...fields, ...candidateFields, ...educationFields]
+const test = [...candidateFields, ...educationFields, ...benefitsFields]
 
 export const makeDefaultValues = (data = {}) => {
   const defaultValues = generateValues(test, data)
