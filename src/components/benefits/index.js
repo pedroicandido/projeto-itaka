@@ -1,9 +1,11 @@
+import { useEffect} from 'react'
 import Aux from '../../hoc/auxiliar'
 import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Paper from '@material-ui/core/Paper'
 import Select from '../select'
-import { useFieldArray, useFormContext, useFormState } from 'react-hook-form'
+import schoolShiftOptions from '../../domain/selectsOptions/schoolShift'
+import { useFieldArray, useFormContext, useFormState, useWatch } from 'react-hook-form'
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import useStyles from './styles'
@@ -16,11 +18,19 @@ const Benefits = () => {
 
   const classes = useStyles();
   const { control } = useFormContext()
+  const benefits = useWatch({control, name: 'benefits'})
   const { errors } = useFormState({ control })
-  const { fields, append, remove } = useFieldArray({
+  const { fields, prepend, remove, append } = useFieldArray({
     control,
-    name: "benefits"
+    name: "benefits",
   });
+
+
+  useEffect(()=>{
+    console.log(benefits)
+  },[benefits])
+
+
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -32,15 +42,15 @@ const Benefits = () => {
         {fields.map((item, index) => (
           <Aux key={item.id}>
             <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-              <Select name={`benefits.${index}.course`} variant="outlined" options={cursos} placeholder="Curso" />
+              <Select name={`benefits.${index}.course`} variant="outlined" options={cursos} placeholder="Curso" defaultValue={item.course} />
               <ErrorMessage>{errors.benefits?.length >= 0 && errors.benefits[index]?.course?.message}</ErrorMessage>
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-              <Select name={`benefits.${index}.shift`} variant="outlined" options={[{ value: 1, label: 'Manhã' }, { value: 2, label: 'Tarde' }, { value: 3, label: 'Noite' }]} placeholder="Turno" />
+              <Select name={`benefits.${index}.shift`} variant="outlined" defaultValue={item.shift} options={schoolShiftOptions} placeholder="Turno" />
               <ErrorMessage>{errors.benefits?.length > 0 && errors.benefits[index]?.shift?.message}</ErrorMessage>
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-              <Select name={`benefits.${index}.hour`} variant="outlined" options={horarios} placeholder="Horário" />
+              <Select name={`benefits.${index}.hour`} variant="outlined" options={horarios} placeholder="Horário" defaultValue={item.hour}/>
               <ErrorMessage>{errors.benefits?.length > 0 && errors?.benefits[index]?.hour?.message}</ErrorMessage>
             </Grid>
             <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
@@ -51,7 +61,7 @@ const Benefits = () => {
         )}
 
         <Grid item>
-          <Button variant="contained" color="primary" fullWidth onClick={() => append({ course: '', shift: '', hour: '' })}>ADICIONAR</Button>
+          <Button variant="contained" color="primary" fullWidth onClick={() => append({ course: '', shift: "", hour: "" })}>ADICIONAR</Button>
         </Grid>
       </Grid>
     </Paper >

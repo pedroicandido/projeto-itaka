@@ -2,18 +2,9 @@ import * as yup from "yup";
 
 export default yup.object().shape({
   benefits: yup.array().of(yup.object({
-    course: yup.object({
-      value: yup.number(),
-      label: yup.string()
-    }).required('Campo obrigatório').nullable(),
-    shift: yup.object({
-      value: yup.number(),
-      label: yup.string()
-    }).required('Campo obrigatório').nullable(),
-    hour: yup.object({
-      value: yup.number(),
-      label: yup.string()
-    }).required('Campo obrigatório').nullable(),
+    course: yup.object().required('Campo Obrigatório').nullable(),
+    shift: yup.object().required('Campo Obrigatório').nullable(),
+    hour: yup.object().required('Campo Obrigatório').nullable(),
   })).min(1, 'Insira ao menos um curso').required('Campo Obrigatório'),
   birthDate: yup.string().required('Campo obrigatório'),
   birthplace: yup.string().required('Campo obrigatório'),

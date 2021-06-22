@@ -76,7 +76,6 @@ const AddCandidate = () => {
     const fields = fetchFieldsToValidate(step)
     const result = await trigger(fields);
     console.log(errors)
-    console.log(errors)
     if (result) {
       setStep((prevActiveStep) => prevActiveStep + 1);
     }

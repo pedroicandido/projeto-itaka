@@ -11,7 +11,7 @@ const CustomSelectInput = ({ control, name, ...rest }) => {
   return <Select {...field} {...rest} styles={{
     control: (provided) => ({
       ...provided,
-      height: 55
+      height: 55,
     }),
     menu: (provided, state) => ({
       ...provided,
