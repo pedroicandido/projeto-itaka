@@ -37,22 +37,22 @@ const Health = () => {
           <Divider />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
-          <Input control={control} name="emergencyContact" fullWidth label="Nome do contato em caso de emergência médica" variant="outlined" helperText=""  />
+          <Input name="emergencyContact" fullWidth label="Nome do contato em caso de emergência médica" variant="outlined" helperText=""  />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
-          <Input control={control} name="emergencyContactPrimaryPhone" fullWidth label="Telefone de emergência 1" variant="outlined" helperText=""  />
+          <Input name="emergencyContactPrimaryPhone" fullWidth label="Telefone de emergência 1" variant="outlined" helperText=""  />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
-          <Input control={control} name="emergencyContactSecondaryPhone" fullWidth label="Telefone de emergência 2" variant="outlined" helperText=""  />
+          <Input name="emergencyContactSecondaryPhone" fullWidth label="Telefone de emergência 2" variant="outlined" helperText=""  />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
           <Grid container>
             <Grid item xl={4} lg={3}>
-              <Radio name="hasControlledMedication" control={control} legend="Medicação Controlada" options={[{ value: 's', label: 'SIM' }, { value: 'n', label: 'NÃO' }]} />
+              <Radio name="hasControlledMedication" legend="Medicação Controlada" options={[{ value: 's', label: 'SIM' }, { value: 'n', label: 'NÃO' }]} />
             </Grid>
             {hasControlledMedication === 's' &&
               <Grid item xl={8} lg={9}>
-                <Input control={control} name="controlledMedication" fullWidth label="Qual?" variant="outlined" helperText={errors.controlledMedication?.message} error={errors.controlledMedication && true} />
+                <Input name="controlledMedication" fullWidth label="Qual?" variant="outlined" helperText={errors.controlledMedication?.message} error={errors.controlledMedication && true} />
               </Grid>}
           </Grid>
         </Grid>
@@ -60,11 +60,11 @@ const Health = () => {
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
           <Grid container>
             <Grid item xl={4} lg={3}>
-              <Radio name="hasAllergy" control={control} legend="É ALÉRGICO A ALGUMA SUBSTÂNCIA OU MEDICAMENTO?" options={[{ value: 's', label: 'SIM' }, { value: 'n', label: 'NÃO' }]} />
+              <Radio name="hasAllergy" legend="É ALÉRGICO A ALGUMA SUBSTÂNCIA OU MEDICAMENTO?" options={[{ value: 's', label: 'SIM' }, { value: 'n', label: 'NÃO' }]} />
             </Grid>
             {hasAllergy === 's' &&
               <Grid item xl={8} lg={9}>
-                <Input control={control} name="allergyMedications" fullWidth label="Qual?" variant="outlined" helperText={errors.allergyMedications?.message} error={errors.allergyMedications && true} />
+                <Input name="allergyMedications" fullWidth label="Qual?" variant="outlined" helperText={errors.allergyMedications?.message} error={errors.allergyMedications && true} />
               </Grid>}
           </Grid>
         </Grid>
@@ -72,11 +72,11 @@ const Health = () => {
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
           <Grid container>
             <Grid item xl={4} lg={3}>
-              <Radio name="hasSpecialMedicalCondition" control={control} legend="Possui situação médica especial?" options={[{ value: 's', label: 'SIM' }, { value: 'n', label: 'NÃO' }]} />
+              <Radio name="hasSpecialMedicalCondition" legend="Possui situação médica especial?" options={[{ value: 's', label: 'SIM' }, { value: 'n', label: 'NÃO' }]} />
             </Grid>
             {hasSpecialMedicalCondition === 's' &&
               <Grid item xl={8} lg={9}>
-                <Input control={control} name="specialMedicalCondition" fullWidth label="Qual?" variant="outlined" helperText={errors.specialMedicalCondition?.message} error={errors.specialMedicalCondition && true} />
+                <Input name="specialMedicalCondition" fullWidth label="Qual?" variant="outlined" helperText={errors.specialMedicalCondition?.message} error={errors.specialMedicalCondition && true} />
               </Grid>}
           </Grid>
         </Grid>
