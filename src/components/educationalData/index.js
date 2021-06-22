@@ -70,15 +70,15 @@ const EducationData = () => {
               variant="outlined"
             />
           </Grid>
-          <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
+          {/* <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
             <Input
-              name=""
+              name="school"
               fullWidth
               label="Serie Atual  serie/ano"
               variant="outlined"
               helperText=""
             />
-          </Grid>
+          </Grid> */}
           <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
             <Input
               name="schoolClass"

@@ -44,16 +44,13 @@ export default function Identification() {
     setOpenBackdrop(false)
   }
 
-  useEffect(() => {
-    console.log(errors)
-  }, [errors])
 
-  useEffect(() => {
-    if (zipCode.length === 9) {
-      const formatedZipCode = onlyNumbers(zipCode)
-      fetchAdress(formatedZipCode)
-    }
-  }, [zipCode])
+  // useEffect(() => {
+  //   if (zipCode.length === 9) {
+  //     const formatedZipCode = onlyNumbers(zipCode)
+  //     fetchAdress(formatedZipCode)
+  //   }
+  // }, [zipCode])
 
   return (
     <Paper className={classes.paper}>
