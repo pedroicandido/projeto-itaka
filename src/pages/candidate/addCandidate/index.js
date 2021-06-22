@@ -10,6 +10,7 @@ import Expenses from "../../../components/expenses";
 import OtherInformations from "../../../components/otherInformations";
 import {
   makeDefaultValues,
+  benefitsFields,
   candidateFields,
   educationFields
 } from "../../../domain/initialValues/candidate";
@@ -39,12 +40,12 @@ const AddCandidate = () => {
   const methods = useForm({
     defaultValues,
     resolver: yupResolver(schemaValidation),
-    mode: "onChange",
-    reValidateMode: "onChange"
+    reValidateMode: 'onChange',
+    mode: 'onChange'
   });
   const { handleSubmit, control, setValue, trigger } = methods;
   const { errors } = useFormState({ control })
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(2);
   const birthDate = useWatch({ control, name: "birthDate" });
   const cellPhone = useWatch({ control, name: "cellPhone" });
   const cpf = useWatch({ control, name: "cpf" });
@@ -63,6 +64,9 @@ const AddCandidate = () => {
       case 1:
         fields = [...educationFields]
         return fields
+      case 2:
+        fields = [...benefitsFields]
+        return fields
       default:
         return null
     }
@@ -70,10 +74,9 @@ const AddCandidate = () => {
 
   const handleNext = async (step) => {
     const fields = fetchFieldsToValidate(step)
-    //retirar isso.
-
-
     const result = await trigger(fields);
+    console.log(errors)
+    console.log(errors)
     if (result) {
       setStep((prevActiveStep) => prevActiveStep + 1);
     }
@@ -86,10 +89,6 @@ const AddCandidate = () => {
   const onSubmit = (data) => {
     console.log("to AQUI");
   };
-
-  useEffect(() => {
-    console.log(errors)
-  }, [errors]);
 
 
   useEffect(() => {
