@@ -1,6 +1,11 @@
 import * as yup from "yup";
 
 export default yup.object().shape({
+  allergyMedications: yup.string().when('hasAllergy', {
+    is: val => val === 's',
+    then: yup.string().required('Campo obrigatório'),
+    otherwise: yup.string(),
+  }),
   benefits: yup.array().of(yup.object({
     course: yup.object({
       value: yup.number(),
@@ -28,6 +33,9 @@ export default yup.object().shape({
   city: yup.string(),
   district: yup.string(),
   email: yup.string().email('Email inválido').required('Campo obrigatório'),
+  emergencyContactSecondaryPhone: yup.string(),
+  emergencyContactPrimaryPhone: yup.string().min(14, 'Preencha corretamente o telefone').required('Campo obrigatório'),
+  emergencyNameContact: yup.string().required('Campo obrigatório'),
   familyChemicalDependency: yup.string().when('hasFamilyChemicalDependency', {
     is: val => val === 's',
     then: yup.string().required('Campo obrigatório'),
@@ -77,13 +85,14 @@ export default yup.object().shape({
   fatherCpf: yup.string(),
   fatherName: yup.string(),
   hasAgreed: yup.bool().oneOf([true], 'Você precisa aceitar os termos antes de cadastrar um cadidato.').required(),
+  hasAllergy: yup.string().required('Selecione uma opção'),
+  hasControlledMedication: yup.string().required('Selecione uma opção'),
   hasFamilyChemicalDependency: yup.string().required('Selecione uma opção'),
   hasFamilyDeficiency: yup.string().required('Selecione uma opção'),
   hasFamilyMedicaltreatment: yup.string().required('Selecione uma opção'),
   hasFamilyMedicineUse: yup.string().required('Selecione uma opção'),
   hasFamilySocialAccompaniment: yup.string().required('Selecione uma opção'),
   hasFamilySocialBenefit: yup.string().required('Selecione uma opção'),
-  hasControlledMedication: yup.string().required('Selecione uma opção'),
   homePhone: yup.string(),
   houseNumber: yup.string(),
   laborSituation: yup.string(),
@@ -119,6 +128,11 @@ export default yup.object().shape({
     otherwise: yup.object(),
   }).nullable(),
   skinColor: yup.object().nullable(),
+  specialMedicalCondition: yup.string().when('hasSpecialMedicalCondition', {
+    is: val => val === 's',
+    then: yup.string().required('Campo obrigatório'),
+    otherwise: yup.string(),
+  }),
   street: yup.string(),
   rg: yup.string().required('Campo obrigatório'),
   outherCourses: yup.string().notRequired(),

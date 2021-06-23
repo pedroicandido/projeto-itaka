@@ -87,17 +87,39 @@ export const candidateFields = [
   "skinColor",
   "street",
   "uf",
-  "zipCode"
+  "zipCode",
 ];
 
+export const educationFields = [
+  "isStudent",
+  "schooling",
+  "schoolClass",
+  "schoolDistrict",
+  "schoolName",
+  "schoolShift",
+  "schoolStreet",
+  "schoolType",
+  "outherCourses",
+];
 
-export const educationFields = ["isStudent", "schooling", "schoolClass", "schoolDistrict", "schoolName", "schoolShift", "schoolStreet", "schoolType", "outherCourses"]
+export const benefitsFields = ["benefits"];
 
-export const benefitsFields = ["benefits"]
+export const healthFields = [
+  "allergyMedications",
+  "controlledMedication",
+  "emergencyNameContact",
+  "emergencyContactPrimaryPhone",
+  "emergencyContactSecondaryPhone",
+  "hasAllergy",
+  "hasControlledMedication",
+  "hasSpecialMedicalCondition",
+  "specialMedicalCondition"
+
+];
 //NAO DEIXAR ASSIM
-const test = [...candidateFields, ...educationFields, ...benefitsFields]
+const combineInitialValues = [...candidateFields, ...educationFields, ...benefitsFields, ...healthFields];
 
 export const makeDefaultValues = (data = {}) => {
-  const defaultValues = generateValues(test, data)
+  const defaultValues = generateValues(combineInitialValues, data);
   return defaultValues;
 };

@@ -8,6 +8,7 @@ import { phoneMask } from '../../helpers/masks'
 import { useFormContext, useWatch, useFormState } from 'react-hook-form'
 import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
+import yesOrNoOptions from '../../domain/selectsOptions/yesOrNo'
 
 const Health = () => {
   const classes = useStyles()
@@ -37,18 +38,18 @@ const Health = () => {
           <Divider />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
-          <Input name="emergencyContact" fullWidth label="Nome do contato em caso de emergência médica" variant="outlined" helperText=""  />
+          <Input name="emergencyNameContact" fullWidth label="Nome do contato em caso de emergência médica" variant="outlined" helperText={errors.emergencyNameContact?.message} error={errors.emergencyNameContact && true}  />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
-          <Input name="emergencyContactPrimaryPhone" fullWidth label="Telefone de emergência 1" variant="outlined" helperText=""  />
+          <Input name="emergencyContactPrimaryPhone" fullWidth label="Telefone de emergência 1" variant="outlined" helperText={errors.emergencyContactPrimaryPhone?.message} error={errors.emergencyContactPrimaryPhone && true}  />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
-          <Input name="emergencyContactSecondaryPhone" fullWidth label="Telefone de emergência 2" variant="outlined" helperText=""  />
+          <Input name="emergencyContactSecondaryPhone" fullWidth label="Telefone de emergência 2" variant="outlined" helperText={errors.emergencyContactSecondaryPhone?.message} error={errors.emergencyContactSecondaryPhone && true}  />
         </Grid>
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
           <Grid container>
             <Grid item xl={4} lg={3}>
-              <Radio name="hasControlledMedication" legend="Medicação Controlada" options={[{ value: 's', label: 'SIM' }, { value: 'n', label: 'NÃO' }]} />
+              <Radio name="hasControlledMedication" legend="Medicação Controlada" options={yesOrNoOptions} />
             </Grid>
             {hasControlledMedication === 's' &&
               <Grid item xl={8} lg={9}>
@@ -60,7 +61,7 @@ const Health = () => {
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
           <Grid container>
             <Grid item xl={4} lg={3}>
-              <Radio name="hasAllergy" legend="É ALÉRGICO A ALGUMA SUBSTÂNCIA OU MEDICAMENTO?" options={[{ value: 's', label: 'SIM' }, { value: 'n', label: 'NÃO' }]} />
+              <Radio name="hasAllergy" legend="É ALÉRGICO A ALGUMA SUBSTÂNCIA OU MEDICAMENTO?" options={yesOrNoOptions} />
             </Grid>
             {hasAllergy === 's' &&
               <Grid item xl={8} lg={9}>
@@ -72,7 +73,7 @@ const Health = () => {
         <Grid item xl={4} lg={4} md={12} sm={12} xs={12}>
           <Grid container>
             <Grid item xl={4} lg={3}>
-              <Radio name="hasSpecialMedicalCondition" legend="Possui situação médica especial?" options={[{ value: 's', label: 'SIM' }, { value: 'n', label: 'NÃO' }]} />
+              <Radio name="hasSpecialMedicalCondition" legend="Possui situação médica especial?" options={yesOrNoOptions} />
             </Grid>
             {hasSpecialMedicalCondition === 's' &&
               <Grid item xl={8} lg={9}>

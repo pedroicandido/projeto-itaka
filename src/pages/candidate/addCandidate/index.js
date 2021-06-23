@@ -12,7 +12,8 @@ import {
   makeDefaultValues,
   benefitsFields,
   candidateFields,
-  educationFields
+  educationFields,
+  healthFields
 } from "../../../domain/initialValues/candidate";
 import { cpfMask, cepMask, birthMask, phoneMask } from "../../../helpers/masks";
 import Button from "@material-ui/core/Button";
@@ -34,6 +35,7 @@ const AddCandidate = () => {
     hasFamilyChemicalDependency: "n",
     hasFamilySocialAccompaniment: "n",
     hasFamilySocialBenefit: "n",
+    hasSpecialMedicalCondition: "n",
     familyComposition: [],
   });
   const totalSteps = 7;
@@ -66,6 +68,9 @@ const AddCandidate = () => {
         return fields
       case 2:
         fields = [...benefitsFields]
+        return fields
+      case 3:
+        fields = [...healthFields]
         return fields
       default:
         return null
