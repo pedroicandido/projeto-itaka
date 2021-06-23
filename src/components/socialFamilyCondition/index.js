@@ -8,6 +8,7 @@ import { phoneMask } from "../../helpers/masks";
 import { useFormContext, useWatch, useFormState } from "react-hook-form";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
+import yesOrNoOptions from "../../domain/selectsOptions/yesOrNo";
 
 const SocialFamilyCondition = () => {
   const classes = useStyles();
@@ -41,10 +42,7 @@ const SocialFamilyCondition = () => {
                 name="hasFamilyMedicaltreatment"
                 control={control}
                 legend="Alguém da composição familiar esta em tratamento médico?"
-                options={[
-                  { value: "s", label: "SIM" },
-                  { value: "n", label: "NÃO" },
-                ]}
+                options={yesOrNoOptions}
               />
             </Grid>
             {hasFamilyMedicaltreatment === "s" && (
@@ -70,10 +68,7 @@ const SocialFamilyCondition = () => {
                 name="hasFamilyMedicineUse"
                 control={control}
                 legend="Alguém da composição familiar faz uso contínuo de medicamentos?"
-                options={[
-                  { value: "s", label: "SIM" },
-                  { value: "n", label: "NÃO" },
-                ]}
+                options={yesOrNoOptions}
               />
             </Grid>
             {hasFamilyMedicineUse === "s" && (
@@ -99,10 +94,7 @@ const SocialFamilyCondition = () => {
                 name="hasFamilyDeficiency"
                 control={control}
                 legend="Alguém da composição familiar com deficiência?"
-                options={[
-                  { value: "s", label: "SIM" },
-                  { value: "n", label: "NÃO" },
-                ]}
+                options={yesOrNoOptions}
               />
             </Grid>
             {hasFamilyDeficiency === "s" && (
@@ -128,10 +120,7 @@ const SocialFamilyCondition = () => {
                 name="hasFamilyChemicalDependency"
                 control={control}
                 legend="Alguém na família sofre de dependência química?"
-                options={[
-                  { value: "s", label: "SIM" },
-                  { value: "n", label: "NÃO" },
-                ]}
+                options={yesOrNoOptions}
               />
             </Grid>
             {hasFamilyChemicalDependency === "s" && (
@@ -157,10 +146,7 @@ const SocialFamilyCondition = () => {
                 name="hasFamilySocialAccompaniment"
                 control={control}
                 legend="Alguém na família faz algum tipo de tratamento ou acompanhamento terapêutico/social?"
-                options={[
-                  { value: "s", label: "SIM" },
-                  { value: "n", label: "NÃO" },
-                ]}
+                options={yesOrNoOptions}
               />
             </Grid>
             {hasFamilySocialAccompaniment === "s" && (
@@ -186,10 +172,7 @@ const SocialFamilyCondition = () => {
                 name="hasFamilySocialBenefit"
                 control={control}
                 legend="Alguém de sua família recebe benefício de programa social?"
-                options={[
-                  { value: "s", label: "SIM" },
-                  { value: "n", label: "NÃO" },
-                ]}
+                options={yesOrNoOptions}
               />
             </Grid>
             {hasFamilySocialBenefit === "s" && (

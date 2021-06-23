@@ -113,11 +113,31 @@ export const healthFields = [
   "hasAllergy",
   "hasControlledMedication",
   "hasSpecialMedicalCondition",
-  "specialMedicalCondition"
-
+  "specialMedicalCondition",
 ];
-//NAO DEIXAR ASSIM
-const combineInitialValues = [...candidateFields, ...educationFields, ...benefitsFields, ...healthFields];
+
+export const socialFamilyConditionFields = [
+  "hasFamilyChemicalDependency",
+  "hasFamilyDeficiency",
+  "hasFamilyMedicaltreatment",
+  "hasFamilyMedicineUse",
+  "hasFamilySocialAccompaniment",
+  "hasFamilySocialBenefit",
+  "familyChemicalDependency",
+  "familyDeficiency",
+  "familyMedicineUse",
+  "familyMedicaltreatment",
+  "familySocialAccompaniment",
+  "familySocialBenefit"
+];
+
+const combineInitialValues = [
+  ...candidateFields,
+  ...educationFields,
+  ...benefitsFields,
+  ...healthFields,
+  ...socialFamilyConditionFields
+];
 
 export const makeDefaultValues = (data = {}) => {
   const defaultValues = generateValues(combineInitialValues, data);

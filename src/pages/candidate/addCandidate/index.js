@@ -13,7 +13,8 @@ import {
   benefitsFields,
   candidateFields,
   educationFields,
-  healthFields
+  healthFields,
+  socialFamilyConditionFields
 } from "../../../domain/initialValues/candidate";
 import { cpfMask, cepMask, birthMask, phoneMask } from "../../../helpers/masks";
 import Button from "@material-ui/core/Button";
@@ -72,6 +73,9 @@ const AddCandidate = () => {
       case 3:
         fields = [...healthFields]
         return fields
+      case 4:
+        fields = [...socialFamilyConditionFields]
+        return fields
       default:
         return null
     }
@@ -80,7 +84,6 @@ const AddCandidate = () => {
   const handleNext = async (step) => {
     const fields = fetchFieldsToValidate(step)
     const result = await trigger(fields);
-    console.log(errors)
     console.log(errors)
     if (result) {
       setStep((prevActiveStep) => prevActiveStep + 1);
