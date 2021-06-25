@@ -131,12 +131,24 @@ export const socialFamilyConditionFields = [
   "familySocialBenefit"
 ];
 
+export const familyCompositionFields = [
+  "familyCompositionAge",
+  "familyCompositionFinance",
+  "familyCompositionMaritalStatus",
+  "familyCompositionName",
+  "familyCompositionOccupation",
+  "familyCompositionRelationship",
+  "familyCompositionScholarity"
+]
+
 const combineInitialValues = [
   ...candidateFields,
   ...educationFields,
   ...benefitsFields,
   ...healthFields,
-  ...socialFamilyConditionFields
+  ...socialFamilyConditionFields,
+  ...familyCompositionFields,
+  "familyComposition"
 ];
 
 export const makeDefaultValues = (data = {}) => {

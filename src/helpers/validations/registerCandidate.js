@@ -32,6 +32,7 @@ export default yup.object().shape({
     then: yup.string().required('Campo obrigatório'),
     otherwise: yup.string(),
   }),
+  familyComposition: yup.array().min(1, 'Deve conter ao menos um vínculo'),
   familyCompositionName: yup.string().required('Campo obrigatório'),
   familyCompositionAge: yup.string().required('Campo obrigatório'),
   familyCompositionFinance: yup.string().required('Campo obrigatório'),

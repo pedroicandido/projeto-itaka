@@ -15,7 +15,10 @@ import Select from "../select";
 import maritalStatusOptions from "../../domain/selectsOptions/maritalStatus";
 import { Button } from "@material-ui/core";
 import FamilyCompositionList from "./components/familyCompositionList";
+import ErrorMessage from "../errorMessage";
+import { familyCompositionFields } from "../../domain/initialValues/candidate";
 import { v4 as uuidv4 } from 'uuid';
+
 
 const FamilyComposition = () => {
   const classes = useStyles();
@@ -30,23 +33,9 @@ const FamilyComposition = () => {
   const familyCompositionRelationship = useWatch({ control, name: "familyCompositionRelationship" })
   const familyCompositionScholarity = useWatch({ control, name: "familyCompositionScholarity" })
 
-  useEffect(() => {
-    console.log(familyComposition)
-  }, [familyComposition])
-
-  useEffect(() => {
-    console.log(errors)
-  }, [errors])
 
   const hasNoValidationError = async () => {
-    return await trigger([
-      "familyCompositionAge",
-      "familyCompositionFinance",
-      "familyCompositionMaritalStatus",
-      "familyCompositionName",
-      "familyCompositionOccupation",
-      "familyCompositionRelationship",
-      "familyCompositionScholarity"])
+    return await trigger(familyCompositionFields)
   }
 
   const addFamilyComposite = () => {
@@ -61,17 +50,26 @@ const FamilyComposition = () => {
       familyCompositionScholarity
     }
     setValue('familyComposition', [...familyComposition, newFamilyComposite])
+    trigger("familyComposition")
+  }
+
+  const clearFields = () => {
+    setValue('familyCompositionAge', '')
+    setValue('familyCompositionFinance', '')
+    setValue('familyCompositionMaritalStatus', '')
+    setValue('familyCompositionName', '')
+    setValue('familyCompositionOccupation', '')
+    setValue('familyCompositionRelationship', '')
+    setValue('familyCompositionScholarity', '')
   }
 
   const onAddHandler = async () => {
     const result = await hasNoValidationError()
-    console.log(errors)
-    console.log(result)
     if (result) {
       addFamilyComposite()
+      clearFields()
     }
   }
-
   return (
     <Grid container spacing={2}>
       <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
@@ -87,7 +85,8 @@ const FamilyComposition = () => {
               <Grid container spacing={2}>
                 <Grid item xl={4} lg={4}>
                   <Input
-
+                    helperText={errors.familyCompositionName?.message}
+                    error={errors.familyCompositionName && true}
                     name="familyCompositionName"
                     fullWidth
                     label="Nome"
@@ -97,14 +96,17 @@ const FamilyComposition = () => {
 
                 <Grid item xl={4} lg={4}>
                   <Select name="familyCompositionRelationship" variant="outlined" options={[{ value: 1, label: 'Mae' }]} placeholder="Parentesco" />
+                  <ErrorMessage>{errors.familyCompositionRelationship?.message}</ErrorMessage>
                 </Grid>
 
                 <Grid item xl={4} lg={4}>
                   <Select name="familyCompositionMaritalStatus" variant="outlined" options={maritalStatusOptions} placeholder="ESTADO CIVIL" />
+                  <ErrorMessage>{errors.familyCompositionMaritalStatus?.message}</ErrorMessage>
                 </Grid>
 
                 <Grid item xl={3} lg={3}>
                   <Select name="familyCompositionScholarity" variant="outlined" options={[{ value: 1, label: 'Superior' }]} placeholder="Escolaridade" />
+                  <ErrorMessage>{errors.familyCompositionScholarity?.message}</ErrorMessage>
                 </Grid>
 
                 <Grid item xl={3} lg={3}>
@@ -113,8 +115,8 @@ const FamilyComposition = () => {
                     fullWidth
                     label="Idade"
                     variant="outlined"
-                    helperText={errors.familySocialBenefit?.message}
-                    error={errors.familySocialBenefit && true} />
+                    helperText={errors.familyCompositionAge?.message}
+                    error={errors.familyCompositionAge && true} />
                 </Grid>
 
                 <Grid item xl={3} lg={3}>
@@ -140,7 +142,13 @@ const FamilyComposition = () => {
                   <Grid container justify="flex-end" alignItems="center">
                     <Grid item xl={2} lg={2}> <Button variant="contained" color="primary" fullWidth onClick={onAddHandler}>Adicionar</Button></Grid>
                   </Grid>
-
+                </Grid>
+                <Grid item xl={12} lg={12}>
+                  <Grid container justify="flex-end" alignItems="center">
+                    <Grid item>
+                      <ErrorMessage>{errors.familyComposition?.message}</ErrorMessage>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>

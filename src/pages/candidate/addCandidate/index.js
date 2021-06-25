@@ -76,6 +76,9 @@ const AddCandidate = () => {
       case 4:
         fields = [...socialFamilyConditionFields]
         return fields
+      case 5:
+        fields = ["familyComposition"]
+        return fields
       default:
         return null
     }

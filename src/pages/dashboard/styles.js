@@ -7,14 +7,17 @@ export default makeStyles(theme => ({
     height: '200px',
     backgroundImage: `url(${oficina})`,
     backgroundSize: 'cover',
-    backgroundRepeat:'no-repeat',
-    backgroundPosition:'0% 60%',
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: '0% 60%',
   },
   avatar: {
     position: 'relative',
     top: '110px',
     left: '20px',
-    width:'150px',
-    height:'150px'
+    width: '150px',
+    height: '150px'
+  },
+  card: {
+    padding: 0
   }
 }));
