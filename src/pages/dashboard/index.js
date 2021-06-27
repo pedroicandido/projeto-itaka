@@ -1,5 +1,9 @@
 import { Button, Grid, Typography, List, Divider, Badge } from '@material-ui/core'
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, } from 'recharts';
+import Icon1 from '../../assets/customIcons/icon1.png'
+import Icon2 from '../../assets/customIcons/icon2.png'
+import Icon3 from '../../assets/customIcons/icon3.png'
+import Icon4 from '../../assets/customIcons/icon4.png'
 import Card from '../../components/card'
 import useStyles from './styles'
 import IconButton from '@material-ui/core/IconButton';
@@ -203,13 +207,83 @@ const Dashboard = () => {
               </div>
               <Divider />
             </Grid>
-
-
           </Grid>
         </Card>
       </Grid>
 
-      <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+      <Grid item xl={2} lg={2}>
+        <Card className={classes.card}>
+          <Grid container>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <Grid container justify="space-between" alignItems="center">
+                <Typography style={{ marginLeft: 20, fontWeight: 'bold', fontSize: 14 }}>Relatórios</Typography>
+                <IconButton >
+                  <RotateRightIcon />
+                </IconButton>
+              </Grid>
+              <Divider />
+            </Grid>
+
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <Grid container spacing={1} alignItems="center">
+                <Grid item xl={4} lg={4}>
+                  <img src={Icon1} style={{ width: '100%', height: '100%' }} />
+                </Grid>
+                <Grid item xl={5} lg={4}>
+                  <Typography style={{ fontSize: 13, fontWeight: 'bold' }}>Média de Idades</Typography>
+                  <Typography style={{ cursor: 'pointer', fontSize: 12 }}>Exportar Lista</Typography>
+                </Grid>
+                <Grid item xl={3} lg={4}>
+                  Botoes
+                </Grid>
+              </Grid>
+              <Divider />
+              <Grid container spacing={1} alignItems="center">
+                <Grid item xl={4} lg={4}>
+                  <img src={Icon2} style={{ width: '100%', height: '100%' }} />
+                </Grid>
+                <Grid item xl={5} lg={4}>
+                  <Typography style={{ fontSize: 13, fontWeight: 'bold' }}>Média SocioEco</Typography>
+                  <Typography style={{ cursor: 'pointer', fontSize: 12 }}>Exportar Lista</Typography>
+                </Grid>
+                <Grid item xl={3} lg={4}>
+                  Botoes
+                </Grid>
+              </Grid>
+
+              <Divider />
+              <Grid container spacing={1} alignItems="center">
+                <Grid item xl={4} lg={4}>
+                  <img src={Icon3} style={{ width: '100%', height: '100%' }} />
+                </Grid>
+                <Grid item xl={5} lg={4}>
+                  <Typography style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>{`Relação Menino x Menina`}</Typography>
+                  <Typography style={{ cursor: 'pointer', fontSize: 12 }}>Exportar Lista</Typography>
+                </Grid>
+                <Grid item xl={3} lg={4}>
+                  Botoes
+                </Grid>
+              </Grid>
+
+              <Divider />
+              <Grid container spacing={1} alignItems="center">
+                <Grid item xl={4} lg={4}>
+                  <img src={Icon4} style={{ width: '100%', height: '100%' }} />
+                </Grid>
+                <Grid item xl={5} lg={4}>
+                  <Typography style={{ fontSize: 13, fontWeight: 'bold'}}>Evasão</Typography>
+                  <Typography style={{ cursor: 'pointer', fontSize: 12 }}>Exportar Lista</Typography>
+                </Grid>
+                <Grid item xl={3} lg={4}>
+                  Botoes
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Card>
+      </Grid>
+
+      <Grid item xl={10} lg={10} md={12} sm={12} xs={12}>
         <MUIDataTable
           title="Oficinas"
           data={dataTable}
