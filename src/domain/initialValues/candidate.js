@@ -141,6 +141,18 @@ export const familyCompositionFields = [
   "familyCompositionScholarity"
 ]
 
+export const expenseFields = [
+  "expenseEducation",
+  "expenseGrossIncome",
+  "expenseHealth",
+  "expenseHome",
+  "expenseMandatoryDiscounts",
+  "expenseNetIncome",
+  "expenseNote",
+  "expenseNumberPeopleHouse",
+  "expenseRPC",
+]
+
 const combineInitialValues = [
   ...candidateFields,
   ...educationFields,
@@ -148,7 +160,8 @@ const combineInitialValues = [
   ...healthFields,
   ...socialFamilyConditionFields,
   ...familyCompositionFields,
-  "familyComposition"
+  "familyComposition",
+  ...expenseFields
 ];
 
 export const makeDefaultValues = (data = {}) => {

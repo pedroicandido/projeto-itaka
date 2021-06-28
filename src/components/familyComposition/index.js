@@ -83,7 +83,7 @@ const FamilyComposition = () => {
             </Grid>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} >
               <Grid container spacing={2}>
-                <Grid item xl={4} lg={4}>
+                <Grid item xl={4} lg={4} sm={4}>
                   <Input
                     helperText={errors.familyCompositionName?.message}
                     error={errors.familyCompositionName && true}
@@ -94,22 +94,22 @@ const FamilyComposition = () => {
                   />
                 </Grid>
 
-                <Grid item xl={4} lg={4}>
+                <Grid item xl={4} lg={4} sm={4}>
                   <Select name="familyCompositionRelationship" variant="outlined" options={[{ value: 1, label: 'Mae' }]} placeholder="Parentesco" />
                   <ErrorMessage>{errors.familyCompositionRelationship?.message}</ErrorMessage>
                 </Grid>
 
-                <Grid item xl={4} lg={4}>
+                <Grid item xl={4} lg={4} sm={4}>
                   <Select name="familyCompositionMaritalStatus" variant="outlined" options={maritalStatusOptions} placeholder="ESTADO CIVIL" />
                   <ErrorMessage>{errors.familyCompositionMaritalStatus?.message}</ErrorMessage>
                 </Grid>
 
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} sm={4}>
                   <Select name="familyCompositionScholarity" variant="outlined" options={[{ value: 1, label: 'Superior' }]} placeholder="Escolaridade" />
                   <ErrorMessage>{errors.familyCompositionScholarity?.message}</ErrorMessage>
                 </Grid>
 
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} sm={4}>
                   <Input
                     name="familyCompositionAge"
                     fullWidth
@@ -119,7 +119,7 @@ const FamilyComposition = () => {
                     error={errors.familyCompositionAge && true} />
                 </Grid>
 
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} sm={4}>
                   <Input
                     name="familyCompositionOccupation"
                     fullWidth
@@ -128,7 +128,7 @@ const FamilyComposition = () => {
                     helperText={errors.familyCompositionOccupation?.message}
                     error={errors.familyCompositionOccupation && true} />
                 </Grid>
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} sm={4}>
                   <Input
                     name="familyCompositionFinance"
                     type="number"

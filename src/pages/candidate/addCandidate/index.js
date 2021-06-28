@@ -14,7 +14,8 @@ import {
   candidateFields,
   educationFields,
   healthFields,
-  socialFamilyConditionFields
+  socialFamilyConditionFields,
+  expenseFields
 } from "../../../domain/initialValues/candidate";
 import { cpfMask, cepMask, birthMask, phoneMask } from "../../../helpers/masks";
 import Button from "@material-ui/core/Button";
@@ -48,7 +49,7 @@ const AddCandidate = () => {
   });
   const { handleSubmit, control, setValue, trigger } = methods;
   const { errors } = useFormState({ control })
-  const [step, setStep] = useState(2);
+  const [step, setStep] = useState(7);
   const birthDate = useWatch({ control, name: "birthDate" });
   const cellPhone = useWatch({ control, name: "cellPhone" });
   const cpf = useWatch({ control, name: "cpf" });
@@ -78,6 +79,9 @@ const AddCandidate = () => {
         return fields
       case 5:
         fields = ["familyComposition"]
+        return fields
+      case 6:
+        fields = [...expenseFields]
         return fields
       default:
         return null
