@@ -207,25 +207,20 @@ const Dashboard = () => {
                 <Grid item xl={4} lg={4}>
                   <img src={Icon1} style={{ width: '100%', height: '100%' }} />
                 </Grid>
-                <Grid item xl={5} lg={4}>
+                <Grid item xl={8} lg={8}>
                   <Typography style={{ fontSize: 13, fontWeight: 'bold' }}>Média de Idades</Typography>
                   <Typography style={{ cursor: 'pointer', fontSize: 12 }}>Exportar Lista</Typography>
                 </Grid>
-                <Grid item xl={3} lg={4}>
-                  Botoes
-                </Grid>
+
               </Grid>
               <Divider />
               <Grid container spacing={1} alignItems="center">
                 <Grid item xl={4} lg={4}>
                   <img src={Icon2} style={{ width: '100%', height: '100%' }} />
                 </Grid>
-                <Grid item xl={5} lg={4}>
+                <Grid item xl={8} lg={8}>
                   <Typography style={{ fontSize: 13, fontWeight: 'bold' }}>Média SocioEco</Typography>
                   <Typography style={{ cursor: 'pointer', fontSize: 12 }}>Exportar Lista</Typography>
-                </Grid>
-                <Grid item xl={3} lg={4}>
-                  Botoes
                 </Grid>
               </Grid>
 
@@ -234,13 +229,11 @@ const Dashboard = () => {
                 <Grid item xl={4} lg={4}>
                   <img src={Icon3} style={{ width: '100%', height: '100%' }} />
                 </Grid>
-                <Grid item xl={5} lg={4}>
+                <Grid item xl={8} lg={8}>
                   <Typography style={{ fontSize: 13, fontWeight: 'bold', textAlign: 'center' }}>{`Relação Menino x Menina`}</Typography>
                   <Typography style={{ cursor: 'pointer', fontSize: 12 }}>Exportar Lista</Typography>
                 </Grid>
-                <Grid item xl={3} lg={4}>
-                  Botoes
-                </Grid>
+
               </Grid>
 
               <Divider />
@@ -248,13 +241,11 @@ const Dashboard = () => {
                 <Grid item xl={4} lg={4}>
                   <img src={Icon4} style={{ width: '100%', height: '100%' }} />
                 </Grid>
-                <Grid item xl={5} lg={4}>
-                  <Typography style={{ fontSize: 13, fontWeight: 'bold'}}>Evasão</Typography>
+                <Grid item xl={8} lg={8}>
+                  <Typography style={{ fontSize: 13, fontWeight: 'bold' }}>Evasão</Typography>
                   <Typography style={{ cursor: 'pointer', fontSize: 12 }}>Exportar Lista</Typography>
                 </Grid>
-                <Grid item xl={3} lg={4}>
-                  Botoes
-                </Grid>
+
               </Grid>
             </Grid>
           </Grid>

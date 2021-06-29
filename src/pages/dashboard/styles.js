@@ -18,6 +18,7 @@ export default makeStyles(theme => ({
     height: '150px'
   },
   card: {
-    padding: 0
+    padding: 0,
+    margin: 0
   }
 }));
