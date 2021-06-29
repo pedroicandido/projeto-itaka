@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { onlyNumbers } from '../../helpers/onlyNumbers'
 import matiralStatusOptions from '../../domain/selectsOptions/maritalStatus'
 import skinColorOptions from '../../domain/selectsOptions/skinColor'
 import { useFormState, useWatch, useFormContext } from 'react-hook-form'
@@ -12,14 +11,24 @@ import Divider from '@material-ui/core/Divider';
 import Typography from '@material-ui/core/Typography';
 import Input from '../input'
 import Select from '../select'
+import { cpfMask, cepMask, birthMask, phoneMask } from "../../helpers/masks";
 
 export default function Identification() {
   const classes = useStyles()
   const { setValue, setError, control } = useFormContext()
   const { errors } = useFormState({ control })
+
   const [openBackdrop, setOpenBackdrop] = useState(false)
   const [disabledFields, setDisabledFields] = useState(true)
-  const zipCode = useWatch({ control, name: 'zipCode' })
+
+  const birthDate = useWatch({ control, name: "birthDate" });
+  const cellPhone = useWatch({ control, name: "cellPhone" });
+  const cpf = useWatch({ control, name: "cpf" });
+  const fatherCpf = useWatch({ control, name: "fatherCpf" });
+  const homePhone = useWatch({ control, name: "homePhone" });
+  const messagePhone = useWatch({ control, name: "messagePhone" });
+  const motherCpf = useWatch({ control, name: "motherCpf" });
+  const zipCode = useWatch({ control, name: "zipCode" });
 
   const fetchAdress = async (cepNumber) => {
     setOpenBackdrop(true)
@@ -45,12 +54,45 @@ export default function Identification() {
   }
 
 
-  // useEffect(() => {
-  //   if (zipCode.length === 9) {
-  //     const formatedZipCode = onlyNumbers(zipCode)
-  //     fetchAdress(formatedZipCode)
-  //   }
-  // }, [zipCode])
+  useEffect(() => {
+    const formatedBirthDate = birthMask(birthDate);
+    setValue("birthDate", formatedBirthDate);
+  }, [birthDate, setValue]);
+
+  useEffect(() => {
+    const formatedCellPhone = phoneMask(cellPhone);
+    setValue("cellPhone", formatedCellPhone);
+  }, [cellPhone, setValue]);
+
+  useEffect(() => {
+    const formatedCpf = cpfMask(cpf);
+    setValue("cpf", formatedCpf);
+  }, [cpf, setValue]);
+
+  useEffect(() => {
+    const formatedCpf = cpfMask(fatherCpf);
+    setValue("fatherCpf", formatedCpf);
+  }, [fatherCpf, setValue]);
+
+  useEffect(() => {
+    const formatedHomePhone = phoneMask(homePhone);
+    setValue("homePhone", formatedHomePhone);
+  }, [homePhone, setValue]);
+
+  useEffect(() => {
+    const formatedMessagePhone = phoneMask(messagePhone);
+    setValue("messagePhone", formatedMessagePhone);
+  }, [messagePhone, setValue]);
+
+  useEffect(() => {
+    const formatedCpf = cpfMask(motherCpf);
+    setValue("motherCpf", formatedCpf);
+  }, [motherCpf, setValue]);
+
+  useEffect(() => {
+    const formatedZip = cepMask(zipCode);
+    setValue("zipCode", formatedZip, { shouldValidate: true });
+  }, [zipCode, setValue]);
 
   return (
     <Paper className={classes.paper}>
@@ -61,80 +103,80 @@ export default function Identification() {
           <Divider />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="name" fullWidth label="Nome Completo" variant="outlined" helperText={errors.name?.message} error={errors.name && true} />
+          <Input name="name" fullWidth label="Nome Completo" variant="outlined" helperText={errors.name?.message} error={errors.name && true} />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="cpf" fullWidth label="CPF" variant="outlined" helperText={errors.cpf?.message} error={errors.cpf && true} />
+          <Input name="cpf" fullWidth label="CPF" variant="outlined" helperText={errors.cpf?.message} error={errors.cpf && true} />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="rg" fullWidth label="Documento de Identidade" variant="outlined" helperText={errors.rg?.message} error={errors.rg && true} />
+          <Input name="rg" fullWidth label="Documento de Identidade" variant="outlined" helperText={errors.rg?.message} error={errors.rg && true} />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="birthDate" fullWidth label="Data de Nascimento" variant="outlined" helperText={errors.birthDate?.message} error={errors.birthDate && true} />
+          <Input name="birthDate" fullWidth label="Data de Nascimento" variant="outlined" helperText={errors.birthDate?.message} error={errors.birthDate && true} />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="birthplace" fullWidth label="Naturalidade" variant="outlined" helperText={errors.birthplace?.message} error={errors.birthplace && true} />
+          <Input name="birthplace" fullWidth label="Naturalidade" variant="outlined" helperText={errors.birthplace?.message} error={errors.birthplace && true} />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Select  name="skinColor" fullWidth placeholder="Cor" options={skinColorOptions} variant="outlined" />
+          <Select name="skinColor" fullWidth placeholder="Cor" options={skinColorOptions} variant="outlined" />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="laborSituation" fullWidth label="Situação Trabalhista" variant="outlined" />
+          <Input name="laborSituation" fullWidth label="Situação Trabalhista" variant="outlined" />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Select  name="maritalStatus" variant="outlined" options={matiralStatusOptions} placeholder="Estado Civil" />
+          <Select name="maritalStatus" variant="outlined" options={matiralStatusOptions} placeholder="Estado Civil" />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="email" fullWidth label="Email" variant="outlined" helperText={errors.email?.message} error={errors.email && true} />
+          <Input name="email" fullWidth label="Email" variant="outlined" helperText={errors.email?.message} error={errors.email && true} />
         </Grid>
 
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="street" fullWidth label="Endereço Residencial" variant="outlined" disabled />
+          <Input name="street" fullWidth label="Endereço Residencial" variant="outlined" disabled />
         </Grid>
         <Grid item xl={2} lg={2} md={6} sm={6} xs={12}>
-          <Input  name="houseNumber" fullWidth label="Número" variant="outlined" disabled={disabledFields} />
+          <Input name="houseNumber" fullWidth label="Número" variant="outlined" disabled={disabledFields} />
         </Grid>
         <Grid item xl={2} lg={2} md={6} sm={6} xs={12}>
-          <Input  name="complement" fullWidth label="Complemento" variant="outlined" disabled={disabledFields} />
+          <Input name="complement" fullWidth label="Complemento" variant="outlined" disabled={disabledFields} />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="district" fullWidth label="Bairro" variant="outlined" disabled />
+          <Input name="district" fullWidth label="Bairro" variant="outlined" disabled />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="city" fullWidth label="Cidade" variant="outlined" disabled />
+          <Input name="city" fullWidth label="Cidade" variant="outlined" disabled />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="uf" fullWidth label="Estado" variant="outlined" disabled />
+          <Input name="uf" fullWidth label="Estado" variant="outlined" disabled />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="zipCode" fullWidth label="CEP" variant="outlined" helperText={errors.zipCode?.message} error={errors.zipCode && true} />
+          <Input name="zipCode" fullWidth label="CEP" variant="outlined" helperText={errors.zipCode?.message} error={errors.zipCode && true} />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="cellPhone" fullWidth label="Telefone Celular (DDD)" variant="outlined" />
+          <Input name="cellPhone" fullWidth label="Telefone Celular (DDD)" variant="outlined" />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="homePhone" fullWidth label="Telefone Residencial" variant="outlined" />
+          <Input name="homePhone" fullWidth label="Telefone Residencial" variant="outlined" />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input  name="messagePhone" fullWidth label="Telefone de Recado" variant="outlined" />
+          <Input name="messagePhone" fullWidth label="Telefone de Recado" variant="outlined" />
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Input  name="fatherName" fullWidth label="Nome do Pai" variant="outlined" />
+          <Input name="fatherName" fullWidth label="Nome do Pai" variant="outlined" />
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Input  name="fatherCpf" fullWidth label="CPF do Pai" variant="outlined" helperText={errors.fatherCpf?.message} error={errors.fatherCpf && true} />
+          <Input name="fatherCpf" fullWidth label="CPF do Pai" variant="outlined" helperText={errors.fatherCpf?.message} error={errors.fatherCpf && true} />
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Input  name="motherName" fullWidth label="Nome da Mãe" variant="outlined" />
+          <Input name="motherName" fullWidth label="Nome da Mãe" variant="outlined" />
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Input  name="motherCpf" fullWidth label="CPF da Mãe" variant="outlined" helperText={errors.motherCpf?.message} error={errors.motherCpf && true} />
+          <Input name="motherCpf" fullWidth label="CPF da Mãe" variant="outlined" helperText={errors.motherCpf?.message} error={errors.motherCpf && true} />
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Input  name="responsible" fullWidth label="Responsável Pelo Candidato" variant="outlined" />
+          <Input name="responsible" fullWidth label="Responsável Pelo Candidato" variant="outlined" />
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Select  name="parentsMaritalStatus" variant="outlined" options={matiralStatusOptions} placeholder="Estado Civil dos Pais" />
+          <Select name="parentsMaritalStatus" variant="outlined" options={matiralStatusOptions} placeholder="Estado Civil dos Pais" />
         </Grid>
       </Grid>
     </Paper>

@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import Stepper from "../../../components/stepProgress";
+import { useState } from "react";
 import Identification from "../../../components/identification";
 import EducationData from "../../../components/educationalData";
 import Health from "../../../components/health";
@@ -17,7 +16,7 @@ import {
   socialFamilyConditionFields,
   expenseFields
 } from "../../../domain/initialValues/candidate";
-import { cpfMask, cepMask, birthMask, phoneMask } from "../../../helpers/masks";
+
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { useForm, useWatch, FormProvider, useFormState } from "react-hook-form";
@@ -47,17 +46,9 @@ const AddCandidate = () => {
     reValidateMode: 'onChange',
     mode: 'onChange'
   });
-  const { handleSubmit, control, setValue, trigger } = methods;
-  const { errors } = useFormState({ control })
-  const [step, setStep] = useState(7);
-  const birthDate = useWatch({ control, name: "birthDate" });
-  const cellPhone = useWatch({ control, name: "cellPhone" });
-  const cpf = useWatch({ control, name: "cpf" });
-  const fatherCpf = useWatch({ control, name: "fatherCpf" });
-  const homePhone = useWatch({ control, name: "homePhone" });
-  const messagePhone = useWatch({ control, name: "messagePhone" });
-  const motherCpf = useWatch({ control, name: "motherCpf" });
-  const zipCode = useWatch({ control, name: "zipCode" });
+  const { handleSubmit, trigger } = methods;
+  const [step, setStep] = useState(0);
+  
 
   const fetchFieldsToValidate = (step) => {
     let fields = [];
@@ -91,7 +82,7 @@ const AddCandidate = () => {
   const handleNext = async (step) => {
     const fields = fetchFieldsToValidate(step)
     const result = await trigger(fields);
-    console.log(errors)
+
     if (result) {
       setStep((prevActiveStep) => prevActiveStep + 1);
     }
@@ -102,49 +93,32 @@ const AddCandidate = () => {
   };
 
   const onSubmit = (data) => {
-    console.log("to AQUI");
+    console.log(data);
   };
 
+  const getComponent = step => {
+    switch (step) {
+      case 0:
+        return <Identification />
+      case 1:
+        return <EducationData />
+      case 2:
+        return <Benefits />
+      case 3:
+        return <Health />
+      case 4:
+        return <SocialFamilyCondition />
+      case 5:
+        return <FamilyComposition />
+      case 6:
+        return <Expenses />
+      case 7:
+        return <OtherInformations />
+      default:
+        return null
+    }
+  }
 
-  useEffect(() => {
-    const formatedBirthDate = birthMask(birthDate);
-    setValue("birthDate", formatedBirthDate);
-  }, [birthDate, setValue]);
-
-  useEffect(() => {
-    const formatedCellPhone = phoneMask(cellPhone);
-    setValue("cellPhone", formatedCellPhone);
-  }, [cellPhone, setValue]);
-
-  useEffect(() => {
-    const formatedCpf = cpfMask(cpf);
-    setValue("cpf", formatedCpf);
-  }, [cpf, setValue]);
-
-  useEffect(() => {
-    const formatedCpf = cpfMask(fatherCpf);
-    setValue("fatherCpf", formatedCpf);
-  }, [fatherCpf, setValue]);
-
-  useEffect(() => {
-    const formatedHomePhone = phoneMask(homePhone);
-    setValue("homePhone", formatedHomePhone);
-  }, [homePhone, setValue]);
-
-  useEffect(() => {
-    const formatedMessagePhone = phoneMask(messagePhone);
-    setValue("messagePhone", formatedMessagePhone);
-  }, [messagePhone, setValue]);
-
-  useEffect(() => {
-    const formatedCpf = cpfMask(motherCpf);
-    setValue("motherCpf", formatedCpf);
-  }, [motherCpf, setValue]);
-
-  useEffect(() => {
-    const formatedZip = cepMask(zipCode);
-    setValue("zipCode", formatedZip, { shouldValidate: true });
-  }, [zipCode, setValue]);
 
   let button = (
     <Grid item>
@@ -173,29 +147,16 @@ const AddCandidate = () => {
   return (
     <Grid container>
       <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-        <Grid container alignItems="center" justify="center">
-          <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-            <Stepper activeStep={step} totalSteps={totalSteps} />
-          </Grid>
-        </Grid>
-      </Grid>
-      <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <FormProvider {...methods}>
-            {step === 0 && <Identification />}
-            {step === 1 && <EducationData />}
-            {step === 2 && <Benefits />}
-            {step === 3 && <Health />}
-            {step === 4 && <SocialFamilyCondition />}
-            {step === 5 && <FamilyComposition />}
-            {step === 6 && <Expenses />}
-            {step === 7 && <OtherInformations />}
+            {getComponent(step)}
             <Grid container spacing={2} justify="flex-end">
               <Grid item>
                 <Button
                   variant="contained"
                   color="secondary"
                   fullWidth
+                  disabled={step === 0}
                   onClick={handleBack}
                 >
                   Voltar
