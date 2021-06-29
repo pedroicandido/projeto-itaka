@@ -5,9 +5,9 @@ import Backdrop from '../../components/backdrop'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Input from '../../components/input'
-import makeDefaultValues from '../../domain/initialValues/user'
+import { makeDefaultValues } from '../../domain/initialValues/user'
 import schemaValidation from '../../helpers/validations/addUser'
-import { Button } from '@material-ui/core';
+import { Button, Divider, Typography } from '@material-ui/core';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 export default function AddUser() {
@@ -22,8 +22,15 @@ export default function AddUser() {
       <form onSubmit={methods.handleSubmit(onSubmit)}>
         <Paper className={classes.paper}>
           <Grid container spacing={2}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <Typography className={classes.title}> Cadastrar Usuário</Typography>
+              <Divider />
+            </Grid>
             <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
               <Input name="name" fullWidth label="Nome Completo" variant="outlined" helperText={errors.name?.message} error={errors.name && true} />
+            </Grid>
+            <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
+              <Input name="cress" fullWidth label="Número do Cress" variant="outlined" helperText={errors.cress?.message} error={errors.cress && true} />
             </Grid>
             <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
               <Input name="email" fullWidth label="Email" variant="outlined" helperText={errors.email?.message} error={errors.email && true} />
@@ -34,8 +41,18 @@ export default function AddUser() {
             <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
               <Input name="passwordConfirmation" type="password" fullWidth label="Confirmação da Senha" variant="outlined" helperText={errors.passwordConfirmation?.message} error={errors.passwordConfirmation && true} />
             </Grid>
-            <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-              <Button type="submit">Submit</Button>
+
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <Grid container justify="flex-end">
+                <Grid item xl={1} lg={2} md={2} sm={3} xs={12}>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="secondary"
+                    fullWidth>Cadastrar</Button>
+                </Grid>
+              </Grid>
+
             </Grid>
           </Grid>
         </Paper>
