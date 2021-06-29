@@ -19,6 +19,15 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MainListMenu from "./menuItems";
+import { Route, Redirect } from 'react-router-dom'
+
+//pages
+import Course from '../../pages/course'
+import WorkshopInitialPage from '../../pages/course/initialPage'
+import UserInitialPage from '../../pages/user/initialPage'
+import AddCandidate from '../../pages/candidate/addCandidate'
+import UserRegister from '../../pages/addUser'
+import Dashboard from '../../pages/dashboard'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -172,7 +181,13 @@ const Layout = ({ children }) => {
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Container maxWidth="xl" className={classes.container}>
-          {children}
+          <Route path="/" exact render={() => <Redirect to="/dashboard" />} />
+          <Route path="/dashboard" component={Dashboard} />
+          <Route path="/candidate/register" component={AddCandidate} />
+          <Route exact path="/user" component={UserInitialPage} />
+          <Route path="/user/register" component={UserRegister} />
+          <Route exact path="/course" component={WorkshopInitialPage} />
+          <Route path="/course/register" component={Course} />
         </Container>
       </main>
     </div>
