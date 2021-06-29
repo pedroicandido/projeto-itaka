@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react'
+
 import { useForm, useFormState, FormProvider } from 'react-hook-form'
 import useStyles from './styles'
 import Backdrop from '../../components/backdrop'
+import { useHistory } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Input from '../../components/input'
@@ -9,13 +11,20 @@ import { makeDefaultValues } from '../../domain/initialValues/user'
 import schemaValidation from '../../helpers/validations/addUser'
 import { Button, Divider, Typography } from '@material-ui/core';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { ADD_USER } from '../../redux/types';
 
 export default function AddUser() {
   const classes = useStyles()
+  const history = useHistory()
+  const dispatch = useDispatch()
   const defaultValues = makeDefaultValues();
   const methods = useForm({ defaultValues, resolver: yupResolver(schemaValidation) })
   const { errors } = useFormState({ control: methods.control })
-  const onSubmit = data => console.log(data)
+  const onSubmit = data => {
+    console.log(data)
+    dispatch({ type: ADD_USER, user: data })
+    history.replace('/user')
+  }
 
   return (
     <FormProvider {...methods}>
