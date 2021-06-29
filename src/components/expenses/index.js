@@ -29,7 +29,7 @@ const Expenses = () => {
             </Grid>
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12} >
               <Grid container spacing={2}>
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} md={3} sm={4} xs={12}>
                   <Input
                     name="expenseMandatoryDiscounts"
                     fullWidth
@@ -40,7 +40,7 @@ const Expenses = () => {
                   />
                 </Grid>
 
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} md={3} sm={4} xs={12}>
                   <Input
                     name="expenseGrossIncome"
                     fullWidth
@@ -50,7 +50,7 @@ const Expenses = () => {
                     error={errors.expenseGrossIncome && true} />
                 </Grid>
 
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} md={3} sm={4} xs={12}>
                   <Input
                     name="expenseHome"
                     fullWidth
@@ -59,7 +59,7 @@ const Expenses = () => {
                     helperText={errors.expenseHome?.message}
                     error={errors.expenseHome && true} />
                 </Grid>
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} md={3} sm={4} xs={12}>
                   <Input
                     name="expenseNetIncome"
                     fullWidth
@@ -69,7 +69,7 @@ const Expenses = () => {
                     error={errors.expenseNetIncome && true} />
                 </Grid>
 
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} md={3} sm={4} xs={12}>
                   <Input
                     name="expenseHealth"
                     fullWidth
@@ -79,7 +79,7 @@ const Expenses = () => {
                     error={errors.expenseHealth && true} />
                 </Grid>
 
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} md={3} sm={4} xs={12}>
                   <Input
                     name="expenseEducation"
                     fullWidth
@@ -89,7 +89,7 @@ const Expenses = () => {
                     error={errors.expenseRPC && true} />
                 </Grid>
 
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} md={3} sm={4} xs={12}>
                   <Input
                     name="expenseRPC"
                     fullWidth
@@ -99,7 +99,7 @@ const Expenses = () => {
                     error={errors.expenseRPC && true} />
                 </Grid>
 
-                <Grid item xl={3} lg={3}>
+                <Grid item xl={3} lg={3} md={3} sm={4} xs={12}>
                   <Input
                     name="expenseNumberPeopleHouse"
                     fullWidth

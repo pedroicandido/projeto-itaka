@@ -70,7 +70,7 @@ const OtherInformations = () => {
               <Divider />
             </Grid>
             <Grid item xl={12}>
-              <Typography>
+              <Typography style={{textAlign:'justify'}}>
                 Declaro, para efeito de estudo socioeconômico, que as informações prestadas nesse documento de 4 (quatro) páginas numeradas
                 estão completas e são verdadeiras e assumo, por elas e pelas cópias dos documentos apresentados, inteira responsabilidade, ciente das
                 penalidades previstas no Código Penal Brasileiro, Artigos 171 e 299. Autorizo a apresentação desses documentos aos órgãos públicos

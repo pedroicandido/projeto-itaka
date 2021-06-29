@@ -35,9 +35,9 @@ const SocialFamilyCondition = () => {
           <Divider />
         </Grid>
 
-        <Grid item xl={6} lg={6} md={12} sm={12} xs={12}>
+        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
           <Grid container>
-            <Grid item xl={12} lg={12}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Radio
                 name="hasFamilyMedicaltreatment"
                 control={control}
@@ -46,7 +46,7 @@ const SocialFamilyCondition = () => {
               />
             </Grid>
             {hasFamilyMedicaltreatment === "s" && (
-              <Grid item xl={6} lg={6}>
+              <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
                 <Input
                   control={control}
                   name="familyMedicaltreatment"
@@ -61,9 +61,9 @@ const SocialFamilyCondition = () => {
           </Grid>
         </Grid>
 
-        <Grid item xl={6} lg={6} md={12} sm={12} xs={12}>
+        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
           <Grid container>
-            <Grid item xl={12} lg={12}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Radio
                 name="hasFamilyMedicineUse"
                 control={control}
@@ -72,7 +72,7 @@ const SocialFamilyCondition = () => {
               />
             </Grid>
             {hasFamilyMedicineUse === "s" && (
-              <Grid item xl={6} lg={6}>
+              <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
                 <Input
                   control={control}
                   name="familyMedicineUse"
@@ -87,9 +87,9 @@ const SocialFamilyCondition = () => {
           </Grid>
         </Grid>
 
-        <Grid item xl={6} lg={6} md={12} sm={12} xs={12}>
+        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
           <Grid container>
-            <Grid item xl={12} lg={12}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Radio
                 name="hasFamilyDeficiency"
                 control={control}
@@ -98,7 +98,7 @@ const SocialFamilyCondition = () => {
               />
             </Grid>
             {hasFamilyDeficiency === "s" && (
-              <Grid item xl={6} lg={6}>
+              <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
                 <Input
                   control={control}
                   name="familyDeficiency"
@@ -113,9 +113,9 @@ const SocialFamilyCondition = () => {
           </Grid>
         </Grid>
 
-        <Grid item xl={6} lg={6} md={12} sm={12} xs={12}>
+        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
           <Grid container>
-            <Grid item xl={12} lg={12}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Radio
                 name="hasFamilyChemicalDependency"
                 control={control}
@@ -124,7 +124,7 @@ const SocialFamilyCondition = () => {
               />
             </Grid>
             {hasFamilyChemicalDependency === "s" && (
-              <Grid item xl={6} lg={6}>
+              <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
                 <Input
                   control={control}
                   name="familyChemicalDependency"
@@ -139,9 +139,9 @@ const SocialFamilyCondition = () => {
           </Grid>
         </Grid>
 
-        <Grid item xl={6} lg={6} md={12} sm={12} xs={12}>
+        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
           <Grid container>
-            <Grid item xl={12} lg={12}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Radio
                 name="hasFamilySocialAccompaniment"
                 control={control}
@@ -150,7 +150,7 @@ const SocialFamilyCondition = () => {
               />
             </Grid>
             {hasFamilySocialAccompaniment === "s" && (
-              <Grid item xl={6} lg={6}>
+              <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
                 <Input
                   control={control}
                   name="familySocialAccompaniment"
@@ -165,9 +165,9 @@ const SocialFamilyCondition = () => {
           </Grid>
         </Grid>
 
-        <Grid item xl={6} lg={6} md={12} sm={12} xs={12}>
+        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
           <Grid container>
-            <Grid item xl={12} lg={12}>
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Radio
                 name="hasFamilySocialBenefit"
                 control={control}
@@ -176,7 +176,7 @@ const SocialFamilyCondition = () => {
               />
             </Grid>
             {hasFamilySocialBenefit === "s" && (
-              <Grid item xl={6} lg={6}>
+              <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
                 <Input
                   control={control}
                   name="familySocialBenefit"
