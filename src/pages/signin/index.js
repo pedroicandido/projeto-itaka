@@ -1,12 +1,10 @@
-import Avatar from '@material-ui/core/Avatar';
+import { useEffect } from 'react'
 import Button from '@material-ui/core/Button';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import Copyright from '../../components/copyright'
 import useStyles from './styles'
@@ -15,22 +13,33 @@ import Input from '../../components/input'
 import makeDefaultValue from '../../domain/initialValues/signin'
 import { yupResolver } from '@hookform/resolvers/yup';
 import schemaValidation from '../../helpers/validations/signin'
-import { useEffect } from 'react'
 import Logo from '../../assets/images/logo.png'
+import { useSelector, useDispatch } from 'react-redux'
+import { LOGIN } from '../../redux/types'
+import { useHistory } from 'react-router-dom'
 
 
 export default function SignIn() {
   const classes = useStyles();
+  const history = useHistory()
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const dispatch = useDispatch()
   const defaultValues = makeDefaultValue();
   const methods = useForm({ defaultValues, resolver: yupResolver(schemaValidation) })
   const { errors } = useFormState({ control: methods.control })
 
 
-  const onSubmit = data => console.log(data)
+  const onSubmit = data => {
+    dispatch({ type: LOGIN })
+  }
 
   useEffect(() => {
-    console.log(errors)
-  }, [errors])
+    if (isAuthenticated) {
+      history.replace('/')
+    }
+  }, [
+    isAuthenticated
+  ])
 
   return (
     <Container component="main" maxWidth="xs">
@@ -75,12 +84,12 @@ export default function SignIn() {
               className={classes.submit}
             >
               Login
-          </Button>
+            </Button>
             <Grid container>
               <Grid item xs>
                 <Link href="#" variant="body2">
                   Esqueceu sua senha?
-              </Link>
+                </Link>
               </Grid>
             </Grid>
           </form>

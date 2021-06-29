@@ -6,3 +6,7 @@ export const OPEN_CLASS_MENU = 'OPEN_CLASS_MENU'
 //user
 
 export const ADD_USER = 'ADD_USER'
+
+//auth
+
+export const LOGIN = 'LOGIN'
