@@ -26,8 +26,11 @@ import Course from '../../pages/course'
 import WorkshopInitialPage from '../../pages/course/initialPage'
 import UserInitialPage from '../../pages/user/initialPage'
 import AddCandidate from '../../pages/candidate/addCandidate'
+import ListCandidate from '../../pages/candidate/listCandidate'
 import UserRegister from '../../pages/addUser'
 import Dashboard from '../../pages/dashboard'
+import Error from '../../pages/error'
+import PrivateRoute from "../../routes/privateRoute";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -183,6 +186,7 @@ const Layout = ({ children }) => {
         <Container maxWidth="xl" className={classes.container}>
           <Route path="/" exact render={() => <Redirect to="/dashboard" />} />
           <Route path="/dashboard" component={Dashboard} />
+          <Route path="/candidate" exact component={ListCandidate} />
           <Route path="/candidate/register" component={AddCandidate} />
           <Route exact path="/user" component={UserInitialPage} />
           <Route path="/user/register" component={UserRegister} />

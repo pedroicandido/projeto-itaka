@@ -19,6 +19,7 @@ const MenuOptions = () => {
     },
     {
       title: "Candidato",
+      path: "/candidate",
       Icon: DashboardIcon,
       state: candidateStateMenu,
       type: TOGGLE_CANDIDATE_MENU,
@@ -72,6 +73,7 @@ const MenuOptions = () => {
         Icon: DashboardIcon,
         state: candidateStateMenu,
         type: TOGGLE_CANDIDATE_MENU,
+        path: "/candidate",
         options: [
           {
             title: "Cadastro",

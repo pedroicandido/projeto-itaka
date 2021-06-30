@@ -1,6 +1,7 @@
 import { Switch, Route, Redirect } from 'react-router-dom'
 import SignIn from './pages/signin'
 import Layout from './hoc/layout'
+import PrivateRoute from './routes/privateRoute'
 
 import Error from './pages/error'
 
@@ -8,8 +9,8 @@ import Error from './pages/error'
 const Routes = () => (
   <Switch>
     <Route path="/auth/login" component={SignIn} />
-    <Route component={Layout}/>
-    <Route component={Error} />
+    <PrivateRoute path="/" component={Layout}/>
+    <Route path="*" component={Error} />
   </Switch>
 )
 
