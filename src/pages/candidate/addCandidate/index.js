@@ -16,9 +16,10 @@ import {
   socialFamilyConditionFields,
   expenseFields
 } from "../../../domain/initialValues/candidate";
-
+import { useHistory } from 'react-router-dom'
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import Feedback from "../../../components/feedback";
 import { useForm, useWatch, FormProvider, useFormState } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schemaValidation from "../../../helpers/validations/registerCandidate";
@@ -42,13 +43,14 @@ const AddCandidate = () => {
   const totalSteps = 7;
   const methods = useForm({
     defaultValues,
-    resolver: yupResolver(schemaValidation),
     reValidateMode: 'onChange',
     mode: 'onChange'
   });
+
+  const history = useHistory()
   const { handleSubmit, trigger } = methods;
   const [step, setStep] = useState(0);
-  
+
 
   const fetchFieldsToValidate = (step) => {
     let fields = [];
@@ -93,7 +95,9 @@ const AddCandidate = () => {
   };
 
   const onSubmit = (data) => {
-    console.log(data);
+
+    history.push('/candidate')
+
   };
 
   const getComponent = step => {
