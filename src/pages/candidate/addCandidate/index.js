@@ -40,7 +40,7 @@ const AddCandidate = () => {
     hasSpecialMedicalCondition: "n",
     familyComposition: [],
   });
-  const totalSteps = 7;
+  const totalSteps = 8;
   const methods = useForm({
     defaultValues,
     reValidateMode: 'onChange',
@@ -49,7 +49,7 @@ const AddCandidate = () => {
 
   const history = useHistory()
   const { handleSubmit, trigger } = methods;
-  const [step, setStep] = useState(0);
+  const [step, setStep] = useState(5);
 
 
   const fetchFieldsToValidate = (step) => {
@@ -147,6 +147,8 @@ const AddCandidate = () => {
       </Grid>
     );
   }
+
+
 
   return (
     <Grid container>

@@ -30,6 +30,7 @@ const fields = [
   "familySocialAccompaniment",
   "familySocialBenefit",
   "familySocioEconomicSituation",
+  "familyCompositionTotalFinance",
   "fatherCpf",
   "fatherName",
   "hasAgreed",
