@@ -27,6 +27,7 @@ import schemaValidation from "../../../helpers/validations/registerCandidate";
 const AddCandidate = () => {
   const defaultValues = makeDefaultValues({
     isStudent: false,
+    familyCompositionTotalFinance:0,
     benefits: [{ course: "", shift: "", hour: "" }],
     hasControlledMedication: "n",
     hasAgreed: false,
@@ -39,6 +40,7 @@ const AddCandidate = () => {
     hasFamilySocialBenefit: "n",
     hasSpecialMedicalCondition: "n",
     familyComposition: [],
+    familySocialBenefit: 300.00
   });
   const totalSteps = 8;
   const methods = useForm({

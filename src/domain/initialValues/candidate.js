@@ -162,6 +162,7 @@ const combineInitialValues = [
   ...socialFamilyConditionFields,
   ...familyCompositionFields,
   "familyComposition",
+  "familyCompositionTotalFinance",
   ...expenseFields
 ];
 

@@ -7,6 +7,10 @@ import { TableFooter, TableCell, TableRow } from "@material-ui/core";
 const FamilyCompositionList = () => {
   const { control, setValue } = useFormContext();
   const familyComposition = useWatch({ control, name: "familyComposition" });
+  const familySocialBenefit = useWatch({
+    control,
+    name: "familySocialBenefit",
+  });
   const familyCompositionTotalFinance = useWatch({
     control,
     name: "familyCompositionTotalFinance",
@@ -18,13 +22,13 @@ const FamilyCompositionList = () => {
     );
     setValue("familyComposition", updateFamilyComposition);
   };
-
+//ESTA ERRADOOOOOOOOOOOOOOOOOOOOO! REFAZER
   useEffect(() => {
     if (familyComposition) {
       const totalFinance = familyComposition.reduce(
         (acumulador, current) =>
           +acumulador + +current.familyCompositionFinance,
-        [0]
+        0
       );
       setValue("familyCompositionTotalFinance", totalFinance);
     }
@@ -49,20 +53,20 @@ const FamilyCompositionList = () => {
               <TableRow>
                 <TableCell
                   align="right"
-                  style={{ fontWeight: "bold", fontSize: 18, color:'black' }}
+                  style={{ fontWeight: "bold", fontSize: 18, color: "black" }}
                 >
-                  Renda total de Benefícios: R$380.00
+                  Renda total de Benefícios: R${familySocialBenefit}
                 </TableCell>
               </TableRow>
               <TableRow>
                 <TableCell
                   align="right"
-                  style={{ fontWeight: "bold", fontSize: 18, color:'black' }}
+                  style={{ fontWeight: "bold", fontSize: 18, color: "black" }}
                 >
-                    Renda Total Familiar: R$
-                    {familyCompositionTotalFinance.toLocaleString("pt-br", {
-                      minimumFractionDigits: 2,
-                    })}
+                  Renda Total Familiar: R$
+                  {familyCompositionTotalFinance.toLocaleString("pt-br", {
+                    minimumFractionDigits: 2,
+                  })}
                 </TableCell>
               </TableRow>
             </TableFooter>
