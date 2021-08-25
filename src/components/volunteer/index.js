@@ -6,6 +6,7 @@ import maritalStatusOptions from "../../domain/selectsOptions/maritalStatus";
 import useStyles from "./styles";
 
 const Volunteer = (props) => {
+
   const { control } = useFormContext();
   const { errors } = useFormState({ control });
   const classes = useStyles();
@@ -86,7 +87,36 @@ const Volunteer = (props) => {
             error={errors.email && true}
           />
         </Grid>
-
+        <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
+          <Input
+            name="occupation"
+            fullWidth
+            label="Profissão"
+            variant="outlined"
+            helperText={errors.occupation?.message}
+            error={errors.occupation && true}
+          />
+        </Grid>
+        <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
+          <Input
+            name="nationality"
+            fullWidth
+            label="Nacionalidade"
+            variant="outlined"
+            helperText={errors.nationality?.message}
+            error={errors.nationality && true}
+          />
+        </Grid>
+        <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
+          <Input
+            name="scholarity"
+            fullWidth
+            label="Escolaridade"
+            variant="outlined"
+            helperText={errors.scholarity?.message}
+            error={errors.scholarity && true}
+          />
+        </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
           <Input
             name="street"
