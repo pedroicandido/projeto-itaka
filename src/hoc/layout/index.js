@@ -1,5 +1,5 @@
 import { useState } from "react";
-import menuOptions from './menuOptions'
+import menuOptions from "./menuOptions";
 
 // import useStyles from './styles'
 import { makeStyles } from "@material-ui/core/styles";
@@ -19,19 +19,19 @@ import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MainListMenu from "./menuItems";
-import { Route, Redirect } from 'react-router-dom'
+import { Route, Redirect } from "react-router-dom";
 
 //pages
-import Course from '../../pages/course'
-import WorkshopInitialPage from '../../pages/course/initialPage'
-import UserInitialPage from '../../pages/user/initialPage'
-import AddCandidate from '../../pages/candidate/addCandidate'
-import ListCandidate from '../../pages/candidate/listCandidate'
-import UserRegister from '../../pages/addUser'
-import Dashboard from '../../pages/dashboard'
-import Error from '../../pages/error'
+import Course from "../../pages/course";
+import WorkshopInitialPage from "../../pages/course/initialPage";
+import UserInitialPage from "../../pages/user/initialPage";
+import AddCandidate from "../../pages/candidate/addCandidate";
+import ListCandidate from "../../pages/candidate/listCandidate";
+import UserRegister from "../../pages/addUser";
+import Dashboard from "../../pages/dashboard";
+import AddVolunteer from "../../pages/volunteer/addVolunteer";
+import Error from "../../pages/error";
 import PrivateRoute from "../../routes/privateRoute";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -112,12 +112,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 const Layout = ({ children }) => {
-
-
-  const menu = menuOptions()
-
+  const menu = menuOptions();
 
   const classes = useStyles();
   const [open, setOpen] = useState(true);
@@ -188,6 +184,7 @@ const Layout = ({ children }) => {
           <Route path="/dashboard" component={Dashboard} />
           <Route path="/candidate" exact component={ListCandidate} />
           <Route path="/candidate/register" component={AddCandidate} />
+          <Route path="/volunteer/add-volunteer" component={AddVolunteer} />
           <Route exact path="/user" component={UserInitialPage} />
           <Route path="/user/register" component={UserRegister} />
           <Route exact path="/course" component={WorkshopInitialPage} />
