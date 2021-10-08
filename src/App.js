@@ -1,7 +1,6 @@
 import Layout from './hoc/layout'
 import RegisterCandidate from './pages/candidate/addCandidate'
 import Routes from './routes'
-import { Route, Switch } from 'react-router-dom'
 import SignIn from './pages/signin'
 import CssBaseline from '@material-ui/core/CssBaseline';
 
