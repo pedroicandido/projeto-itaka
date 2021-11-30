@@ -9,5 +9,7 @@ export const OPEN_CLASS_MENU = "OPEN_CLASS_MENU";
 export const ADD_USER = "ADD_USER";
 
 //auth
-
 export const LOGIN = "LOGIN";
+export const LOGGOUT = "LOGGOUT"
+export const FETCH_LOGIN = "FETCH_LOGIN"
+export const ON_FETCH_USER_FAIL = "ON_FETCH_USER_FAIL"
