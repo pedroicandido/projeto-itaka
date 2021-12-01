@@ -13,10 +13,21 @@ import { Button } from "@material-ui/core";
 import FamilyCompositionList from "./components/familyCompositionList";
 import ErrorMessage from "../errorMessage";
 import { familyCompositionFields } from "../../domain/initialValues/candidate";
+import { useSelector, useDispatch } from "react-redux";
+import useAxios from "../../utils/hooks/useAxios";
 import { v4 as uuidv4 } from "uuid";
+import { setKinship } from "../../redux/actions/kinshipActions";
 
 const FamilyComposition = () => {
+  const api = useAxios();
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const {
+    options: kinshinOptions,
+    loading,
+    error: kinshinError,
+  } = useSelector((state) => state.kinship);
+  const civilStatusOptions = useSelector((state) => state.civilStatus.options);
   const { control, trigger, setValue, reset } = useFormContext();
   const { errors } = useFormState({ control });
   const familyComposition = useWatch({ control, name: "familyComposition" });
@@ -85,6 +96,14 @@ const FamilyComposition = () => {
       clearFields();
     }
   };
+
+  useEffect(() => {
+    dispatch(setKinship(api));
+  }, [dispatch]);
+
+  if (loading) {
+    return "...loading";
+  }
   return (
     <Grid container spacing={2}>
       <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
@@ -113,7 +132,7 @@ const FamilyComposition = () => {
                   <Select
                     name="familyCompositionRelationship"
                     variant="outlined"
-                    options={[{ value: 1, label: "Mae" }]}
+                    options={kinshinOptions}
                     placeholder="Parentesco"
                   />
                   <ErrorMessage>
@@ -125,7 +144,7 @@ const FamilyComposition = () => {
                   <Select
                     name="familyCompositionMaritalStatus"
                     variant="outlined"
-                    options={maritalStatusOptions}
+                    options={civilStatusOptions}
                     placeholder="ESTADO CIVIL"
                   />
                   <ErrorMessage>
