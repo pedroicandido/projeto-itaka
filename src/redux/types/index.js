@@ -13,3 +13,7 @@ export const LOGIN = "LOGIN";
 export const LOGGOUT = "LOGGOUT"
 export const FETCH_LOGIN = "FETCH_LOGIN"
 export const ON_FETCH_USER_FAIL = "ON_FETCH_USER_FAIL"
+
+
+//selects
+export const SET_KINSHIP = "SET_KINSHIP"
