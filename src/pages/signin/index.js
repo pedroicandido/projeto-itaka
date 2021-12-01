@@ -1,45 +1,48 @@
-import { useEffect } from 'react'
-import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import Container from '@material-ui/core/Container';
-import Copyright from '../../components/copyright'
-import useStyles from './styles'
-import { useForm, FormProvider, useFormState } from 'react-hook-form'
-import Input from '../../components/input'
-import makeDefaultValue from '../../domain/initialValues/signin'
-import { yupResolver } from '@hookform/resolvers/yup';
-import schemaValidation from '../../helpers/validations/signin'
-import Logo from '../../assets/images/logo.png'
-import { useSelector, useDispatch } from 'react-redux'
-import { LOGIN } from '../../redux/types'
-import { useHistory } from 'react-router-dom'
-
+import { useEffect } from "react";
+import Button from "@material-ui/core/Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
+import Copyright from "../../components/copyright";
+import useStyles from "./styles";
+import { useForm, FormProvider, useFormState } from "react-hook-form";
+import Input from "../../components/input";
+import makeDefaultValue from "../../domain/initialValues/signin";
+import { yupResolver } from "@hookform/resolvers/yup";
+import schemaValidation from "../../helpers/validations/signin";
+import Logo from "../../assets/images/logo.png";
+import { useSelector, useDispatch } from "react-redux";
+import * as authActions from "../../redux/actions/authActions";
+import { useHistory } from "react-router-dom";
 
 export default function SignIn() {
   const classes = useStyles();
-  const history = useHistory()
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-  const dispatch = useDispatch()
+  const history = useHistory();
+  const { error } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const defaultValues = makeDefaultValue();
-  const methods = useForm({ defaultValues, resolver: yupResolver(schemaValidation) })
-  const { errors } = useFormState({ control: methods.control })
+  const methods = useForm({
+    defaultValues,
+    resolver: yupResolver(schemaValidation),
+  });
+  const { errors } = useFormState({ control: methods.control });
 
+  const onSubmit = (data) => {
+    dispatch(
+      authActions.setUser({
+        email: data.email,
+        password: data.password,
+        navigation: history,
+      })
+    );
+  };
 
-  const onSubmit = data => {
-    dispatch({ type: LOGIN })
-  }
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      history.replace('/')
-    }
-  }, [
-    isAuthenticated
-  ])
+  // if (error) {
+  //   alert(error?.message);
+  // }
 
   return (
     <Container component="main" maxWidth="xs">
@@ -48,7 +51,11 @@ export default function SignIn() {
           <img src={Logo} className={classes.image} />
         </div>
         <FormProvider {...methods}>
-          <form className={classes.form} noValidate onSubmit={methods.handleSubmit(onSubmit)}>
+          <form
+            className={classes.form}
+            noValidate
+            onSubmit={methods.handleSubmit(onSubmit)}
+          >
             <Input
               autoComplete="email"
               autoFocus
@@ -59,7 +66,6 @@ export default function SignIn() {
               margin="normal"
               name="email"
               variant="outlined"
-
             />
             <Input
               autoComplete="current-password"
