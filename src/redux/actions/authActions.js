@@ -1,4 +1,5 @@
 import { LOGIN, FETCH_LOGIN, ON_FETCH_USER_FAIL, LOGGOUT } from "../types";
+import SigninModel from "../../models/signin";
 import api from "../../services/api";
 
 const onLoadingUser = () => ({
@@ -27,12 +28,10 @@ export const setUser = ({ email, password, navigation }) => {
   return async (dispatch) => {
     dispatch(onLoadingUser());
     try {
-      const response = await api.post("/login", {
-        email,
-        password,
-      });
+      const signinModel = new SigninModel({ email, password });
+      const response = await api.post("/login", signinModel);
       dispatch(userSuccess(response.data.token));
-      navigation.push('/')
+      navigation.push("/");
     } catch (err) {
       dispatch(userFail(err));
     }
