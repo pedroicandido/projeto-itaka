@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import skinColorOptions from "../../domain/selectsOptions/skinColor";
 import { useFormState, useWatch, useFormContext } from "react-hook-form";
 import useStyles from "./styles";
 import Backdrop from "../backdrop";
@@ -15,6 +14,8 @@ import useAxios from "../../utils/hooks/useAxios";
 import { setCivilStatus } from "../../redux/actions/civilStatusActions";
 import { setKinship } from "../../redux/actions/kinshipActions";
 import { setRace } from "../../redux/actions/raceActions";
+import { setWorkSituation } from "../../redux/actions/workSituationActions";
+import Spinner from "../spinner";
 
 export default function Identification() {
   const classes = useStyles();
@@ -36,6 +37,13 @@ export default function Identification() {
     loading: isLoadingRace,
     error: raceError,
   } = useSelector((state) => state.race);
+
+  const {
+    options: wsOptions,
+    loading: isLoadingWs,
+    error: wsError,
+  } = useSelector((state) => state.workSituation);
+
   const { setValue, setError, control } = useFormContext();
   const { errors } = useFormState({ control });
 
@@ -77,7 +85,8 @@ export default function Identification() {
   useEffect(() => {
     dispatch(setCivilStatus(api));
     dispatch(setKinship(api));
-    dispatch(setRace(api))
+    dispatch(setRace(api));
+    dispatch(setWorkSituation(api));
   }, [dispatch]);
 
   useEffect(() => {
@@ -120,8 +129,13 @@ export default function Identification() {
     setValue("zipCode", formatedZip, { shouldValidate: true });
   }, [zipCode, setValue]);
 
-  if (isLoadingCivilStatus || isLoadingKinship || isLoadingRace) {
-    return "...loading";
+  if (
+    isLoadingCivilStatus ||
+    isLoadingKinship ||
+    isLoadingRace ||
+    isLoadingWs
+  ) {
+    return <Spinner />;
   }
 
   return (
@@ -194,10 +208,11 @@ export default function Identification() {
           />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input
+          <Select
             name="laborSituation"
             fullWidth
-            label="Situação Trabalhista"
+            placeholder="Situação Trabalhista"
+            options={wsOptions}
             variant="outlined"
           />
         </Grid>

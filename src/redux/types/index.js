@@ -26,4 +26,8 @@ export const ON_FETCH_CS_FAIL = "ON_FETCH_CS_FAIL"
 
 export const SET_RACE = "SET_RACE"
 export const LOADING_OPTIONS_RACE = "LOADING_OPTIONS_RACE"
-export const ON_FETCH_RACE_FAIL = "ON_FETCH_CS_FAIL"
+export const ON_FETCH_RACE_FAIL = "ON_FETCH_RACE_FAIL"
+
+export const SET_WS = "SET_WS"
+export const LOADING_OPTIONS_WS = "LOADING_OPTIONS_WS"
+export const ON_FETCH_WS_FAIL = "ON_FETCH_WS_FAIL"
