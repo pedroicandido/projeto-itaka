@@ -17,3 +17,5 @@ export const ON_FETCH_USER_FAIL = "ON_FETCH_USER_FAIL"
 
 //selects
 export const SET_KINSHIP = "SET_KINSHIP"
+export const LOADING_OPTIONS = "LOADING_OPTIONS"
+export const ON_FETCH_KINSHIP_FAIL = "ON_FETCH_KINSHIP_FAIL"
