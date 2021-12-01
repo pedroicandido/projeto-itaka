@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import useAxios from "../../utils/hooks/useAxios";
 import { setCivilStatus } from "../../redux/actions/civilStatusActions";
 import { setKinship } from "../../redux/actions/kinshipActions";
+import { setRace } from "../../redux/actions/raceActions";
 
 export default function Identification() {
   const classes = useStyles();
@@ -29,6 +30,12 @@ export default function Identification() {
     loading: isLoadingKinship,
     error: kinshinError,
   } = useSelector((state) => state.kinship);
+
+  const {
+    options: raceOptions,
+    loading: isLoadingRace,
+    error: raceError,
+  } = useSelector((state) => state.race);
   const { setValue, setError, control } = useFormContext();
   const { errors } = useFormState({ control });
 
@@ -70,6 +77,7 @@ export default function Identification() {
   useEffect(() => {
     dispatch(setCivilStatus(api));
     dispatch(setKinship(api));
+    dispatch(setRace(api))
   }, [dispatch]);
 
   useEffect(() => {
@@ -112,7 +120,7 @@ export default function Identification() {
     setValue("zipCode", formatedZip, { shouldValidate: true });
   }, [zipCode, setValue]);
 
-  if (isLoadingCivilStatus || isLoadingKinship) {
+  if (isLoadingCivilStatus || isLoadingKinship || isLoadingRace) {
     return "...loading";
   }
 
@@ -181,7 +189,7 @@ export default function Identification() {
             name="skinColor"
             fullWidth
             placeholder="Cor"
-            options={skinColorOptions}
+            options={raceOptions}
             variant="outlined"
           />
         </Grid>
