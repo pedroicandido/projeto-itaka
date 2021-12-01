@@ -23,7 +23,7 @@ export const setLoggout = () => ({
   type: LOGGOUT,
 });
 
-export const setUser = ({ email, password }) => {
+export const setUser = ({ email, password, navigation }) => {
   return async (dispatch) => {
     dispatch(onLoadingUser());
     try {
@@ -31,8 +31,8 @@ export const setUser = ({ email, password }) => {
         email,
         password,
       });
-      console.log(response);
-      dispatch(userSuccess(response.data));
+      dispatch(userSuccess(response.data.token));
+      navigation.push('/')
     } catch (err) {
       dispatch(userFail(err));
     }
