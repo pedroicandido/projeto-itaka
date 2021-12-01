@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import matiralStatusOptions from "../../domain/selectsOptions/maritalStatus";
 import skinColorOptions from "../../domain/selectsOptions/skinColor";
 import { useFormState, useWatch, useFormContext } from "react-hook-form";
-import api from "../../services/api";
 import useStyles from "./styles";
 import Backdrop from "../backdrop";
 import Paper from "@material-ui/core/Paper";
@@ -15,6 +13,7 @@ import { cpfMask, cepMask, birthMask, phoneMask } from "../../helpers/masks";
 import { useDispatch, useSelector } from "react-redux";
 import useAxios from "../../utils/hooks/useAxios";
 import { setCivilStatus } from "../../redux/actions/civilStatusActions";
+import { setKinship } from "../../redux/actions/kinshipActions";
 
 export default function Identification() {
   const classes = useStyles();
@@ -22,9 +21,14 @@ export default function Identification() {
   const dispatch = useDispatch();
   const {
     options: civilStatusOptions,
-    loading,
+    loading: isLoadingCivilStatus,
     error: civilStatusError,
   } = useSelector((state) => state.civilStatus);
+  const {
+    options: kinshinOptions,
+    loading: isLoadingKinship,
+    error: kinshinError,
+  } = useSelector((state) => state.kinship);
   const { setValue, setError, control } = useFormContext();
   const { errors } = useFormState({ control });
 
@@ -65,6 +69,7 @@ export default function Identification() {
 
   useEffect(() => {
     dispatch(setCivilStatus(api));
+    dispatch(setKinship(api));
   }, [dispatch]);
 
   useEffect(() => {
@@ -107,7 +112,7 @@ export default function Identification() {
     setValue("zipCode", formatedZip, { shouldValidate: true });
   }, [zipCode, setValue]);
 
-  if (loading) {
+  if (isLoadingCivilStatus || isLoadingKinship) {
     return "...loading";
   }
 
@@ -192,7 +197,7 @@ export default function Identification() {
           <Select
             name="maritalStatus"
             variant="outlined"
-            options={matiralStatusOptions}
+            options={kinshinOptions}
             placeholder="Estado Civil"
           />
         </Grid>

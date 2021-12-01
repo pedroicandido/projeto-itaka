@@ -2,11 +2,11 @@ import { Grid, Paper, Typography, Divider } from "@material-ui/core";
 import { useFormState, useFormContext } from "react-hook-form";
 import Input from "../input";
 import Select from "../select";
-import maritalStatusOptions from "../../domain/selectsOptions/maritalStatus";
+import { useSelector } from "react-redux";
 import useStyles from "./styles";
 
 const Volunteer = (props) => {
-
+  const kinshinOptions = useSelector((state) => state.kinship.options);
   const { control } = useFormContext();
   const { errors } = useFormState({ control });
   const classes = useStyles();
@@ -73,7 +73,7 @@ const Volunteer = (props) => {
           <Select
             name="maritalStatus"
             variant="outlined"
-            options={maritalStatusOptions}
+            options={kinshinOptions}
             placeholder="Estado Civil"
           />
         </Grid>

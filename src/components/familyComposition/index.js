@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-import Aux from "../../hoc/auxiliar";
 import Paper from "@material-ui/core/Paper";
 import Input from "../input";
 import Grid from "@material-ui/core/Grid";
@@ -8,25 +6,16 @@ import { useFormContext, useWatch, useFormState } from "react-hook-form";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import Select from "../select";
-import maritalStatusOptions from "../../domain/selectsOptions/maritalStatus";
 import { Button } from "@material-ui/core";
 import FamilyCompositionList from "./components/familyCompositionList";
 import ErrorMessage from "../errorMessage";
 import { familyCompositionFields } from "../../domain/initialValues/candidate";
 import { useSelector, useDispatch } from "react-redux";
-import useAxios from "../../utils/hooks/useAxios";
 import { v4 as uuidv4 } from "uuid";
-import { setKinship } from "../../redux/actions/kinshipActions";
 
 const FamilyComposition = () => {
-  const api = useAxios();
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const {
-    options: kinshinOptions,
-    loading,
-    error: kinshinError,
-  } = useSelector((state) => state.kinship);
+  const kinshinOptions = useSelector((state) => state.kinship.options);
   const civilStatusOptions = useSelector((state) => state.civilStatus.options);
   const { control, trigger, setValue, reset } = useFormContext();
   const { errors } = useFormState({ control });
@@ -97,13 +86,6 @@ const FamilyComposition = () => {
     }
   };
 
-  useEffect(() => {
-    dispatch(setKinship(api));
-  }, [dispatch]);
-
-  if (loading) {
-    return "...loading";
-  }
   return (
     <Grid container spacing={2}>
       <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>

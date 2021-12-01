@@ -51,7 +51,7 @@ const AddCandidate = () => {
 
   const history = useHistory()
   const { handleSubmit, trigger } = methods;
-  const [step, setStep] = useState(5);
+  const [step, setStep] = useState(0);
 
 
   const fetchFieldsToValidate = (step) => {
