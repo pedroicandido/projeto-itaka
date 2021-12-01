@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -16,11 +17,12 @@ import Logo from "../../assets/images/logo.png";
 import { useSelector, useDispatch } from "react-redux";
 import * as authActions from "../../redux/actions/authActions";
 import { useHistory } from "react-router-dom";
+import Spinner from "../../components/spinner";
 
 export default function SignIn() {
   const classes = useStyles();
   const history = useHistory();
-  const { error } = useSelector((state) => state.auth);
+  const { error, loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const defaultValues = makeDefaultValue();
   const methods = useForm({
@@ -39,9 +41,18 @@ export default function SignIn() {
     );
   };
 
-  // if (error) {
-  //   alert(error?.message);
-  // }
+  useEffect(() => {
+    if (error) {
+      methods.setError("email", {
+        type: "required",
+        message: "Usuário ou senha não encontrados",
+      });
+    }
+  }, [error]);
+
+  if (loading) {
+    return <Spinner />;
+  }
 
   return (
     <Container component="main" maxWidth="xs">

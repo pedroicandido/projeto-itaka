@@ -19,8 +19,8 @@ const authReducer = (state = initialState, action) => {
     case ON_FETCH_USER_FAIL:
       return {
         ...state,
-        loading: false,
         error: action.payload.error,
+        loading: false
       };
     case LOGIN:
       return {
