@@ -20,6 +20,7 @@ import Grid from "@material-ui/core/Grid";
 import Input from "../input";
 import { useForm, FormProvider, useFormState } from "react-hook-form";
 import SearchPerson from "./searchPerson";
+import AddPersonForm from './addPersonForm'
 
 const styles = (theme) => ({
   root: {
@@ -96,11 +97,11 @@ export default function CustomizedDialogs() {
           Procurar por Pessoa
         </DialogTitle>
         <DialogContent dividers>
-          <SearchPerson />
+          <AddPersonForm />
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
+            Cancelar
           </Button>
         </DialogActions>
       </Dialog>
