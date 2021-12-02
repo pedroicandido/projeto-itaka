@@ -17,6 +17,7 @@ import ErrorMessage from "../../errorMessage";
 const AddPersonForm = () => {
   const raceOptions = useSelector((state) => state.race.options);
   const civilStatusOptions = useSelector((state) => state.civilStatus.options);
+  const documentNotFinded = useSelector((state) => state.search.document);
 
   const methods = useForm({
     defaultValues: {
@@ -43,6 +44,10 @@ const AddPersonForm = () => {
   const onSubmit = (data) => console.log(data);
 
   useEffect(() => {
+    methods.setValue("document", documentNotFinded);
+  }, [documentNotFinded]);
+
+  useEffect(() => {
     const formatedBirthDate = birthMask(birthDate);
     methods.setValue("birthDate", formatedBirthDate);
   }, [birthDate]);
@@ -52,7 +57,8 @@ const AddPersonForm = () => {
       <Grid container spacing={1}>
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Typography gutterBottom>
-            Insira o CPF com apenas números para realizar a busca.
+            O usuário que você esta procurando não foi encontrado! Cadastre-o no
+            formulário abaixo
           </Typography>
         </Grid>
         <Grid item item xl={6} lg={6} md={6} sm={6} xs={12}>
@@ -73,6 +79,7 @@ const AddPersonForm = () => {
             variant="outlined"
             helperText={errors.document?.message}
             error={errors.document && true}
+            disabled
           />
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>

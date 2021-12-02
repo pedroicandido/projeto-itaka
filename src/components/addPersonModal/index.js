@@ -16,11 +16,9 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
-import Input from "../input";
-import { useForm, FormProvider, useFormState } from "react-hook-form";
 import SearchPerson from "./searchPerson";
-import AddPersonForm from './addPersonForm'
+import AddPersonForm from "./addPersonForm";
+import { useSelector } from "react-redux";
 
 const styles = (theme) => ({
   root: {
@@ -66,7 +64,8 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function CustomizedDialogs() {
+export default function AddPersonModal() {
+  const { controller } = useSelector((state) => state.search);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -97,7 +96,8 @@ export default function CustomizedDialogs() {
           Procurar por Pessoa
         </DialogTitle>
         <DialogContent dividers>
-          <AddPersonForm />
+          <SearchPerson />
+          {!controller && <AddPersonForm />}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">

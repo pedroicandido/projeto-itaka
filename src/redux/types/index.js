@@ -31,3 +31,10 @@ export const ON_FETCH_RACE_FAIL = "ON_FETCH_RACE_FAIL"
 export const SET_WS = "SET_WS"
 export const LOADING_OPTIONS_WS = "LOADING_OPTIONS_WS"
 export const ON_FETCH_WS_FAIL = "ON_FETCH_WS_FAIL"
+
+
+//search
+
+export const SET_SEARCH = "SET_SEARCH"
+export const LOADING_SEARCH = "LOADING_SEARCH"
+export const ON_FETCH_SEARCH_FAIL = "ON_FETCH_SEARCH_FAIL"

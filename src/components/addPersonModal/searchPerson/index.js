@@ -8,8 +8,15 @@ import { useFormState, useForm, FormProvider, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schemaValidation from "../../../helpers/validations/searchPerson";
 import { onlyNumbers } from "../../../helpers/onlyNumbers";
+import { useDispatch } from "react-redux";
+import { setSearch } from "../../../redux/actions/searchActions";
+import useAxios from "../../../utils/hooks/useAxios";
+import { useSelector } from "react-redux";
 
 const SearchPerson = () => {
+  const api = useAxios();
+  const dispatch = useDispatch();
+  const { hasPerson } = useSelector((state) => state.search);
   const methods = useForm({
     defaultValues: {
       document: "",
@@ -23,11 +30,23 @@ const SearchPerson = () => {
     name: "document",
   });
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    dispatch(setSearch({ api, document: data.document }));
+  };
 
   useEffect(() => {
-    methods.setValue('document', onlyNumbers(documentNumber))
+    methods.setValue("document", onlyNumbers(documentNumber));
   }, [documentNumber]);
+
+  useEffect(() => {
+    if (!hasPerson) {
+      methods.setError("document", {
+        type: "required",
+        message: "Usuário não encontrado",
+      });
+      dispatch({type: "RESET_HAS_USER"})
+    }
+  }, [hasPerson]);
 
   return (
     <FormProvider {...methods}>
