@@ -4,6 +4,7 @@ import useStyles from "./styles";
 import Backdrop from "../backdrop";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import Input from "../input";
@@ -16,6 +17,7 @@ import { setKinship } from "../../redux/actions/kinshipActions";
 import { setRace } from "../../redux/actions/raceActions";
 import { setWorkSituation } from "../../redux/actions/workSituationActions";
 import Spinner from "../spinner";
+import AddPersonModal from "../addPersonModal";
 
 export default function Identification() {
   const classes = useStyles();
@@ -323,57 +325,43 @@ export default function Identification() {
             variant="outlined"
           />
         </Grid>
-        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+        <Grid item xl={10} lg={10} md={10} sm={9} xs={12}>
           <Input
             name="fatherName"
             fullWidth
             label="Nome do Pai"
             variant="outlined"
+            disabled
           />
         </Grid>
-        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Input
-            name="fatherCpf"
-            fullWidth
-            label="CPF do Pai"
-            variant="outlined"
-            helperText={errors.fatherCpf?.message}
-            error={errors.fatherCpf && true}
-          />
+
+        <Grid item xl={2} lg={2} md={2} sm={3} xs={12}>
+          <AddPersonModal />
         </Grid>
-        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+
+        <Grid item xl={10} lg={10} md={10} sm={9} xs={12}>
           <Input
             name="motherName"
             fullWidth
             label="Nome da Mãe"
             variant="outlined"
+            disabled
           />
         </Grid>
-        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Input
-            name="motherCpf"
-            fullWidth
-            label="CPF da Mãe"
-            variant="outlined"
-            helperText={errors.motherCpf?.message}
-            error={errors.motherCpf && true}
-          />
+        <Grid item xl={2} lg={2} md={2} sm={3} xs={12}>
+          <AddPersonModal />
         </Grid>
-        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+        <Grid item xl={10} lg={10} md={10} sm={9} xs={12}>
           <Input
             name="responsible"
             fullWidth
             label="Responsável Pelo Candidato"
             variant="outlined"
+            disabled
           />
         </Grid>
-        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Select
-            name="parentsMaritalStatus"
-            variant="outlined"
-            options={civilStatusOptions}
-            placeholder="Estado Civil dos Pais"
-          />
+        <Grid item xl={2} lg={2} md={2} sm={3} xs={12}>
+          <AddPersonModal />
         </Grid>
       </Grid>
     </Paper>
