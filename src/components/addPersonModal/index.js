@@ -16,7 +16,11 @@ import MuiDialogActions from "@material-ui/core/DialogActions";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
 import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Input from "../input";
 import { useForm, FormProvider } from "react-hook-form";
+
+import SearchIcon from "@material-ui/icons/Search";
 
 const styles = (theme) => ({
   root: {
@@ -63,6 +67,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function CustomizedDialogs() {
+  const methods = useForm();
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -73,48 +78,61 @@ export default function CustomizedDialogs() {
   };
 
   return (
-    <div style={{ height: "100%" }}>
-      <Button
-        style={{ height: "100%" }}
-        variant="contained"
-        color="primary"
-        fullWidth
-        type="button"
-        onClick={handleClickOpen}
-      >
-        ADICIONAR
-      </Button>
-      <Dialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={handleClose}>
-          Modal title
-        </DialogTitle>
-        <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta
-            ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et.
-            Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor
-            auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo
-            cursus magna, vel scelerisque nisl consectetur et. Donec sed odio
-            dui. Donec ullamcorper nulla non metus auctor fringilla.
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button autoFocus onClick={handleClose} color="primary">
-            Save changes
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </div>
+    <FormProvider {...methods}>
+      <div style={{ height: "100%" }}>
+        <Button
+          style={{ height: "100%" }}
+          variant="contained"
+          color="primary"
+          fullWidth
+          type="button"
+          onClick={handleClickOpen}
+        >
+          ADICIONAR
+        </Button>
+        <Dialog
+          onClose={handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={open}
+        >
+          <DialogTitle id="customized-dialog-title" onClose={handleClose}>
+            Procurar por Pessoa
+          </DialogTitle>
+          <DialogContent dividers>
+            <Grid container spacing={2}>
+              <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+                <Typography gutterBottom>
+                  Insira o CPF com apenas números para realizar a busca.
+                </Typography>
+              </Grid>
+              <Grid item item xl={9} lg={9} md={9} sm={8} xs={12}>
+                <Input
+                  name="document"
+                  fullWidth
+                  label="CPF"
+                  variant="outlined"
+                />
+              </Grid>
+              <Grid item xl={3} lg={3} md={3} sm={3} xs={12}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  style={{ height: "100%" }}
+                  fullWidth
+                  startIcon={<SearchIcon />}
+                >
+                  Procurar
+                </Button>
+              </Grid>
+            </Grid>
+          </DialogContent>
+          <DialogActions>
+            <Button autoFocus onClick={handleClose} color="primary">
+              Save changes
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </div>
+    </FormProvider>
   );
 }
