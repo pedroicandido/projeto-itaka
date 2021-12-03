@@ -35,7 +35,6 @@ export const setSearch = ({ api, document }) => {
         },
       };
       const response = await api.post("/person/search", params);
-      console.log(response);
       dispatch(onFetchOptionsSuccess({data: response.data.data, document}));
     } catch (err) {
       dispatch(onFetchOptionsFail(err));

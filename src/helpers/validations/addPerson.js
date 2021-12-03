@@ -1,7 +1,7 @@
 import * as yup from "yup";
 
 export default yup.object().shape({
-  adress: yup.string().required("Campo obrigatório"),
+  
   birthDate: yup
     .string()
     .required("Campo obrigatório")

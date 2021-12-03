@@ -8,16 +8,23 @@ import { useFormState, useForm, FormProvider, useWatch } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schemaValidation from "../../../helpers/validations/addPerson";
 import { onlyNumbers } from "../../../helpers/onlyNumbers";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import Select from "../../select";
 import genderOptions from "../../../domain/selectsOptions/genderOptions";
-import { birthMask } from "../../../helpers/masks";
+import { birthMask, cepMask } from "../../../helpers/masks";
 import ErrorMessage from "../../errorMessage";
+import { setAddress } from "../../../redux/actions/addressActions";
+import useAxios from "../../../utils/hooks/useAxios";
+import Backdrop from "../../backdrop";
 
 const AddPersonForm = () => {
+  const api = useAxios();
+  const dispatch = useDispatch();
   const raceOptions = useSelector((state) => state.race.options);
   const civilStatusOptions = useSelector((state) => state.civilStatus.options);
   const documentNotFinded = useSelector((state) => state.search.document);
+  const address = useSelector((state) => state.address.address);
+  const loadingAdrress = useSelector((state) => state.address.loading);
 
   const methods = useForm({
     defaultValues: {
@@ -27,21 +34,39 @@ const AddPersonForm = () => {
       rg: "",
       skinColor: "",
       civilStatus: "",
-      adress: "",
+      addressId: "",
       name: "",
+      cep: "",
+      street: "",
+      district: "",
+      city: "",
+      state: "",
     },
     resolver: yupResolver(schemaValidation),
   });
 
   const { errors } = useFormState({ control: methods.control });
-  const documentNumber = useWatch({
+
+  const cep = useWatch({
     control: methods.control,
-    name: "document",
+    name: "cep",
   });
 
   const birthDate = useWatch({ control: methods.control, name: "birthDate" });
 
   const onSubmit = (data) => console.log(data);
+
+  useEffect(() => {
+    methods.setValue("cep", cepMask(cep));
+    if (cep.length === 9) {
+      const onlyCepNumbers = onlyNumbers(cep);
+      dispatch(setAddress({ api, cep: onlyCepNumbers }));
+    }
+  }, [cep, dispatch]);
+
+  useEffect(() => {
+    console.log(errors)
+  }, [errors]);
 
   useEffect(() => {
     methods.setValue("document", documentNotFinded);
@@ -52,8 +77,32 @@ const AddPersonForm = () => {
     methods.setValue("birthDate", formatedBirthDate);
   }, [birthDate]);
 
+  useEffect(() => {
+    console.log(address);
+    if (address?.length === 0) {
+      methods.setError("cep", {
+        type: "required",
+        message: "CEP não encontrado",
+      });
+
+      methods.setValue("street", "");
+      methods.setValue("district", "");
+      methods.setValue("city", "");
+      methods.setValue("state", "");
+      methods.setValue("addressId", "");
+    } else {
+      methods.clearErrors("cep");
+      methods.setValue("street", address?.logradouro);
+      methods.setValue("district", address?.bairro);
+      methods.setValue("city", address?.cidade);
+      methods.setValue("state", address?.estado);
+      methods.setValue("addressId", address?.id);
+    }
+  }, [address]);
+
   return (
     <FormProvider {...methods}>
+      <Backdrop open={loadingAdrress} />
       <Grid container spacing={1}>
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Typography gutterBottom>
@@ -134,16 +183,66 @@ const AddPersonForm = () => {
 
           <ErrorMessage>{errors.skinColor?.message}</ErrorMessage>
         </Grid>
+
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <Input
-            name="adress"
+            name="cep"
             fullWidth
-            label="Logradouro"
+            label="CEP"
             variant="outlined"
-            helperText={errors.adress?.message}
-            error={errors.adress && true}
+            helperText={errors.cep?.message}
+            error={errors.cep && true}
           />
         </Grid>
+
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          <Input
+            name="street"
+            fullWidth
+            disabled
+            label="Rua"
+            variant="outlined"
+            helperText={errors.street?.message}
+            error={errors.street && true}
+          />
+        </Grid>
+
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          <Input
+            name="state"
+            fullWidth
+            disabled
+            label="Estado"
+            variant="outlined"
+            helperText={errors.state?.message}
+            error={errors.state && true}
+          />
+        </Grid>
+
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          <Input
+            name="district"
+            fullWidth
+            disabled
+            label="Bairro"
+            variant="outlined"
+            helperText={errors.district?.message}
+            error={errors.district && true}
+          />
+        </Grid>
+
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          <Input
+            name="city"
+            fullWidth
+            disabled
+            label="Cidade"
+            variant="outlined"
+            helperText={errors.city?.message}
+            error={errors.city && true}
+          />
+        </Grid>
+
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Grid container alignItems="center" justify="flex-end">
             <Grid item xl={3} lg={3} md={3} sm={3} xs={12}>
