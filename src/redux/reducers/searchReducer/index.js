@@ -2,7 +2,7 @@ import { SET_SEARCH } from "../../types";
 
 const initialState = {
   document: "",
-  person: {},
+  person: null,
   loading: false,
   error: null,
   hasPerson: true,
@@ -23,7 +23,6 @@ const searchReducer = (state = initialState, action) => {
           document: hasUser.doc,
         };
       }
-      console.log('finded user',user)
       const cpf = action.payload.document;
       return {
         ...state,

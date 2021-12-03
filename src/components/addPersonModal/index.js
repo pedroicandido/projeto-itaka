@@ -19,6 +19,7 @@ import Typography from "@material-ui/core/Typography";
 import SearchPerson from "./searchPerson";
 import AddPersonForm from "./addPersonForm";
 import { useSelector } from "react-redux";
+import ShowPerson from "./showPerson";
 
 const styles = (theme) => ({
   root: {
@@ -65,7 +66,7 @@ const DialogActions = withStyles((theme) => ({
 }))(MuiDialogActions);
 
 export default function AddPersonModal() {
-  const { controller } = useSelector((state) => state.search);
+  const { controller, person } = useSelector((state) => state.search);
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -98,6 +99,9 @@ export default function AddPersonModal() {
         <DialogContent dividers>
           <SearchPerson />
           {!controller && <AddPersonForm />}
+          {controller && person && (
+            <ShowPerson name={person.name} document={person.document} id={person.id}/>
+          )}
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
