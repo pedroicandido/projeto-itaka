@@ -1,12 +1,16 @@
 import * as yup from "yup";
 
 export default yup.object().shape({
-  
   birthDate: yup
     .string()
     .required("Campo obrigatório")
     .min(10, "Preencha corretamente a data")
     .max(10, "Preencha corretamente a data"),
+  cep: yup
+    .string()
+    .required("Campo obrigatório")
+    .min(9, "Preencha corretamente o CEP")
+    .max(9, "Preencha corretamente o CEP"),
   civilStatus: yup
     .object({
       value: yup.number(),
@@ -27,6 +31,7 @@ export default yup.object().shape({
     })
     .required("Campo obrigatório")
     .nullable(),
+  houseNumber: yup.string().required("Campo obrigatório"),
   skinColor: yup
     .object({
       value: yup.number(),

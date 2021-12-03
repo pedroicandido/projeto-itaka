@@ -41,6 +41,7 @@ const AddPersonForm = () => {
       district: "",
       city: "",
       state: "",
+      houseNumber: "",
     },
     resolver: yupResolver(schemaValidation),
   });
@@ -63,10 +64,6 @@ const AddPersonForm = () => {
       dispatch(setAddress({ api, cep: onlyCepNumbers }));
     }
   }, [cep, dispatch]);
-
-  useEffect(() => {
-    console.log(errors)
-  }, [errors]);
 
   useEffect(() => {
     methods.setValue("document", documentNotFinded);
@@ -207,7 +204,7 @@ const AddPersonForm = () => {
           />
         </Grid>
 
-        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+        <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
           <Input
             name="state"
             fullWidth
@@ -216,6 +213,17 @@ const AddPersonForm = () => {
             variant="outlined"
             helperText={errors.state?.message}
             error={errors.state && true}
+          />
+        </Grid>
+
+        <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+          <Input
+            name="houseNumber"
+            fullWidth
+            label="número"
+            variant="outlined"
+            helperText={errors.houseNumber?.message}
+            error={errors.houseNumber && true}
           />
         </Grid>
 
