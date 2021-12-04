@@ -24,6 +24,7 @@ export default yup.object().shape({
     .required("Campo obrigatório")
     .min(11, "Preencha corretamente o CPF")
     .max(11, "Preencha corretamente o CPF"),
+  emissary: yup.string().required("Campo obrigatório"),
   gender: yup
     .object({
       value: yup.number(),
@@ -41,4 +42,11 @@ export default yup.object().shape({
     .nullable(),
   name: yup.string().required("Campo obrigatório"),
   rg: yup.string().required("Campo obrigatório"),
+  workSituation: yup
+    .object({
+      value: yup.number(),
+      label: yup.string(),
+    })
+    .required("Campo obrigatório")
+    .nullable(),
 });

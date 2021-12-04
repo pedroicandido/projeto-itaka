@@ -203,6 +203,8 @@ const AddPersonForm = () => {
             options={wsOptions}
             variant="outlined"
           />
+          
+          <ErrorMessage>{errors.workSituation?.message}</ErrorMessage>
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <Select
