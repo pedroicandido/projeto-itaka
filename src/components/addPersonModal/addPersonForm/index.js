@@ -14,17 +14,22 @@ import genderOptions from "../../../domain/selectsOptions/genderOptions";
 import { birthMask, cepMask } from "../../../helpers/masks";
 import ErrorMessage from "../../errorMessage";
 import { setAddress } from "../../../redux/actions/addressActions";
+import { setSearchCity } from "../../../redux/actions/cityActions";
 import useAxios from "../../../utils/hooks/useAxios";
 import Backdrop from "../../backdrop";
+import Autocomplete from "../../autocomplete";
 
 const AddPersonForm = () => {
   const api = useAxios();
   const dispatch = useDispatch();
+  const wsOptions = useSelector((state) => state.workSituation.options);
   const raceOptions = useSelector((state) => state.race.options);
   const civilStatusOptions = useSelector((state) => state.civilStatus.options);
   const documentNotFinded = useSelector((state) => state.search.document);
   const address = useSelector((state) => state.address.address);
   const loadingAdrress = useSelector((state) => state.address.loading);
+  
+  const {loading: loadingCities, cities} = useSelector((state) => state.city);
 
   const methods = useForm({
     defaultValues: {
@@ -42,6 +47,10 @@ const AddPersonForm = () => {
       city: "",
       state: "",
       houseNumber: "",
+      workSituation: "",
+      emissary: "",
+      birthPlace:"",
+      birthPlaceData: {}
     },
     resolver: yupResolver(schemaValidation),
   });
@@ -54,6 +63,13 @@ const AddPersonForm = () => {
   });
 
   const birthDate = useWatch({ control: methods.control, name: "birthDate" });
+  
+  const birthPlace = useWatch({ control: methods.control, name: "birthPlace" });
+
+  const handleChangeAutocomplete = (event, value) => {
+    methods.setValue("birthPlaceData", value)
+  }
+
 
   const onSubmit = (data) => console.log(data);
 
@@ -66,6 +82,13 @@ const AddPersonForm = () => {
   }, [cep, dispatch]);
 
   useEffect(() => {
+
+    if(birthPlace && birthPlace.length % 3 === 0){
+      dispatch(setSearchCity({api, value: birthPlace}))
+    }
+  }, [birthPlace, dispatch]);
+
+  useEffect(() => {
     methods.setValue("document", documentNotFinded);
   }, [documentNotFinded]);
 
@@ -75,7 +98,6 @@ const AddPersonForm = () => {
   }, [birthDate]);
 
   useEffect(() => {
-    console.log(address);
     if (address?.length === 0) {
       methods.setError("cep", {
         type: "required",
@@ -102,7 +124,7 @@ const AddPersonForm = () => {
       <Backdrop open={loadingAdrress} />
       <Grid container spacing={1}>
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-          <Typography gutterBottom>
+          <Typography align="justify">
             O usuário que você esta procurando não foi encontrado! Cadastre-o no
             formulário abaixo
           </Typography>
@@ -140,6 +162,16 @@ const AddPersonForm = () => {
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <Input
+            name="emissary"
+            fullWidth
+            label="Orgão Expedidor"
+            variant="outlined"
+            helperText={errors.emissary?.message}
+            error={errors.emissary && true}
+          />
+        </Grid>
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          <Input
             name="birthDate"
             fullWidth
             label="Data de Nascimento"
@@ -149,6 +181,29 @@ const AddPersonForm = () => {
           />
         </Grid>
 
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          <Autocomplete
+            name="birthPlace"
+            fullWidth
+            label="Naturalidade"
+            variant="outlined"
+            loading={loadingCities}
+            options={cities}
+            keyLabel="nome"
+            onChangeAutocomplete={handleChangeAutocomplete}
+            helperText={errors.birthPlace?.message}
+            error={errors.birthPlace && true}
+          />
+        </Grid>
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          <Select
+            name="workSituation"
+            fullWidth
+            placeholder="Situação Trabalhista"
+            options={wsOptions}
+            variant="outlined"
+          />
+        </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <Select
             name="gender"

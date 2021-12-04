@@ -8,6 +8,7 @@ import raceReducer from "./selectOptionsReducers/raceReducer";
 import workSituationReducer from "./selectOptionsReducers/workSituationReducer";
 import searchReducer from "./searchReducer";
 import addressReducer from "./addressReducer";
+import cityReducer from "./cityReducer";
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   race: raceReducer,
   workSituation: workSituationReducer,
   search: searchReducer,
-  address: addressReducer
+  address: addressReducer,
+  city: cityReducer,
 });
 
 export default rootReducer;
