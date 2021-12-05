@@ -9,6 +9,7 @@ import workSituationReducer from "./selectOptionsReducers/workSituationReducer";
 import searchReducer from "./searchReducer";
 import addressReducer from "./addressReducer";
 import cityReducer from "./cityReducer";
+import personReducer from "./personReducer";
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   search: searchReducer,
   address: addressReducer,
   city: cityReducer,
+  person: personReducer,
 });
 
 export default rootReducer;

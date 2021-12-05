@@ -1,28 +1,37 @@
-import { useSelector } from 'react-redux'
-import { Grid, Button } from "@material-ui/core"
-import MuiDataTables from 'mui-datatables'
-import { Link } from 'react-router-dom'
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import Grid from "@material-ui/core/Grid";
+import MuiDataTables from "mui-datatables";
+import makeColumns from "./tableColumns";
+import Spinner from "../../../components/spinner";
+import useAxios from "../../../utils/hooks/useAxios";
+import { setPersonList } from "../../../redux/actions/personActions";
 
 const ListCandidate = () => {
-  const fakeData = useSelector(state => state.user.users)
-  const columns = [{ name: 'name', label: 'Nome' }, { name: 'email', label: 'Email' }, {
-    name: 'id', label: 'Detalhar', options: {
-      customBodyRender: (value) =>
-        <Button
-          component={Link}
-          to={`/candidate/${value}`}
-          variant="contained"
-          color="primary">Visualizar
-        </Button>
-    }
-  }]
+  const api = useAxios();
+  const dispatch = useDispatch();
+  const { personList, loading } = useSelector((state) => state.person);
+  const columns = makeColumns();
+
+  useEffect(() => {
+    dispatch(setPersonList(api))
+  }, [dispatch]);
+
+  if (loading) {
+    return <Spinner />;
+  }
+
   return (
     <Grid container>
-      <Grid item xl={12} lg={12} >
-        <MuiDataTables data={fakeData} columns={columns} title="Relacionamento de Candidatos" />
+      <Grid item xl={12} lg={12}>
+        <MuiDataTables
+          data={personList}
+          columns={columns}
+          title="Relacionamento de Candidatos"
+        />
       </Grid>
     </Grid>
-  )
-}
+  );
+};
 
-export default ListCandidate
+export default ListCandidate;

@@ -28,8 +28,8 @@ const AddPersonForm = () => {
   const documentNotFinded = useSelector((state) => state.search.document);
   const address = useSelector((state) => state.address.address);
   const loadingAdrress = useSelector((state) => state.address.loading);
-  
-  const {loading: loadingCities, cities} = useSelector((state) => state.city);
+
+  const { loading: loadingCities, cities } = useSelector((state) => state.city);
 
   const methods = useForm({
     defaultValues: {
@@ -49,8 +49,9 @@ const AddPersonForm = () => {
       houseNumber: "",
       workSituation: "",
       emissary: "",
-      birthPlace:"",
-      birthPlaceData: {}
+      birthPlace: "",
+      birthPlaceData: {},
+      income: "",
     },
     resolver: yupResolver(schemaValidation),
   });
@@ -63,13 +64,12 @@ const AddPersonForm = () => {
   });
 
   const birthDate = useWatch({ control: methods.control, name: "birthDate" });
-  
+
   const birthPlace = useWatch({ control: methods.control, name: "birthPlace" });
 
   const handleChangeAutocomplete = (event, value) => {
-    methods.setValue("birthPlaceData", value)
-  }
-
+    methods.setValue("birthPlaceData", value);
+  };
 
   const onSubmit = (data) => console.log(data);
 
@@ -82,9 +82,8 @@ const AddPersonForm = () => {
   }, [cep, dispatch]);
 
   useEffect(() => {
-
-    if(birthPlace && birthPlace.length % 3 === 0){
-      dispatch(setSearchCity({api, value: birthPlace}))
+    if (birthPlace && birthPlace.length % 3 === 0) {
+      dispatch(setSearchCity({ api, value: birthPlace }));
     }
   }, [birthPlace, dispatch]);
 
@@ -203,7 +202,7 @@ const AddPersonForm = () => {
             options={wsOptions}
             variant="outlined"
           />
-          
+
           <ErrorMessage>{errors.workSituation?.message}</ErrorMessage>
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
@@ -236,6 +235,18 @@ const AddPersonForm = () => {
           />
 
           <ErrorMessage>{errors.skinColor?.message}</ErrorMessage>
+        </Grid>
+
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          <Input
+            name="income"
+            type="number"
+            fullWidth
+            label="Renda mensal R$"
+            variant="outlined"
+            helperText={errors.income?.message}
+            error={errors.income && true}
+          />
         </Grid>
 
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
