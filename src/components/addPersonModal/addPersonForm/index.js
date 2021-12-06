@@ -15,9 +15,12 @@ import { birthMask, cepMask } from "../../../helpers/masks";
 import ErrorMessage from "../../errorMessage";
 import { setAddress } from "../../../redux/actions/addressActions";
 import { setSearchCity } from "../../../redux/actions/cityActions";
+import { createPerson } from "../../../redux/actions/personActions";
 import useAxios from "../../../utils/hooks/useAxios";
 import Backdrop from "../../backdrop";
 import Autocomplete from "../../autocomplete";
+import AddPersonModel from "../../../models/addPerson";
+import Feedback from "../../feedback";
 
 const AddPersonForm = () => {
   const api = useAxios();
@@ -28,6 +31,10 @@ const AddPersonForm = () => {
   const documentNotFinded = useSelector((state) => state.search.document);
   const address = useSelector((state) => state.address.address);
   const loadingAdrress = useSelector((state) => state.address.loading);
+
+  const { response, loading: loadingPerson } = useSelector(
+    (state) => state.person
+  );
 
   const { loading: loadingCities, cities } = useSelector((state) => state.city);
 
@@ -50,6 +57,7 @@ const AddPersonForm = () => {
       workSituation: "",
       emissary: "",
       birthPlace: "",
+      schooling: "",
       birthPlaceData: {},
       income: "",
     },
@@ -71,7 +79,25 @@ const AddPersonForm = () => {
     methods.setValue("birthPlaceData", value);
   };
 
-  const onSubmit = (data) => console.log(data);
+  const onSubmit = (data) => {
+    const addPeronModel = new AddPersonModel({
+      addressId: data.addressId,
+      birthDate: data.birthDate,
+      birhPlaceId: data.birthPlaceData.id,
+      civilStatus: data.civilStatus.value,
+      document: data.document,
+      emissary: data.emissary,
+      gender: data.gender.value,
+      houseNumber: data.houseNumber,
+      income: data.income,
+      name: data.name,
+      rg: data.rg,
+      schooling: data.schooling,
+      skinColor: data.skinColor.value,
+      workSituation: data.workSituation.value,
+    });
+    dispatch(createPerson({ api, data: addPeronModel }));
+  };
 
   useEffect(() => {
     methods.setValue("cep", cepMask(cep));
@@ -120,7 +146,13 @@ const AddPersonForm = () => {
 
   return (
     <FormProvider {...methods}>
-      <Backdrop open={loadingAdrress} />
+      <Backdrop open={loadingAdrress || loadingPerson} />
+      <Feedback
+        isOpen={response.showMessage}
+        severity={response.severity}
+        message={response.message}
+        onClose={() => dispatch({ type: "RESET_RESPONSE" })}
+      />
       <Grid container spacing={1}>
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
           <Typography align="justify">
@@ -239,6 +271,17 @@ const AddPersonForm = () => {
 
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
           <Input
+            name="schooling"
+            fullWidth
+            label="Escolaridade"
+            variant="outlined"
+            helperText={errors.schooling?.message}
+            error={errors.schooling && true}
+          />
+        </Grid>
+
+        <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+          <Input
             name="income"
             type="number"
             fullWidth
@@ -319,9 +362,9 @@ const AddPersonForm = () => {
           />
         </Grid>
 
-        <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+        <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
           <Grid container alignItems="center" justify="flex-end">
-            <Grid item xl={3} lg={3} md={3} sm={3} xs={12}>
+            <Grid item xl={12} lg={12} md={12} sm={3} xs={12}>
               <Button
                 variant="contained"
                 color="secondary"

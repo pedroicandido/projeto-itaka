@@ -2,20 +2,21 @@ import {
   SET_PERSON_LIST,
   LOADING_PERSON,
   ON_FETCH_PERSON_FAIL,
+  SET_NEW_PERSON
 } from "../types";
 
 const isLoading = () => ({
   type: LOADING_PERSON,
 });
 
-const onFetchOptionsFail = (error) => ({
+const onFailRequest = (error) => ({
   type: ON_FETCH_PERSON_FAIL,
   payload: {
     error,
   },
 });
 
-const onFetchOptionsSuccess = (data) => ({
+const onFetchPersonListSuccess = (data) => ({
   type: SET_PERSON_LIST,
   payload: {
     data: data,
@@ -27,9 +28,38 @@ export const setPersonList = (api) => {
     dispatch(isLoading());
     try {
       const response = await api.get("/person");
-      dispatch(onFetchOptionsSuccess(response.data.data));
+      if(!response.status){
+        onFailRequest()
+      }
+      dispatch(onFetchPersonListSuccess(response.data.data));
     } catch (err) {
-      dispatch(onFetchOptionsFail(err));
+      dispatch(onFailRequest());
+    }
+  };
+};
+
+
+const onCreatePersonSuccess = (data) => ({
+  type: SET_NEW_PERSON,
+  payload: {
+    data: data,
+  },
+});
+
+
+
+export const createPerson = ({api, data}) => {
+  return async (dispatch) => {
+    dispatch(isLoading());
+    try {
+      const response = await api.post("/person", data);
+      console.log(response)
+      if(response.status !== 200){
+        return onFailRequest()
+      }
+      dispatch(onCreatePersonSuccess(response.data.data));
+    } catch (err) {
+      dispatch(onFailRequest());
     }
   };
 };

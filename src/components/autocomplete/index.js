@@ -20,6 +20,7 @@ const Autocomplete = ({ name, control, options, loading, keyLabel, onChangeAutoc
       fullWidth
       loading={loading}
       onChange={onChangeAutocomplete}
+      getOptionSelected={(option, value)=> value.id === option.id}
       renderInput={(params) => (
         <TextField
           {...inputProps}
