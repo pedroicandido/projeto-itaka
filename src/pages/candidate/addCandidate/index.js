@@ -14,9 +14,9 @@ import {
   educationFields,
   healthFields,
   socialFamilyConditionFields,
-  expenseFields
+  expenseFields,
 } from "../../../domain/initialValues/candidate";
-import { useHistory } from 'react-router-dom'
+import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Feedback from "../../../components/feedback";
@@ -27,7 +27,7 @@ import schemaValidation from "../../../helpers/validations/registerCandidate";
 const AddCandidate = () => {
   const defaultValues = makeDefaultValues({
     isStudent: false,
-    familyCompositionTotalFinance:0,
+    familyCompositionTotalFinance: 0,
     benefits: [{ course: "", shift: "", hour: "" }],
     hasControlledMedication: "n",
     hasAgreed: false,
@@ -40,51 +40,62 @@ const AddCandidate = () => {
     hasFamilySocialBenefit: "n",
     hasSpecialMedicalCondition: "n",
     familyComposition: [],
-    familySocialBenefit: 300.00
+    familySocialBenefit: 300.0,
+    motherName: {
+      name: "",
+      id: "",
+    },
+    fatherName: {
+      name: "",
+      id: "",
+    },
+    responsable: {
+      name: "",
+      id: "",
+    },
   });
   const totalSteps = 8;
   const methods = useForm({
     defaultValues,
-    reValidateMode: 'onChange',
-    mode: 'onChange'
+    reValidateMode: "onChange",
+    mode: "onChange",
   });
 
-  const history = useHistory()
+  const history = useHistory();
   const { handleSubmit, trigger } = methods;
   const [step, setStep] = useState(0);
-
 
   const fetchFieldsToValidate = (step) => {
     let fields = [];
     switch (step) {
       case 0:
-        fields = [...candidateFields]
-        return fields
+        fields = [...candidateFields];
+        return fields;
       case 1:
-        fields = [...educationFields]
-        return fields
+        fields = [...educationFields];
+        return fields;
       case 2:
-        fields = [...benefitsFields]
-        return fields
+        fields = [...benefitsFields];
+        return fields;
       case 3:
-        fields = [...healthFields]
-        return fields
+        fields = [...healthFields];
+        return fields;
       case 4:
-        fields = [...socialFamilyConditionFields]
-        return fields
+        fields = [...socialFamilyConditionFields];
+        return fields;
       case 5:
-        fields = ["familyComposition"]
-        return fields
+        fields = ["familyComposition"];
+        return fields;
       case 6:
-        fields = [...expenseFields]
-        return fields
+        fields = [...expenseFields];
+        return fields;
       default:
-        return null
+        return null;
     }
   };
 
   const handleNext = async (step) => {
-    const fields = fetchFieldsToValidate(step)
+    const fields = fetchFieldsToValidate(step);
     const result = await trigger(fields);
 
     if (result) {
@@ -97,34 +108,31 @@ const AddCandidate = () => {
   };
 
   const onSubmit = (data) => {
-
-    history.push('/candidate')
-
+    history.push("/candidate");
   };
 
-  const getComponent = step => {
+  const getComponent = (step) => {
     switch (step) {
       case 0:
-        return <Identification />
+        return <Identification />;
       case 1:
-        return <EducationData />
+        return <EducationData />;
       case 2:
-        return <Benefits />
+        return <Benefits />;
       case 3:
-        return <Health />
+        return <Health />;
       case 4:
-        return <SocialFamilyCondition />
+        return <SocialFamilyCondition />;
       case 5:
-        return <FamilyComposition />
+        return <FamilyComposition />;
       case 6:
-        return <Expenses />
+        return <Expenses />;
       case 7:
-        return <OtherInformations />
+        return <OtherInformations />;
       default:
-        return null
+        return null;
     }
-  }
-
+  };
 
   let button = (
     <Grid item>
@@ -149,8 +157,6 @@ const AddCandidate = () => {
       </Grid>
     );
   }
-
-
 
   return (
     <Grid container>

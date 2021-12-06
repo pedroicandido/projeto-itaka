@@ -6,6 +6,13 @@ export default yup.object().shape({
     .required("Campo obrigatório")
     .min(10, "Preencha corretamente a data")
     .max(10, "Preencha corretamente a data"),
+  birthPlaceData: yup
+    .object({
+      nome: yup.string(),
+      id: yup.number(),
+    })
+    .required("Campo obrigatório")
+    .nullable(),
   cep: yup
     .string()
     .required("Campo obrigatório")
@@ -33,6 +40,8 @@ export default yup.object().shape({
     .required("Campo obrigatório")
     .nullable(),
   houseNumber: yup.string().required("Campo obrigatório"),
+
+  income: yup.string().required("Campo obrigatório"),
   skinColor: yup
     .object({
       value: yup.number(),
@@ -40,6 +49,7 @@ export default yup.object().shape({
     })
     .required("Campo obrigatório")
     .nullable(),
+  schooling: yup.string().required("Campo obrigatório"),
   name: yup.string().required("Campo obrigatório"),
   rg: yup.string().required("Campo obrigatório"),
   workSituation: yup

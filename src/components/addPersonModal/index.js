@@ -1,11 +1,3 @@
-//
-
-// const AddPersonModal = () => {
-//   const methods = useForm();
-//   return <FormProvider {...methods}></FormProvider>;
-// };
-
-// export default AddPersonModal;
 import { useState } from "react";
 import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
@@ -65,7 +57,7 @@ const DialogActions = withStyles((theme) => ({
   },
 }))(MuiDialogActions);
 
-export default function AddPersonModal() {
+export default function AddPersonModal(props) {
   const { controller, person } = useSelector((state) => state.search);
   const [open, setOpen] = useState(false);
 
@@ -100,7 +92,7 @@ export default function AddPersonModal() {
           <SearchPerson />
           {!controller && <AddPersonForm />}
           {controller && person && (
-            <ShowPerson name={person.name} document={person.document} id={person.id}/>
+            <ShowPerson name={person.name} document={person.document} id={person.id} setSelectedPerson={props.handleSelectPerson} closeModal={handleClose}/>
           )}
         </DialogContent>
         <DialogActions>

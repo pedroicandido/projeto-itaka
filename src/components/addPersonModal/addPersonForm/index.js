@@ -222,8 +222,8 @@ const AddPersonForm = () => {
             options={cities}
             keyLabel="nome"
             onChangeAutocomplete={handleChangeAutocomplete}
-            helperText={errors.birthPlace?.message}
-            error={errors.birthPlace && true}
+            helperText={errors.birthPlaceData?.message}
+            error={errors.birthPlaceData && true}
           />
         </Grid>
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>

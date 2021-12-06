@@ -61,28 +61,7 @@ export default function Identification() {
   const motherCpf = useWatch({ control, name: "motherCpf" });
   const zipCode = useWatch({ control, name: "zipCode" });
 
-  const fetchAdress = async (cepNumber) => {
-    setOpenBackdrop(true);
-    try {
-      const response = await api.get(`/api/cep?cep=${cepNumber}`);
-      setValue("district", response.data.bairro);
-      setValue("city", response.data.cidade);
-      setValue("street", response.data.end);
-      setValue("uf", response.data.uf);
-      setDisabledFields(false);
-      console.log(response);
-    } catch (err) {
-      setError("zipCode", {
-        type: "manual",
-        message: "Endereço não encontrado!",
-      });
-      setValue("district", "");
-      setValue("city", "");
-      setValue("street", "");
-      setValue("uf", "");
-    }
-    setOpenBackdrop(false);
-  };
+
 
   useEffect(() => {
     dispatch(setCivilStatus(api));
@@ -327,7 +306,7 @@ export default function Identification() {
         </Grid>
         <Grid item xl={10} lg={10} md={10} sm={9} xs={12}>
           <Input
-            name="fatherName"
+            name="fatherName.name"
             fullWidth
             label="Nome do Pai"
             variant="outlined"
@@ -336,12 +315,12 @@ export default function Identification() {
         </Grid>
 
         <Grid item xl={2} lg={2} md={2} sm={3} xs={12}>
-          <AddPersonModal />
+          <AddPersonModal handleSelectPerson={(data) => setValue("fatherName", data)}/>
         </Grid>
 
         <Grid item xl={10} lg={10} md={10} sm={9} xs={12}>
           <Input
-            name="motherName"
+            name="motherName.name"
             fullWidth
             label="Nome da Mãe"
             variant="outlined"
@@ -349,11 +328,11 @@ export default function Identification() {
           />
         </Grid>
         <Grid item xl={2} lg={2} md={2} sm={3} xs={12}>
-          <AddPersonModal />
+          <AddPersonModal handleSelectPerson={(data) => setValue("motherName", data)}/>
         </Grid>
         <Grid item xl={10} lg={10} md={10} sm={9} xs={12}>
           <Input
-            name="responsible"
+            name="responsible.name"
             fullWidth
             label="Responsável Pelo Candidato"
             variant="outlined"
@@ -361,7 +340,7 @@ export default function Identification() {
           />
         </Grid>
         <Grid item xl={2} lg={2} md={2} sm={3} xs={12}>
-          <AddPersonModal />
+          <AddPersonModal handleSelectPerson={(data) => setValue("responsible", data)}/>
         </Grid>
       </Grid>
     </Paper>

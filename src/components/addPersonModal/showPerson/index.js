@@ -1,22 +1,24 @@
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import { useTheme } from "@material-ui/core";
+import { useDispatch } from "react-redux";
+import { SET_NEW_PERSON } from "../../../redux/types";
 
-const ShowPerson = ({ name, document }) => {
+const ShowPerson = ({ name, document, id, setSelectedPerson, closeModal }) => {
+  const dispatch = useDispatch()
   const theme = useTheme();
-  console.log(theme.palette);
   return (
     <Grid
       container
-      style={{ background: theme.palette.grey["200"], padding: 10, marginTop: 10 }}
+      style={{
+        background: theme.palette.grey["200"],
+        padding: 10,
+        marginTop: 10,
+      }}
     >
       <Grid item xs={5}>
-        <Typography style={{fontWeight:'bold'}}>{name}</Typography>
+        <Typography style={{ fontWeight: "bold" }}>{name}</Typography>
       </Grid>
       <Grid item xs={5}>
         <Typography>{document}</Typography>
@@ -27,7 +29,11 @@ const ShowPerson = ({ name, document }) => {
           color="secondary"
           size="small"
           fullWidth
-          onClick={() => {}}
+          onClick={() => {
+            setSelectedPerson({ id, name });
+            closeModal();
+            dispatch({type: "RESET"})
+          }}
         >
           Selecionar
         </Button>

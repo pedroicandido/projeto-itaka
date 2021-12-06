@@ -45,6 +45,13 @@ const searchReducer = (state = initialState, action) => {
         ...state,
         controller: true,
       }
+
+      case 'RESET':
+      return{
+        ...state,
+        controller: true,
+        person: null
+      }
     default:
       return state;
   }
