@@ -1,4 +1,4 @@
-import { SET_SEARCH } from "../../types";
+import { SET_SEARCH, SET_NEW_PERSON } from "../../types";
 
 const initialState = {
   document: "",
@@ -39,6 +39,12 @@ const searchReducer = (state = initialState, action) => {
         ...state,
         hasPerson: true,
       };
+
+    case SET_NEW_PERSON:
+      return{
+        ...state,
+        controller: true,
+      }
     default:
       return state;
   }
