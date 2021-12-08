@@ -9,10 +9,11 @@ const initialState = {
   loading: false,
   error: null,
   personList: [],
+  search:[],
   response: {
     showMessage: null,
     message: "",
-    severity: "",
+    severity: "success",
   },
 };
 
@@ -58,11 +59,22 @@ const personReducer = (state = initialState, action) => {
         loading: false,
       };
 
-    case 'RESET_RESPONSE':
+    case "SET_SEARCH_PERSON":
+      const data = action.payload.search;
+      return {
+        ...state,
+        error:null,
+        loading: false,
+        search: data
+      };
+
+    case "RESET_RESPONSE":
       return {
         ...state,
         response: {
-          ...initialState.response,
+          showMessage: false,
+          message: "",
+          severity: "",
         },
       };
     default:

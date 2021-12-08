@@ -3,7 +3,15 @@ import TextField from "@material-ui/core/TextField";
 import AutocompleteMaterialUi from "@material-ui/lab/Autocomplete";
 import { useController, useFormContext } from "react-hook-form";
 
-const Autocomplete = ({ name, control, options, loading, keyLabel, onChangeAutocomplete, ...rest }) => {
+const Autocomplete = ({
+  name,
+  control,
+  options,
+  loading,
+  keyLabel,
+  onChangeAutocomplete,
+  ...rest
+}) => {
   const { control: controlContext } = useFormContext();
   const {
     field: { ref, ...inputProps },
@@ -20,7 +28,7 @@ const Autocomplete = ({ name, control, options, loading, keyLabel, onChangeAutoc
       fullWidth
       loading={loading}
       onChange={onChangeAutocomplete}
-      getOptionSelected={(option, value)=> value.id === option.id}
+      getOptionSelected={(option, value) => value[keyLabel] === option[keyLabel]}
       renderInput={(params) => (
         <TextField
           {...inputProps}

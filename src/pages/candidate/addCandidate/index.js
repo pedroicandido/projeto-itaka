@@ -23,6 +23,12 @@ import Feedback from "../../../components/feedback";
 import { useForm, useWatch, FormProvider, useFormState } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import schemaValidation from "../../../helpers/validations/registerCandidate";
+import AddCandidateModel from "../../../models/addCandidate";
+import { onlyNumbers } from "../../../helpers/onlyNumbers";
+import CardModel from "../../../models/card";
+import { useDispatch } from "react-redux";
+import { createCard } from "../../../redux/actions/cardActions";
+import useAxios from "../../../utils/hooks/useAxios";
 
 const AddCandidate = () => {
   const defaultValues = makeDefaultValues({
@@ -39,14 +45,15 @@ const AddCandidate = () => {
     hasFamilySocialAccompaniment: "n",
     hasFamilySocialBenefit: "n",
     hasSpecialMedicalCondition: "n",
-    familyComposition: [],
-    familySocialBenefit: 300.0,
-    motherName: {
-      name: "",
+    familyCompositionDataController: {},
+    familyCompositionData: {
       id: "",
-    },
-    fatherName: {
       name: "",
+      estado_civil: "",
+    },
+    familyComposition: [],
+    schoolName: {
+      escola: "",
       id: "",
     },
     responsable: {
@@ -62,6 +69,8 @@ const AddCandidate = () => {
   });
 
   const history = useHistory();
+  const dispatch = useDispatch();
+  const api = useAxios();
   const { handleSubmit, trigger } = methods;
   const [step, setStep] = useState(0);
 
@@ -108,7 +117,53 @@ const AddCandidate = () => {
   };
 
   const onSubmit = (data) => {
-    history.push("/candidate");
+    const addCandidateModel = new AddCandidateModel({
+      addressId: data.addressId,
+      allergyMedications: data.allergyMedications,
+      birthDate: data.birthDate,
+      birhPlaceId: data.birthPlaceData?.id,
+      civilStatus: data.maritalStatus?.value,
+      complement: data.complement,
+      controlledMedication: data.controlledMedication,
+      document: onlyNumbers(data.cpf),
+      emissary: data.emissary,
+      email: data.email,
+      emergencyNameContact: data.emergencyNameContact,
+      familyComposition: data.familyComposition?.map((person) => ({
+        parente_id: person.id,
+        parentesco_id: person.parentescoId,
+      })),
+      gender: data.gender?.value,
+      grade: data.grade,
+      homePhone: data.homePhone,
+      houseNumber: data.houseNumber,
+      income: "",
+      messagePhone: data.messagePhone,
+      name: data.name,
+      rg: data.rg,
+      schoolClass: data.schoolClass,
+      schoolId: data.schoolName?.id,
+      schooling: data.schooling?.value,
+      specialMedicalCondition: data.specialMedicalCondition,
+      skinColor: data.skinColor?.value,
+      workSituation: data.laborSituation?.value,
+    });
+
+    const cardModel = new CardModel({
+      cardNumber: data.cardNumber,
+      cardDate: data.cardDate,
+      cardStatus: data.cardStatus,
+      familySocioEconomicSituation: data.familySocioEconomicSituation,
+      note: data.note,
+      otherExpenses: data.otherExpenses,
+      responsableId: data.responsible.id,
+    });
+
+    const requestObject = {
+      ...addCandidateModel,
+      ...cardModel,
+    };
+    history.push("/candidate")
   };
 
   const getComponent = (step) => {
@@ -142,7 +197,7 @@ const AddCandidate = () => {
     </Grid>
   );
 
-  if (step !== totalSteps) {
+  if (step !== 7) {
     button = (
       <Grid item>
         <Button

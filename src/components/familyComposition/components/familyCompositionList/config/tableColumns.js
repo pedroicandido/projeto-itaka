@@ -1,67 +1,68 @@
-import Button from '@material-ui/core/Button'
+import Button from "@material-ui/core/Button";
+import dayjs from "dayjs";
 
 export default (onRemoveHandler) => {
   return [
     {
-      name: "familyCompositionName",
+      name: "nome",
       label: "Nome",
     },
     {
-      name: "familyCompositionRelationship",
+      name: "parentescoLabel",
       label: "Parentesco",
+    },
+    {
+      name: "dt_nascimento",
+      label: "Data de Nascimento",
       options: {
         customBodyRender: (value) => {
-          return value.label
-        }
-      }
+          return value && dayjs(value).format("DD/MM/YYYY");
+        },
+      },
     },
     {
-      name: "familyCompositionAge",
-      label: "Idade",
-    },
-    {
-      name: "familyCompositionMaritalStatus",
+      name: "estado_civil",
       label: "Estado Civil",
       options: {
         customBodyRender: (value) => {
-          return value.label
-        }
-      }
+          return value && value.estado_civil;
+        },
+      },
     },
     {
-      name: "familyCompositionOccupation",
-      label: "Profissão",
-    },
-    {
-      name: "familyCompositionScholarity",
+      name: "escolaridade",
       label: "Escolaridade",
       options: {
         customBodyRender: (value) => {
-          return value.label
-        }
-      }
+          return value && value.escolaridade;
+        },
+      },
     },
     {
-      name: "familyCompositionFinance",
+      name: "renda",
       label: "Renda",
       options: {
         customBodyRender: (value) => {
-          return `R$ ${value}`
-        }
-      }
+          return `R$ ${value}`;
+        },
+      },
     },
     {
       name: "id",
-      label: 'Excluir',
+      label: "Excluir",
       options: {
         customBodyRender: (value) => {
           return (
-            <Button variant="outlined" onClick={onRemoveHandler.bind(null, value)} color="primary">
+            <Button
+              variant="outlined"
+              onClick={onRemoveHandler.bind(null, value)}
+              color="primary"
+            >
               REMOVER
             </Button>
           );
-        }
-      }
+        },
+      },
     },
-  ]
-}
+  ];
+};

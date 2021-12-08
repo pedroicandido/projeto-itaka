@@ -49,7 +49,13 @@ export default yup.object().shape({
     })
     .required("Campo obrigatório")
     .nullable(),
-  schooling: yup.string().required("Campo obrigatório"),
+  schooling: yup
+    .object({
+      value: yup.number(),
+      label: yup.string(),
+    })
+    .required("Campo obrigatório")
+    .nullable(),
   name: yup.string().required("Campo obrigatório"),
   rg: yup.string().required("Campo obrigatório"),
   workSituation: yup

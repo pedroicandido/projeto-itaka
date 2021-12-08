@@ -1,10 +1,9 @@
-import { useEffect } from "react";
+
 import Radio from "../radio";
 import Paper from "@material-ui/core/Paper";
 import Input from "../input";
 import Grid from "@material-ui/core/Grid";
 import useStyles from "./styles";
-import { phoneMask } from "../../helpers/masks";
 import { useFormContext, useWatch, useFormState } from "react-hook-form";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
@@ -12,7 +11,7 @@ import yesOrNoOptions from "../../domain/selectsOptions/yesOrNo";
 
 const SocialFamilyCondition = () => {
   const classes = useStyles();
-  const { setValue, setError, control } = useFormContext();
+  const {  control } = useFormContext();
   const { errors } = useFormState({ control });
 
   const hasFamilyMedicineUse = useWatch({ control, name: "hasFamilyMedicineUse" });
@@ -22,9 +21,6 @@ const SocialFamilyCondition = () => {
   const hasFamilySocialAccompaniment = useWatch({ control, name: "hasFamilySocialAccompaniment" });
   const hasFamilySocialBenefit = useWatch({ control, name: "hasFamilySocialBenefit" });
 
-  useEffect(()=>{
-    console.log(errors)
-  },[errors])
   return (
     <Paper className={classes.paper} elevation={2}>
       <Grid container spacing={2}>

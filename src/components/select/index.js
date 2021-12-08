@@ -1,7 +1,7 @@
-import Select from "react-select";
+import ReactSelect from "react-select";
 import { useController, useFormContext, useFormState } from "react-hook-form";
 
-const CustomSelectInput = ({ control, name, ...rest }) => {
+const Select = ({ control, name, ...rest }) => {
   const { control: controlContext } = useFormContext();
   const { errors } = useFormState({ control: control ?? controlContext });
   const { field } = useController({
@@ -12,7 +12,7 @@ const CustomSelectInput = ({ control, name, ...rest }) => {
   const hasError = Boolean(errors[name]);
 
   return (
-    <Select
+    <ReactSelect
       {...field}
       {...rest}
       styles={{
@@ -30,4 +30,4 @@ const CustomSelectInput = ({ control, name, ...rest }) => {
   );
 };
 
-export default CustomSelectInput;
+export default Select;

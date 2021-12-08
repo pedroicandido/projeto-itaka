@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Checkbox from "../checkbox";
 import Input from "../input";
 import Select from "../select";
@@ -7,15 +8,37 @@ import Paper from "@material-ui/core/Paper";
 import Divider from "@material-ui/core/Divider";
 import Typography from "@material-ui/core/Typography";
 import { useWatch, useFormState, useFormContext } from "react-hook-form";
-import ErrorMessage from '../errorMessage'
+import { useDispatch, useSelector } from "react-redux";
+import ErrorMessage from "../errorMessage";
 import schoolShiftOptions from "../../domain/selectsOptions/schoolShift";
 import schoolTypeOptions from "../../domain/selectsOptions/schoolType";
+import AddSchoolModal from "../addSchoolModal";
+import Autocomplete from "../autocomplete";
+import { getSchool } from "../../redux/actions/schoolActions";
+import useAxios from "../../utils/hooks/useAxios";
 
 const EducationData = () => {
+  const api = useAxios();
+  const dispatch = useDispatch();
+  const { loading, options } = useSelector((state) => state.school);
+  const schoolingOptions = useSelector((state) => state.schooling.options);
   const classes = useStyles();
-  const { control } = useFormContext();
+  const { control, setValue } = useFormContext();
   const { errors } = useFormState({ control });
   const isStudent = useWatch({ control, name: "isStudent" });
+
+  const schoolName = useWatch({ control, name: "schoolName.escola" });
+
+  const handleChangeAutocomplete = (data, option) => {
+    setValue("schoolName.name", option?.escola);
+    setValue("schoolName.id", option?.id);
+  };
+
+  useEffect(() => {
+    if (schoolName && schoolName.length % 3 === 0) {
+      dispatch(getSchool({ api, value: schoolName }));
+    }
+  }, [schoolName, dispatch]);
 
   return (
     <Paper className={classes.paper} elevation={4}>
@@ -31,55 +54,33 @@ const EducationData = () => {
       <Checkbox name="isStudent" label="É estudante?" checked={isStudent} />
       {isStudent && (
         <Grid container spacing={2}>
-          <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-            <Input
-              error={errors.schoolName && true}
+          <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
+            <Autocomplete
+              name="schoolName.escola"
               fullWidth
+              label="Procurar escola"
+              variant="outlined"
+              loading={loading}
+              options={options}
+              keyLabel="escola"
+              onChangeAutocomplete={handleChangeAutocomplete}
               helperText={errors.schoolName?.message}
-              label="Nome da Escola/Instituição de Ensino"
-              name="schoolName"
-              variant="outlined"
+              error={errors.schoolName && true}
             />
           </Grid>
-          <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-            <Select
-              name="schoolType"
-              variant="outlined"
-              options={schoolTypeOptions}
-              placeholder="Instituição"
-            />
-            <ErrorMessage>{errors.schoolType?.message}</ErrorMessage>
-          </Grid>
-          <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
+
+          <Grid item xl={2} lg={2} md={2} sm={6} xs={12}>
             <Input
-              error={errors.schoolStreet && true}
+              name="grade"
               fullWidth
-              helperText={errors.schoolStreet?.message}
-              label="Endereço da Instituição de Ensino"
-              name="schoolStreet"
+              label="Serie"
               variant="outlined"
+              helperText={errors.grade?.message}
+              error={errors.grade && true}
             />
           </Grid>
-          <Grid item xl={6} lg={6} md={6} sm={12} xs={12}>
-            <Input
-              error={errors.schoolDistrict && true}
-              fullWidth
-              helperText={errors.schoolDistrict?.message}
-              label="Bairro"
-              name="schoolDistrict"
-              variant="outlined"
-            />
-          </Grid>
-          {/* <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-            <Input
-              name="school"
-              fullWidth
-              label="Serie Atual  serie/ano"
-              variant="outlined"
-              helperText=""
-            />
-          </Grid> */}
-          <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
+
+          <Grid item xl={2} lg={2} md={2} sm={6} xs={12}>
             <Input
               name="schoolClass"
               fullWidth
@@ -88,7 +89,7 @@ const EducationData = () => {
               helperText=""
             />
           </Grid>
-          <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
+          <Grid item xl={2} lg={2} md={2} sm={6} xs={12}>
             <Select
               name="schoolShift"
               variant="outlined"
@@ -96,14 +97,16 @@ const EducationData = () => {
               placeholder="Turno"
             />
           </Grid>
-          <Grid item xl={3} lg={3} md={3} sm={12} xs={12}>
-            <Input
+          <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <Select
               name="schooling"
-              fullWidth
-              label="Escolaridade"
               variant="outlined"
-              helperText=""
+              options={schoolingOptions}
+              placeholder="Escolaridade"
             />
+          </Grid>
+          <Grid item xl={3} lg={3} md={3} sm={6} xs={12}>
+            <AddSchoolModal />
           </Grid>
           <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
             <Input

@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import Paper from "@material-ui/core/Paper";
 import Input from "../input";
+
 import Grid from "@material-ui/core/Grid";
 import useStyles from "./styles";
 import { useFormContext, useWatch, useFormState } from "react-hook-form";
@@ -12,41 +14,35 @@ import ErrorMessage from "../errorMessage";
 import { familyCompositionFields } from "../../domain/initialValues/candidate";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import Autocomplete from "../autocomplete";
+import { searchPersonByName } from "../../redux/actions/personActions";
+import useAxios from "../../utils/hooks/useAxios";
 
 const FamilyComposition = () => {
+  const api = useAxios();
   const classes = useStyles();
+  const dispatch = useDispatch();
   const kinshinOptions = useSelector((state) => state.kinship.options);
-  const civilStatusOptions = useSelector((state) => state.civilStatus.options);
+  const searchOptions = useSelector((state) => state.person.search);
+
+  const loadingOptions = useSelector((state) => state.person.loading);
   const { control, trigger, setValue, reset } = useFormContext();
   const { errors } = useFormState({ control });
+
   const familyComposition = useWatch({ control, name: "familyComposition" });
-  const familyCompositionAge = useWatch({
+
+  const familyCompositionDataController = useWatch({
     control,
-    name: "familyCompositionAge",
+    name: "familyCompositionDataController",
   });
-  const familyCompositionFinance = useWatch({
-    control,
-    name: "familyCompositionFinance",
-  });
-  const familyCompositionMaritalStatus = useWatch({
-    control,
-    name: "familyCompositionMaritalStatus",
-  });
+
   const familyCompositionName = useWatch({
     control,
-    name: "familyCompositionName",
-  });
-  const familyCompositionOccupation = useWatch({
-    control,
-    name: "familyCompositionOccupation",
+    name: "familyCompositionData.name",
   });
   const familyCompositionRelationship = useWatch({
     control,
     name: "familyCompositionRelationship",
-  });
-  const familyCompositionScholarity = useWatch({
-    control,
-    name: "familyCompositionScholarity",
   });
 
   const hasNoValidationError = async () => {
@@ -55,27 +51,15 @@ const FamilyComposition = () => {
 
   const addFamilyComposite = () => {
     const newFamilyComposite = {
-      id: uuidv4(),
-      familyCompositionAge,
-      familyCompositionFinance,
-      familyCompositionMaritalStatus,
-      familyCompositionName,
-      familyCompositionOccupation,
-      familyCompositionRelationship,
-      familyCompositionScholarity,
+      ...familyCompositionDataController,
+      parentescoLabel: familyCompositionRelationship.label,
+      parentescoId: familyCompositionRelationship.value,
     };
     setValue("familyComposition", [...familyComposition, newFamilyComposite]);
-    trigger("familyComposition");
   };
 
   const clearFields = () => {
-    setValue("familyCompositionAge", "");
-    setValue("familyCompositionFinance", "");
-    setValue("familyCompositionMaritalStatus", "");
-    setValue("familyCompositionName", "");
-    setValue("familyCompositionOccupation", "");
     setValue("familyCompositionRelationship", "");
-    setValue("familyCompositionScholarity", "");
   };
 
   const onAddHandler = async () => {
@@ -85,6 +69,16 @@ const FamilyComposition = () => {
       clearFields();
     }
   };
+
+  const handleChangeAutocomplete = (data, option) => {
+    setValue("familyCompositionDataController", option);
+  };
+
+  useEffect(() => {
+    if (familyCompositionName && familyCompositionName.length % 3 === 0) {
+      dispatch(searchPersonByName({ api, value: familyCompositionName }));
+    }
+  }, [familyCompositionName]);
 
   return (
     <Grid container spacing={2}>
@@ -100,13 +94,18 @@ const FamilyComposition = () => {
             <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
               <Grid container spacing={2}>
                 <Grid item xl={4} lg={4} sm={4}>
-                  <Input
-                    helperText={errors.familyCompositionName?.message}
-                    error={errors.familyCompositionName && true}
-                    name="familyCompositionName"
+                  <Autocomplete
+                    name="familyCompositionData.name"
                     fullWidth
-                    label="Nome"
+                    label="Procurar por familiar"
                     variant="outlined"
+                    loading={loadingOptions}
+                    options={searchOptions}
+                    keyLabel="nome"
+                    keyCompare="id"
+                    onChangeAutocomplete={handleChangeAutocomplete}
+                    helperText={errors.familyCompositionData?.name?.message}
+                    error={errors.familyCompositionData?.name && true}
                   />
                 </Grid>
 
@@ -122,76 +121,16 @@ const FamilyComposition = () => {
                   </ErrorMessage>
                 </Grid>
 
-                <Grid item xl={4} lg={4} sm={4}>
-                  <Select
-                    name="familyCompositionMaritalStatus"
-                    variant="outlined"
-                    options={civilStatusOptions}
-                    placeholder="ESTADO CIVIL"
-                  />
-                  <ErrorMessage>
-                    {errors.familyCompositionMaritalStatus?.message}
-                  </ErrorMessage>
-                </Grid>
-
-                <Grid item xl={3} lg={3} sm={4}>
-                  <Select
-                    name="familyCompositionScholarity"
-                    variant="outlined"
-                    options={[{ value: 1, label: "Superior" }]}
-                    placeholder="Escolaridade"
-                  />
-                  <ErrorMessage>
-                    {errors.familyCompositionScholarity?.message}
-                  </ErrorMessage>
-                </Grid>
-
-                <Grid item xl={3} lg={3} sm={4}>
-                  <Input
-                    name="familyCompositionAge"
+                <Grid item xl={4} lg={4}>
+                  <Button
+                    variant="contained"
+                    color="primary"
                     fullWidth
-                    label="Idade"
-                    variant="outlined"
-                    helperText={errors.familyCompositionAge?.message}
-                    error={errors.familyCompositionAge && true}
-                  />
-                </Grid>
-
-                <Grid item xl={3} lg={3} sm={4}>
-                  <Input
-                    name="familyCompositionOccupation"
-                    fullWidth
-                    label="Profissão"
-                    variant="outlined"
-                    helperText={errors.familyCompositionOccupation?.message}
-                    error={errors.familyCompositionOccupation && true}
-                  />
-                </Grid>
-                <Grid item xl={3} lg={3} sm={4}>
-                  <Input
-                    name="familyCompositionFinance"
-                    type="number"
-                    fullWidth
-                    label="Renda (R$)"
-                    variant="outlined"
-                    helperText={errors.familyCompositionFinance?.message}
-                    error={errors.familyCompositionFinance && true}
-                  />
-                </Grid>
-                <Grid item xl={12} lg={12}>
-                  <Grid container justify="flex-end" alignItems="center">
-                    <Grid item xl={2} lg={2}>
-                      {" "}
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        fullWidth
-                        onClick={onAddHandler}
-                      >
-                        Adicionar
-                      </Button>
-                    </Grid>
-                  </Grid>
+                    style={{minHeight:"56px"}}
+                    onClick={onAddHandler}
+                  >
+                    Adicionar
+                  </Button>
                 </Grid>
                 <Grid item xl={12} lg={12}>
                   <Grid container justify="flex-end" alignItems="center">

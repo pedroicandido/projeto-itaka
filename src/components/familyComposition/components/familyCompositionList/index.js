@@ -22,12 +22,12 @@ const FamilyCompositionList = () => {
     );
     setValue("familyComposition", updateFamilyComposition);
   };
-//ESTA ERRADOOOOOOOOOOOOOOOOOOOOO! REFAZER
+  
   useEffect(() => {
     if (familyComposition) {
       const totalFinance = familyComposition.reduce(
         (acumulador, current) =>
-          +acumulador + +current.familyCompositionFinance,
+          +acumulador + +current.renda,
         0
       );
       setValue("familyCompositionTotalFinance", totalFinance);

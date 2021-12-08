@@ -33,6 +33,7 @@ const fields = [
   "familyCompositionTotalFinance",
   "fatherCpf",
   "fatherName",
+  "gender",
   "hasAgreed",
   "hasAllergy",
   "hasControlledMedication",
@@ -65,12 +66,16 @@ const fields = [
 export const candidateFields = [
   "birthDate",
   "birthplace",
+  "cardNumber",
+  "cardDate",
+  "cardStatus",
   "complement",
   "cellPhone",
   "city",
   "cpf",
   "district",
   "email",
+  "emissary",
   "fatherCpf",
   "fatherName",
   "homePhone",
@@ -91,6 +96,7 @@ export const candidateFields = [
 
 export const educationFields = [
   "isStudent",
+  "grade",
   "schooling",
   "schoolClass",
   "schoolDistrict",
@@ -131,6 +137,7 @@ export const socialFamilyConditionFields = [
 ];
 
 export const familyCompositionFields = [
+  "familyCompositionData",
   "familyCompositionAge",
   "familyCompositionFinance",
   "familyCompositionMaritalStatus",

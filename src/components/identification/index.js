@@ -18,6 +18,13 @@ import { setRace } from "../../redux/actions/raceActions";
 import { setWorkSituation } from "../../redux/actions/workSituationActions";
 import Spinner from "../spinner";
 import AddPersonModal from "../addPersonModal";
+import { setSchooling } from "../../redux/actions/schoolingActions";
+import { setSearchCity } from "../../redux/actions/cityActions";
+import { setAddress } from "../../redux/actions/addressActions";
+import { onlyNumbers } from "../../helpers/onlyNumbers";
+import cardStatusOptions from "../../domain/selectsOptions/cardStatusOptions";
+import Autocomplete from "../autocomplete";
+import genderOptions from "../../domain/selectsOptions/genderOptions";
 
 export default function Identification() {
   const classes = useStyles();
@@ -46,12 +53,22 @@ export default function Identification() {
     error: wsError,
   } = useSelector((state) => state.workSituation);
 
-  const { setValue, setError, control } = useFormContext();
+  const { loading: loadingCities, cities } = useSelector((state) => state.city);
+
+  const { loading: isLoadingSchooling, error: schoolingError } = useSelector(
+    (state) => state.schooling
+  );
+
+  const address = useSelector((state) => state.address.address);
+  const loadingAdrress = useSelector((state) => state.address.loading);
+
+  const { setValue, setError, control, clearErrors } = useFormContext();
   const { errors } = useFormState({ control });
 
   const [openBackdrop, setOpenBackdrop] = useState(false);
   const [disabledFields, setDisabledFields] = useState(true);
 
+  const birthPlace = useWatch({ control, name: "birthPlace" });
   const birthDate = useWatch({ control, name: "birthDate" });
   const cellPhone = useWatch({ control, name: "cellPhone" });
   const cpf = useWatch({ control, name: "cpf" });
@@ -61,14 +78,23 @@ export default function Identification() {
   const motherCpf = useWatch({ control, name: "motherCpf" });
   const zipCode = useWatch({ control, name: "zipCode" });
 
-
+  const handleChangeAutocomplete = (event, value) => {
+    setValue("birthPlaceData", value);
+  };
 
   useEffect(() => {
     dispatch(setCivilStatus(api));
     dispatch(setKinship(api));
     dispatch(setRace(api));
     dispatch(setWorkSituation(api));
+    dispatch(setSchooling(api));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (birthPlace && birthPlace.length % 3 === 0) {
+      dispatch(setSearchCity({ api, value: birthPlace }));
+    }
+  }, [birthPlace, dispatch]);
 
   useEffect(() => {
     const formatedBirthDate = birthMask(birthDate);
@@ -106,28 +132,92 @@ export default function Identification() {
   }, [motherCpf, setValue]);
 
   useEffect(() => {
-    const formatedZip = cepMask(zipCode);
-    setValue("zipCode", formatedZip, { shouldValidate: true });
+    setValue("zipCode", cepMask(zipCode));
+    if (zipCode.length === 9) {
+      const onlyCepNumbers = onlyNumbers(zipCode);
+      dispatch(setAddress({ api, cep: onlyCepNumbers }));
+    }
   }, [zipCode, setValue]);
+
+  useEffect(() => {
+    if (address?.length === 0) {
+      setError("zipCode", {
+        type: "required",
+        message: "CEP não encontrado",
+      });
+
+      setValue("street", "");
+      setValue("district", "");
+      setValue("city", "");
+      setValue("state", "");
+      setValue("addressId", "");
+    } else {
+      clearErrors("cep");
+      setValue("street", address?.logradouro);
+      setValue("district", address?.bairro);
+      setValue("city", address?.cidade);
+      setValue("state", address?.estado);
+      setValue("addressId", address?.id);
+    }
+  }, [address]);
 
   if (
     isLoadingCivilStatus ||
     isLoadingKinship ||
     isLoadingRace ||
-    isLoadingWs
+    isLoadingWs ||
+    isLoadingSchooling
   ) {
     return <Spinner />;
   }
 
   return (
     <Paper className={classes.paper}>
-      <Backdrop open={openBackdrop} />
+      <Backdrop open={openBackdrop || loadingAdrress} />
       <Grid container spacing={2}>
         <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
-          <Typography component="h2" variant="h6">
-            1. IDENTIFICAÇÃO DO CANDIDATO
-          </Typography>
-          <Divider />
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xl={5} lg={5} md={12} sm={12} xs={12}>
+              <Typography component="h2" variant="h6">
+                1. IDENTIFICAÇÃO DO CANDIDATO
+              </Typography>
+            </Grid>
+            <Grid item xl={2} lg={2} md={4} sm={4} xs={12}>
+              <Input
+                name="cardDate"
+                fullWidth
+                label="Data de Preenchimento"
+                variant="outlined"
+                helperText={errors.cardDate?.message}
+                error={errors.cardDate && true}
+              />
+            </Grid>
+            <Grid item xl={2} lg={2} md={4} sm={4} xs={12}>
+              <Input
+                name="cardNumber"
+                fullWidth
+                label="Numeração da Ficha"
+                variant="outlined"
+                type="number"
+                helperText={errors.cardNumber?.message}
+                error={errors.cardNumber && true}
+              />
+            </Grid>
+
+            <Grid item xl={3} lg={3} md={4} sm={4} xs={12}>
+              <Select
+                name="cardStatus"
+                fullWidth
+                placeholder="Status da Ficha"
+                options={cardStatusOptions}
+                variant="outlined"
+              />
+            </Grid>
+
+            <Grid item xl={12} lg={12} md={12} sm={12} xs={12}>
+              <Divider />
+            </Grid>
+          </Grid>
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
           <Input
@@ -149,14 +239,24 @@ export default function Identification() {
             error={errors.cpf && true}
           />
         </Grid>
-        <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
+        <Grid item xl={2} lg={2} md={3} sm={3} xs={12}>
           <Input
             name="rg"
             fullWidth
-            label="Documento de Identidade"
+            label="RG"
             variant="outlined"
             helperText={errors.rg?.message}
             error={errors.rg && true}
+          />
+        </Grid>
+        <Grid item xl={2} lg={2} md={3} sm={3} xs={12}>
+          <Input
+            name="emissary"
+            fullWidth
+            label="Orgão expedidor"
+            variant="outlined"
+            helperText={errors.emissary?.message}
+            error={errors.emissary && true}
           />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
@@ -170,22 +270,34 @@ export default function Identification() {
           />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input
-            name="birthplace"
+          <Autocomplete
+            name="birthPlace"
             fullWidth
             label="Naturalidade"
             variant="outlined"
-            helperText={errors.birthplace?.message}
-            error={errors.birthplace && true}
+            loading={loadingCities}
+            options={cities}
+            keyLabel="nome"
+            onChangeAutocomplete={handleChangeAutocomplete}
+            helperText={errors.birthPlaceData?.message}
+            error={errors.birthPlaceData && true}
           />
         </Grid>
-        <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
+        <Grid item xl={2} lg={2} md={3} sm={3} xs={12}>
           <Select
             name="skinColor"
             fullWidth
             placeholder="Cor"
             options={raceOptions}
             variant="outlined"
+          />
+        </Grid>
+        <Grid item xl={2} lg={2} md={3} sm={3} xs={12}>
+          <Select
+            name="gender"
+            variant="outlined"
+            options={genderOptions}
+            placeholder="Sexo"
           />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
@@ -201,10 +313,11 @@ export default function Identification() {
           <Select
             name="maritalStatus"
             variant="outlined"
-            options={kinshinOptions}
+            options={civilStatusOptions}
             placeholder="Estado Civil"
           />
         </Grid>
+
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
           <Input
             name="email"
@@ -213,6 +326,17 @@ export default function Identification() {
             variant="outlined"
             helperText={errors.email?.message}
             error={errors.email && true}
+          />
+        </Grid>
+
+        <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
+          <Input
+            name="zipCode"
+            fullWidth
+            label="CEP"
+            variant="outlined"
+            helperText={errors.zipCode?.message}
+            error={errors.zipCode && true}
           />
         </Grid>
 
@@ -231,7 +355,6 @@ export default function Identification() {
             fullWidth
             label="Número"
             variant="outlined"
-            disabled={disabledFields}
           />
         </Grid>
         <Grid item xl={2} lg={2} md={6} sm={6} xs={12}>
@@ -240,7 +363,6 @@ export default function Identification() {
             fullWidth
             label="Complemento"
             variant="outlined"
-            disabled={disabledFields}
           />
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
@@ -263,23 +385,14 @@ export default function Identification() {
         </Grid>
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
           <Input
-            name="uf"
+            name="state"
             fullWidth
             label="Estado"
             variant="outlined"
             disabled
           />
         </Grid>
-        <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
-          <Input
-            name="zipCode"
-            fullWidth
-            label="CEP"
-            variant="outlined"
-            helperText={errors.zipCode?.message}
-            error={errors.zipCode && true}
-          />
-        </Grid>
+
         <Grid item xl={4} lg={4} md={6} sm={6} xs={12}>
           <Input
             name="cellPhone"
@@ -306,32 +419,6 @@ export default function Identification() {
         </Grid>
         <Grid item xl={10} lg={10} md={10} sm={9} xs={12}>
           <Input
-            name="fatherName.name"
-            fullWidth
-            label="Nome do Pai"
-            variant="outlined"
-            disabled
-          />
-        </Grid>
-
-        <Grid item xl={2} lg={2} md={2} sm={3} xs={12}>
-          <AddPersonModal handleSelectPerson={(data) => setValue("fatherName", data)}/>
-        </Grid>
-
-        <Grid item xl={10} lg={10} md={10} sm={9} xs={12}>
-          <Input
-            name="motherName.name"
-            fullWidth
-            label="Nome da Mãe"
-            variant="outlined"
-            disabled
-          />
-        </Grid>
-        <Grid item xl={2} lg={2} md={2} sm={3} xs={12}>
-          <AddPersonModal handleSelectPerson={(data) => setValue("motherName", data)}/>
-        </Grid>
-        <Grid item xl={10} lg={10} md={10} sm={9} xs={12}>
-          <Input
             name="responsible.name"
             fullWidth
             label="Responsável Pelo Candidato"
@@ -340,7 +427,9 @@ export default function Identification() {
           />
         </Grid>
         <Grid item xl={2} lg={2} md={2} sm={3} xs={12}>
-          <AddPersonModal handleSelectPerson={(data) => setValue("responsible", data)}/>
+          <AddPersonModal
+            handleSelectPerson={(data) => setValue("responsible", data)}
+          />
         </Grid>
       </Grid>
     </Paper>

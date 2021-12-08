@@ -1,37 +1,59 @@
 export default class AddCandidateModel {
   //add orgao expedidor para rg
   constructor({
-    name,
-    doc,
-    rg,
-    emissary,
+    addressId,
+    allergyMedications,
     birthDate,
-    birthplace,
+    birhPlaceId,
+    civilStatus,
+    complement,
+    controlledMedication,
+    document,
+    emissary,
+    email,
+    emergencyNameContact,
+    familyComposition,
+    gender,
+    grade,
+    homePhone,
+    houseNumber,
+    income,
+    messagePhone,
+    name,
+    rg,
+    schoolClass,
+    schoolId,
+    schooling,
+    specialMedicalCondition,
     skinColor,
     workSituation,
-    kinship,
-    email,
-    houseNumber,
-    complement,
-    cellPhone,
-    homePhone,
-    messagePhone
   }) {
+    this.alergia = allergyMedications;
+    this.complemento_lograd = complement;
+    // this.data = dayjs(new Date()).format("DD/MM/YYYY");
+    this.doc = document;
+    this.dt_nascimento = birthDate;
+    this.email = email;
+    this.escola_id = schoolId;
+    this.escolaridade_id = schooling;
+    this.estado_civil_id = civilStatus;
+    this.etnia_id = skinColor;
+    this.logradouro_id = addressId;
+    this.naturalidade_id = birhPlaceId;
+    this.renda = income;
+    this.medicacao_controlada = controlledMedication;
     this.nome = name;
-    this.doc = doc;
+    this.nome_contato_emerg = emergencyNameContact;
+    this.numero_lograd = houseNumber;
     this.rg = rg;
     this.rg_orgao_expedidor = emissary;
-    this.dt_nascimento = birthDate;
-    this.naturalidade_id = birthplace;
-    this.etnia_id = skinColor;
-    this.etnia_id = skinColor;
+    this.serie = grade;
+    this.sexo_id = gender;
+    this.sit_medica_especial = specialMedicalCondition;
     this.sit_trabalhista_id = workSituation;
-    this.estado_civil_id = kinship;
-    this.email = email;
-    this.numero_lograd = houseNumber;
-    this.complemento_lograd = complement;
-    this.tel_celular = cellPhone
     this.tel_residencia = homePhone
     this.tel_recado = messagePhone
+    this.turma = schoolClass
+    this.grupo_familiar = familyComposition
   }
 }

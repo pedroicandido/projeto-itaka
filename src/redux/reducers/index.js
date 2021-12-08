@@ -10,6 +10,9 @@ import searchReducer from "./searchReducer";
 import addressReducer from "./addressReducer";
 import cityReducer from "./cityReducer";
 import personReducer from "./personReducer";
+import schoolReducer from "./schoolReducer";
+import schoolingReducer from "./selectOptionsReducers/schoolingReducer";
+import cardReducer from "./cardReducer";
 
 const rootReducer = combineReducers({
   menu: menuReducer,
@@ -23,6 +26,9 @@ const rootReducer = combineReducers({
   address: addressReducer,
   city: cityReducer,
   person: personReducer,
+  school: schoolReducer,
+  schooling: schoolingReducer,
+  card: cardReducer,
 });
 
 export default rootReducer;

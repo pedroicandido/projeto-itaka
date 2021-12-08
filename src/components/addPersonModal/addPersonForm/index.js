@@ -38,6 +38,9 @@ const AddPersonForm = () => {
 
   const { loading: loadingCities, cities } = useSelector((state) => state.city);
 
+  const schoolingOptions = useSelector((state) => state.schooling.options);
+
+
   const methods = useForm({
     defaultValues: {
       birthDate: "",
@@ -92,7 +95,7 @@ const AddPersonForm = () => {
       income: data.income,
       name: data.name,
       rg: data.rg,
-      schooling: data.schooling,
+      schooling: data.schooling.value,
       skinColor: data.skinColor.value,
       workSituation: data.workSituation.value,
     });
@@ -270,14 +273,13 @@ const AddPersonForm = () => {
         </Grid>
 
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>
-          <Input
+          <Select
             name="schooling"
-            fullWidth
-            label="Escolaridade"
             variant="outlined"
-            helperText={errors.schooling?.message}
-            error={errors.schooling && true}
+            options={schoolingOptions}
+            placeholder="Escolaridade"
           />
+          <ErrorMessage>{errors.schooling?.message}</ErrorMessage>
         </Grid>
 
         <Grid item xl={6} lg={6} md={6} sm={6} xs={12}>

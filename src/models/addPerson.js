@@ -23,7 +23,7 @@ export default class AddPersonModel {
     this.doc = document;
     this.nome = name;
     this.rg = rg;
-    this.escolaridade = schooling;
+    this.escolaridade_id = schooling;
     this.rg_orgao_expedidor = emissary;
     this.etnia_id = skinColor;
     this.logradouro_id = addressId;
