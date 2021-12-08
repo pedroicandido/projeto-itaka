@@ -197,7 +197,7 @@ const AddCandidate = () => {
     </Grid>
   );
 
-  if (step !== 7) {
+  if (step !== totalSteps) {
     button = (
       <Grid item>
         <Button
